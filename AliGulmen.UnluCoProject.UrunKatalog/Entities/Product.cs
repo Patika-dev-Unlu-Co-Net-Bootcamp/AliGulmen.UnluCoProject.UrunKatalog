@@ -1,15 +1,15 @@
-﻿namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Entities
+﻿
+namespace AliGulmen.UnluCoProject.UrunKatalog.Entities
 {
-    public class Product
+    public class Product : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
         public string PictureUrl { get; set; }
         public int BuyItNowPrice { get; set; }
         public bool IsOfferable { get; set; } = false;
-        public bool IsSold { get; set; } = false ;
+        public bool IsSold { get; set; } = false;
         public Condition Condition { get; set; }
         public int ConditionId { get; set; }
         public User User { get; set; }

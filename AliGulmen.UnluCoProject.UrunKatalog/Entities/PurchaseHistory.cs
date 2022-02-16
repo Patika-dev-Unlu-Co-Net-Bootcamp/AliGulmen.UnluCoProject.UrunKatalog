@@ -1,11 +1,9 @@
 ﻿using System;
 
-namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Entities
+namespace AliGulmen.UnluCoProject.UrunKatalog.Entities
 {
-    public class PurchaseHistory
+    public class PurchaseHistory : BaseEntity
     {
-        public int Id { get; set; }
-
         public Product Product { get; set; }
         public int ProductId { get; set; }
         public User Seller { get; set; }

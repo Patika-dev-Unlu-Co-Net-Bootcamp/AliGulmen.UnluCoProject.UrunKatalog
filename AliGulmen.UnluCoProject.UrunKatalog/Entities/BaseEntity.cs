@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Entities
+namespace AliGulmen.UnluCoProject.UrunKatalog.Entities
 {
-    public class Brand
+    public abstract class BaseEntity
     {
         public int Id { get; set; }
-        public string Name { get; set; }
         public bool IsActive { get; set; } = true;
         public DateTime CreationDate { get; set; } = DateTime.Now;
     }
