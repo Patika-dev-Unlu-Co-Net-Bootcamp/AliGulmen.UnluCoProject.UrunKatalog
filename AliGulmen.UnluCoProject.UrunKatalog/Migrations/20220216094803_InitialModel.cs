@@ -71,7 +71,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -86,7 +86,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -139,7 +139,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     table.ForeignKey(
                         name: "FK_Products_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -169,7 +169,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     table.ForeignKey(
                         name: "FK_Offers_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -200,13 +200,13 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     table.ForeignKey(
                         name: "FK_PurchaseHistories_User_BuyerId",
                         column: x => x.BuyerId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PurchaseHistories_User_SellerId",
                         column: x => x.SellerId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -286,7 +286,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                 name: "Conditions");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
         }
     }
 }

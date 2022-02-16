@@ -4,14 +4,16 @@ using AliGulmen.UnluCoProject.UrunKatalog.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 {
     [DbContext(typeof(UrunKatalogDbContext))]
-    partial class UrunKatalogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220216114115_SeedData")]
+    partial class SeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -303,7 +305,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Entities.Offer", b =>
