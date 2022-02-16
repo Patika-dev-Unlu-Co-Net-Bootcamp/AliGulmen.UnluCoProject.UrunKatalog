@@ -1,6 +1,4 @@
-﻿
-
-using AliGulmen.UnluCoProject.UrunKatalog.Common;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.Common;
 using System.ComponentModel.DataAnnotations;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Entities
