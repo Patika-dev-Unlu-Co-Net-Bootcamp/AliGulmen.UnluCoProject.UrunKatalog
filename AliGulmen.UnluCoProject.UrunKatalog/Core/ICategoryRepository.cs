@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Entities
+namespace AliGulmen.UnluCoProject.UrunKatalog.Core
 {
     public interface ICategoryRepository
     {

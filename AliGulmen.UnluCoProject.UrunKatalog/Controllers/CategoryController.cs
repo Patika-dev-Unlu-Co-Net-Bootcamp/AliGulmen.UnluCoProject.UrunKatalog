@@ -1,4 +1,5 @@
 ﻿using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources;
+using AliGulmen.UnluCoProject.UrunKatalog.Core;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;

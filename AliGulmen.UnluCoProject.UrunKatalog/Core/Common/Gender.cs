@@ -1,4 +1,4 @@
-﻿namespace AliGulmen.UnluCoProject.UrunKatalog.Common
+﻿namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Common
 {
     public enum Gender
     {
