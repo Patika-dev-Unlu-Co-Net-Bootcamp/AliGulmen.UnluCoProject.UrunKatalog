@@ -32,6 +32,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog
            services.AddScoped<ICategoryRepository, CategoryRepository>();
            services.AddScoped<IBrandRepository, BrandRepository>();
            services.AddScoped<IConditionRepository, ConditionRepository>();
+           services.AddScoped<IColorRepository, ColorRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddControllers();
