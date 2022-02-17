@@ -3,7 +3,6 @@ using AliGulmen.UnluCoProject.UrunKatalog.Entities;
 using AliGulmen.UnluCoProject.UrunKatalog.Persistence;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,51 +12,53 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly UrunKatalogDbContext _context;
+        private readonly ICategoryRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public CategoryController(UrunKatalogDbContext context, IMapper mapper)
+        public CategoryController(UrunKatalogDbContext context, IMapper mapper, ICategoryRepository repository, IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _repository = repository;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
 
         [HttpGet]
         public async Task<IEnumerable<CategoryResource>> GetCategories()
         {
-           var categories = await _context.Categories.ToListAsync();
+            var categories = await _repository.GetCategories();
             
             return _mapper.Map<List<Category>, List<CategoryResource>>(categories);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateCategory(CreateCategoryResource categoryResource)
+        public async Task<IActionResult> CreateCategory(SaveCategoryResource categoryResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var result = _mapper.Map<CreateCategoryResource, Category>(categoryResource);
-            _context.Categories.Add(result);
-            await _context.SaveChangesAsync();
+            var result = _mapper.Map<SaveCategoryResource, Category>(categoryResource);
+            _repository.Add(result);
+            await _unitOfWork.CompleteAsync();
            return Ok(result);
         }
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCategory(int id, CreateCategoryResource categoryResource)
+        public async Task<IActionResult> UpdateCategory(int id, SaveCategoryResource categoryResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var category = await _context.Categories.FindAsync(id);
+            var category = await _repository.GetCategory(id);
 
             if (category == null)
                 return NotFound();
 
-            var result = _mapper.Map<CreateCategoryResource, Category>(categoryResource, category);
+            var result = _mapper.Map<SaveCategoryResource, Category>(categoryResource, category);
           
-            await _context.SaveChangesAsync();
+            await _unitOfWork.CompleteAsync();
             return Ok(result);
         }
 
@@ -65,14 +66,14 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-          
-            var category = await _context.Categories.FindAsync(id);
-            
-            if(category == null)
+
+            var category = await _repository.GetCategory(id);
+
+            if (category == null)
                 return NotFound();
 
-            _context.Remove(category);
-            await _context.SaveChangesAsync();
+           _repository.Remove(category);
+            await _unitOfWork.CompleteAsync();
             return Ok(id);
         }
 
@@ -80,9 +81,8 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategory(int id)
         {
-
-            var category = await _context.Categories.FindAsync(id);
-
+            var category = await _repository.GetCategory(id);
+          
             if (category == null)
                 return NotFound();
 

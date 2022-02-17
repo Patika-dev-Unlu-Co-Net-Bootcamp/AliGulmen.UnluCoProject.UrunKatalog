@@ -9,7 +9,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Mapping
         public MappingProfile()
         {
             CreateMap<Category, CategoryResource>();
-            CreateMap<CreateCategoryResource, Category>();
+            CreateMap<SaveCategoryResource, Category>();
         }
     }
 }

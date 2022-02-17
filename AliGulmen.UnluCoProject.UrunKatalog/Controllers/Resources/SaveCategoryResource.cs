@@ -2,7 +2,7 @@
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources
 {
-    public class CreateCategoryResource
+    public class SaveCategoryResource
     {
         [Required]
         [StringLength(100)]
