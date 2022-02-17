@@ -28,7 +28,10 @@ namespace AliGulmen.UnluCoProject.UrunKatalog
         {
             services.AddDbContext<UrunKatalogDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
+           
+           services.AddScoped<ICategoryRepository, CategoryRepository>();
+           services.AddScoped<IBrandRepository, BrandRepository>();
+           services.AddScoped<IConditionRepository, ConditionRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddControllers();

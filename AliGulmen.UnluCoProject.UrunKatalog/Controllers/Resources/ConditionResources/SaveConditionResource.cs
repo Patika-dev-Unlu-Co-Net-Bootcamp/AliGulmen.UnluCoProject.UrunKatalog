@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources
+namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ConditionResources
 {
-    public class SaveCategoryResource
+    public class SaveConditionResource
     {
         [Required]
         [StringLength(100)]
-        public string Name { get; set; }
+        public string Status { get; set; }
         [Required]
         [StringLength(500)]
         public string Description { get; set; }

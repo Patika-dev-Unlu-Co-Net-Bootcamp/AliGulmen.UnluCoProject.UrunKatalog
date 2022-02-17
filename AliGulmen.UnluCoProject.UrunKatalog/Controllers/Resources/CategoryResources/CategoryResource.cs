@@ -1,4 +1,4 @@
-﻿namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources
+﻿namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.CategoryResources
 {
     public class CategoryResource
     {

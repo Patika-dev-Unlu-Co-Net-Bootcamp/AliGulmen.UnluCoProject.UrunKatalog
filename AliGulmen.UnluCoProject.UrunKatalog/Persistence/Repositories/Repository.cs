@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Persistence.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
 
         private readonly UrunKatalogDbContext _context;
