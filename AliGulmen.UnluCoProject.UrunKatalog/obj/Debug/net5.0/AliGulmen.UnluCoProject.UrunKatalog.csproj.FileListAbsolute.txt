@@ -63,3 +63,4 @@ C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunK
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\obj\Debug\net5.0\ref\AliGulmen.UnluCoProject.UrunKatalog.dll
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\obj\Debug\net5.0\AliGulmen.UnluCoProject.UrunKatalog.pdb
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\obj\Debug\net5.0\AliGulmen.UnluCoProject.UrunKatalog.genruntimeconfig.cache
+C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\obj\Debug\net5.0\AliGulmen.UnluCoProject.UrunKatalog.csproj.AssemblyReference.cache

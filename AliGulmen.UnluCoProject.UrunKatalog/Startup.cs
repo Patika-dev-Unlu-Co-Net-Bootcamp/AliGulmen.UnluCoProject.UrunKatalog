@@ -1,5 +1,8 @@
 using AliGulmen.UnluCoProject.UrunKatalog.Core;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Repositories;
+using AliGulmen.UnluCoProject.UrunKatalog.Extensions;
 using AliGulmen.UnluCoProject.UrunKatalog.Persistence;
+using AliGulmen.UnluCoProject.UrunKatalog.Persistence.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +48,8 @@ namespace AliGulmen.UnluCoProject.UrunKatalog
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AliGulmen.UnluCoProject.UrunKatalog v1"));
             }
+
+            app.UseCustomGlobalException();
 
             app.UseRouting();
 

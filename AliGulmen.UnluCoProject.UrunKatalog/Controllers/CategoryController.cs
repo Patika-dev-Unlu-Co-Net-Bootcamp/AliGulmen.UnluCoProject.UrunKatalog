@@ -1,9 +1,11 @@
 ﻿using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources;
 using AliGulmen.UnluCoProject.UrunKatalog.Core;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
@@ -23,13 +25,28 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
         }
 
 
+
+
         [HttpGet]
         public async Task<IEnumerable<CategoryResource>> GetCategories()
         {
-            var categories = await _repository.GetCategories();
-            
-            return _mapper.Map<List<Category>, List<CategoryResource>>(categories);
+            var categories = await _repository.GetAll();
+            var result = _mapper.Map<List<Category>, List<CategoryResource>>(categories.ToList());
+            return result;
         }
+
+
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCategory(int id)
+        {
+            var category = await _repository.Get(id);
+            var categoryResource = _mapper.Map<Category, CategoryResource>(category);
+            return Ok(categoryResource);
+        }
+
+
+
 
 
         [HttpPost]
@@ -40,9 +57,13 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
 
             var result = _mapper.Map<SaveCategoryResource, Category>(categoryResource);
             _repository.Add(result);
+
             await _unitOfWork.CompleteAsync();
-           return Ok(result);
+            return Created("~api/categories", result);
         }
+
+
+
 
 
         [HttpPut("{id}")]
@@ -51,43 +72,28 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var category = await _repository.GetCategory(id);
+            var category = await _repository.Get(id);
+            _mapper.Map<SaveCategoryResource, Category>(categoryResource, category);
 
-            if (category == null)
-                return NotFound();
-
-            var result = _mapper.Map<SaveCategoryResource, Category>(categoryResource, category);
-          
             await _unitOfWork.CompleteAsync();
-            return Ok(result);
+            return NoContent();
         }
+
+
 
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
 
-            var category = await _repository.GetCategory(id);
+            var category = await _repository.Get(id);
+            _repository.Remove(category);
 
-            if (category == null)
-                return NotFound();
-
-           _repository.Remove(category);
             await _unitOfWork.CompleteAsync();
-            return Ok(id);
+            return NoContent();
         }
 
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetCategory(int id)
-        {
-            var category = await _repository.GetCategory(id);
-          
-            if (category == null)
-                return NotFound();
 
-           var categoryResource = _mapper.Map<Category, CategoryResource>(category);
-            return Ok(categoryResource);
-        }
     }
 }
