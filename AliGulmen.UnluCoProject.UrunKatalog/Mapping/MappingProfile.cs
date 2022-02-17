@@ -8,6 +8,8 @@ using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.PurchaseHistoryR
 using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.UserResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
 using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Mapping
 {
@@ -41,6 +43,12 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Mapping
 
             CreateMap<Offer, OfferResource>();
             CreateMap<SaveOfferResource, Offer>();
+
+                     
+
+
         }
+
+      
     }
 }

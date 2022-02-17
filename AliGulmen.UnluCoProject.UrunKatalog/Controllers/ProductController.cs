@@ -34,6 +34,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
         {
             var products = await _repository.GetAll();
             var result = _mapper.Map<List<Product>, List<ProductResource>>(products.ToList());
+         
             return result;
         }
 
@@ -43,6 +44,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
         public async Task<IActionResult> GetProduct(int id)
         {
             var product = await _repository.Get(id);
+            
             var productResource = _mapper.Map<Product, ProductResource>(product);
             return Ok(productResource);
         }

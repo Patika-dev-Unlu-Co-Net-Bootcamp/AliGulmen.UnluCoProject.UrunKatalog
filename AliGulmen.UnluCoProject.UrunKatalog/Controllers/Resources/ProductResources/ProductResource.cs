@@ -1,4 +1,6 @@
-﻿namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ProductResources
+﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
+
+namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ProductResources
 {
     public class ProductResource
     {
@@ -11,7 +13,8 @@
         public bool IsSold { get; set; } 
         public int ConditionId { get; set; }
         public int UserId { get; set; }
-        public int? ColorId { get; set; }
+        public string ColorId { get; set; }
+        public string ColorName { get; set; }
         public int? BrandId { get; set; }
         public int CategoryId { get; set; }
     }

@@ -1,9 +1,10 @@
 ﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Persistence
 {
-    public class UrunKatalogDbContext : DbContext
+    public class UrunKatalogDbContext : IdentityDbContext
     {
         public UrunKatalogDbContext(DbContextOptions<UrunKatalogDbContext> options)
             : base(options)
@@ -17,7 +18,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Persistence
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<PurchaseHistory> PurchaseHistories { get; set; }
-        public DbSet<User> Users { get; set; }
    
     }
 }

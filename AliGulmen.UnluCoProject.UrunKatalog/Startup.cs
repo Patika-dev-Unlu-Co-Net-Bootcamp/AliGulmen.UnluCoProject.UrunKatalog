@@ -3,14 +3,20 @@ using AliGulmen.UnluCoProject.UrunKatalog.Core.Repositories;
 using AliGulmen.UnluCoProject.UrunKatalog.Extensions;
 using AliGulmen.UnluCoProject.UrunKatalog.Persistence;
 using AliGulmen.UnluCoProject.UrunKatalog.Persistence.Repositories;
+using AliGulmen.UnluCoProject.UrunKatalog.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
 using System.Reflection;
+using System.Text;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog
 {
@@ -41,6 +47,40 @@ namespace AliGulmen.UnluCoProject.UrunKatalog
 
             services.AddControllers();
 
+            services.AddAuthentication(
+               options =>
+               {
+                   options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                   options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                   options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+               }
+               )
+               //Adding JWT Bearer
+               .AddJwtBearer(
+                 options =>
+                 {
+                     options.SaveToken = true;
+                     options.TokenValidationParameters = new TokenValidationParameters
+                     {
+                         ValidateAudience = true,                       //will it check audience?
+                         ValidAudience = Configuration["Jwt:Audience"], //appsettings.json > Jwt > Audience
+                         ValidateIssuer = true,                         //will it check issuer?
+                         ValidIssuer = Configuration["Jwt:Issuer"],     //appsettings.json > Jwt > Issuer
+                         ValidateLifetime = true,                       //we will define different life times for different tokens. Not here.
+                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+                         ClockSkew = TimeSpan.Zero
+
+                     };
+
+
+                 }
+                 );
+
+            services.AddScoped<TokenGenerator>();
+
+            services.AddDefaultIdentity<IdentityUser>(opt => opt.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<UrunKatalogDbContext>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AliGulmen.UnluCoProject.UrunKatalog", Version = "v1" });
@@ -60,6 +100,9 @@ namespace AliGulmen.UnluCoProject.UrunKatalog
             app.UseCustomGlobalException();
 
             app.UseRouting();
+            //for JWT
+            app.UseAuthentication();
+
 
             app.UseAuthorization();
 

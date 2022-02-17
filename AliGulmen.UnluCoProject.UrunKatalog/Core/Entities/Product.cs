@@ -21,7 +21,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Entities
         public int ConditionId { get; set; }
         public User User { get; set; }
         public int UserId { get; set; }
-        public Color Color { get; set; }
+        public virtual Color Color { get; set; }
         public int? ColorId { get; set; }
         public Brand Brand { get; set; }
         public int? BrandId { get; set; }

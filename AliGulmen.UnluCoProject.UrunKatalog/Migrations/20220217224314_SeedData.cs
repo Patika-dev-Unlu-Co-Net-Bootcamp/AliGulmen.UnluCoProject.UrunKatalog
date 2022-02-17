@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 {
@@ -11,35 +12,30 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
             migrationBuilder.Sql("Insert INTO Brands (Name,Description,IsActive,CreationDate) VALUES ('Lego','Minimal Games',1,'01.01.2020')");
             migrationBuilder.Sql("Insert INTO Brands (Name,Description,IsActive,CreationDate) VALUES ('Black&Decker','Tools',1,'01.06.2022')");
             migrationBuilder.Sql("Insert INTO Brands (Name,Description,IsActive,CreationDate) VALUES ('YKY','All type of books',1,'10.10.2022')");
-            
+
             migrationBuilder.Sql("Insert INTO Categories (Name,Description,IsActive,CreationDate) VALUES ('Electronics','Computer, Video Games, Cameras',1,'10.10.2022')");
             migrationBuilder.Sql("Insert INTO Categories (Name,Description,IsActive,CreationDate) VALUES ('Art','Comic Books, Antiques, Pottery',1,'10.10.2022')");
             migrationBuilder.Sql("Insert INTO Categories (Name,Description,IsActive,CreationDate) VALUES ('Fashion','Clothing, Shoes, Handbags',1,'10.10.2022')");
             migrationBuilder.Sql("Insert INTO Categories (Name,Description,IsActive,CreationDate) VALUES ('Hobbies','Card Games, Action Figures, Toys',1,'10.10.2022')");
             migrationBuilder.Sql("Insert INTO Categories (Name,Description,IsActive,CreationDate) VALUES ('Home&Garden','Kitchen, Dining & Bar Supplies, Decor',1,'10.10.2022')");
-            
-            
+
+
             migrationBuilder.Sql("Insert INTO Conditions (Status,Description,IsActive,CreationDate) VALUES ('New','The item is brand new, unused, unopened, and undamaged',1,'10.10.2020')");
             migrationBuilder.Sql("Insert INTO Conditions (Status,Description,IsActive,CreationDate) VALUES ('Used','The item was previously used.',1,'10.10.2020')");
             migrationBuilder.Sql("Insert INTO Conditions (Status,Description,IsActive,CreationDate) VALUES ('Seller refurbished','The item has been restored to working order by the seller.',1,'10.10.2020')");
             migrationBuilder.Sql("Insert INTO Conditions (Status,Description,IsActive,CreationDate) VALUES ('Open box','The item is in excellent, new condition with no wear.',1,'10.10.2020')");
             migrationBuilder.Sql("Insert INTO Conditions (Status,Description,IsActive,CreationDate) VALUES ('New with tags','The brand-new, unused, and unworn item is in the original packaging.',1,'10.10.2020')");
             migrationBuilder.Sql("Insert INTO Conditions (Status,Description,IsActive,CreationDate) VALUES ('New with defects','The item is brand new, unused, and unworn. Possible cosmetic imperfections range from natural color variations to scuffs, cuts.',1,'10.10.2020')");
-            
+
             migrationBuilder.Sql("Insert INTO Colors (Name,IsActive,CreationDate) VALUES ('Black',1,'10.10.2020')");
             migrationBuilder.Sql("Insert INTO Colors (Name,IsActive,CreationDate) VALUES ('Yellow',1,'10.10.2020')");
             migrationBuilder.Sql("Insert INTO Colors (Name,IsActive,CreationDate) VALUES ('Orange',1,'10.10.2020')");
             migrationBuilder.Sql("Insert INTO Colors (Name,IsActive,CreationDate) VALUES ('White',1,'10.10.2020')");
             migrationBuilder.Sql("Insert INTO Colors (Name,IsActive,CreationDate) VALUES ('Purple',1,'10.10.2020')");
-           
-            
-            
-            migrationBuilder.Sql("Insert INTO Users (FirstName,LastName,Gender,EMail,Password,IsActive,CreationDate) VALUES ('Sylvia','Farans',0,'sfarans0@amazon.co.uk','123456',1,'10.10.2020')");
-            migrationBuilder.Sql("Insert INTO Users (FirstName,LastName,Gender,EMail,Password,IsActive,CreationDate) VALUES ('Nichole','Conti',0,'nconti1@storify.com','123456',1,'10.10.2020')");
-            migrationBuilder.Sql("Insert INTO Users (FirstName,LastName,Gender,EMail,Password,IsActive,CreationDate) VALUES ('Evangelin','Hiland',2,'ehiland2@networkadv.org','123456',1,'10.10.2020')");
-            migrationBuilder.Sql("Insert INTO Users (FirstName,LastName,Gender,EMail,Password,IsActive,CreationDate) VALUES ('Ted','Belingfield',2,'tbeningfield3@gnu.org','123456',1,'10.10.2020')");
-            migrationBuilder.Sql("Insert INTO Users (FirstName,LastName,Gender,EMail,Password,IsActive,CreationDate) VALUES ('Grover','Bream',1,'gbream4@paypal.com','123456',1,'10.10.2020')");
 
+
+
+        
 
             migrationBuilder.Sql("Insert INTO Products (Name,Description,PictureUrl,BuyItNowPrice,IsOfferable,IsSold,ConditionId,UserId,ColorId,BrandId,CategoryId,IsActive,CreationDate) " +
                 "VALUES ('Latitude E5440','Dell Laptop Latitude E5440 Light Gaming Computer PC i5 8GB 256GB SSD Win 10 Pro','C:\\Images\\1.png',220,1,0,2,1,1,1,1,1,'10.10.2020')");
@@ -64,9 +60,9 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
             migrationBuilder.Sql("Insert INTO Offers (UserId,ProductId,OfferedPrice,IsAccepted,IsActive,CreationDate) VALUES (2,1,210,1,1,'10.10.2020')");
             migrationBuilder.Sql("Insert INTO Offers (UserId,ProductId,OfferedPrice,IsAccepted,IsActive,CreationDate) VALUES (2,2,8,0,1,'10.10.2020')");
             migrationBuilder.Sql("Insert INTO Offers (UserId,ProductId,OfferedPrice,IsAccepted,IsActive,CreationDate) VALUES (4,5,32,0,1,'10.10.2020')");
-           
-            
-            
+
+
+
             migrationBuilder.Sql("Insert INTO PurchaseHistories (ProductId,SellerId,BuyerId,SoldPrice,PurchasedDate,IsActive,CreationDate) VALUES (1,2,1,200,'10.10.2020',1,'10.10.2020')");
             migrationBuilder.Sql("Insert INTO PurchaseHistories (ProductId,SellerId,BuyerId,SoldPrice,PurchasedDate,IsActive,CreationDate) VALUES (3,4,2,200,'10.10.2020',1,'10.10.2020')");
             migrationBuilder.Sql("Insert INTO PurchaseHistories (ProductId,SellerId,BuyerId,SoldPrice,PurchasedDate,IsActive,CreationDate) VALUES (4,5,1,200,'10.10.2020',1,'10.10.2020')");

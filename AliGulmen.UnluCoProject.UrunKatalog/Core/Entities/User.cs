@@ -1,9 +1,10 @@
 ﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Common;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Entities
 {
-    public class User : BaseEntity
+    public class User : IdentityUser
     {
         [Required]
         [StringLength(100)]
@@ -12,12 +13,8 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Entities
         [StringLength(100)]
         public string LastName { get; set; }
         public Gender Gender { get; set; }
-        [Required]
-        [StringLength(100)]
-        public string EMail { get; set; }
-        [Required]
-        [StringLength(20)]
-        public string Password { get; set; }
+     
+       
      
 
     }

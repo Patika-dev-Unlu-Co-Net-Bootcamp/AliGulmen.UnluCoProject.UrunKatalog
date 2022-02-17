@@ -12,12 +12,14 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Persistence.Repositories
 
         public Repository(UrunKatalogDbContext context)
         {
+            
             _context = context;
         }
        
         public async Task<TEntity> Get(int id)
         {
             var result = await _context.Set<TEntity>().FindAsync(id);
+
 
             if (result == null)
                 throw new KeyNotFoundException("Not Found!");
@@ -28,6 +30,8 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Persistence.Repositories
 
         public async Task<IEnumerable<TEntity>> GetAll()
         {
+
+            
             return await _context.Set<TEntity>().ToListAsync();
         }
 
