@@ -1,5 +1,5 @@
 ﻿using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources;
-using AliGulmen.UnluCoProject.UrunKatalog.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
 using AutoMapper;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Mapping

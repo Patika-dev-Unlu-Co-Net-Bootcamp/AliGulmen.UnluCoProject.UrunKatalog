@@ -1,3 +1,4 @@
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
 using AliGulmen.UnluCoProject.UrunKatalog.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

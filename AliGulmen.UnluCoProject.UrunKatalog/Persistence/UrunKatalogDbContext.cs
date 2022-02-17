@@ -1,4 +1,4 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Entities;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Persistence

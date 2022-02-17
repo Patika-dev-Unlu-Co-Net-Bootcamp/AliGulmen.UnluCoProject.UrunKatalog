@@ -1,6 +1,5 @@
 ﻿using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources;
-using AliGulmen.UnluCoProject.UrunKatalog.Entities;
-using AliGulmen.UnluCoProject.UrunKatalog.Persistence;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -15,7 +14,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
         private readonly ICategoryRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public CategoryController(UrunKatalogDbContext context, IMapper mapper, ICategoryRepository repository, IUnitOfWork unitOfWork)
+        public CategoryController(IMapper mapper, ICategoryRepository repository, IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _mapper = mapper;
