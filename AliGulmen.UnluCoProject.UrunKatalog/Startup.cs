@@ -34,6 +34,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog
            services.AddScoped<IConditionRepository, ConditionRepository>();
            services.AddScoped<IColorRepository, ColorRepository>();
            services.AddScoped<IUserRepository, UserRepository>();
+           services.AddScoped<IOfferRepository, OfferRepository>();
            services.AddScoped<IProductRepository, ProductRepository>();
            services.AddScoped<IPurchaseHistoryRepository, PurchaseHistoryRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

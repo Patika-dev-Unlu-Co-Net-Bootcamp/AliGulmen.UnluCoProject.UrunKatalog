@@ -2,6 +2,7 @@
 using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.CategoryResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ColorResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ConditionResources;
+using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.OfferResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ProductResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.PurchaseHistoryResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.UserResources;
@@ -37,6 +38,9 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Mapping
 
             CreateMap<PurchaseHistory, PurchaseHistoryResource>();
             CreateMap<SavePurchaseHistoryResource, PurchaseHistory>();
+
+            CreateMap<Offer, OfferResource>();
+            CreateMap<SaveOfferResource, Offer>();
         }
     }
 }
