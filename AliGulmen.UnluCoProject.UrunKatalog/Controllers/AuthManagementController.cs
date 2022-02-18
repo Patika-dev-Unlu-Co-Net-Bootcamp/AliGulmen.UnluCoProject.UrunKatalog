@@ -18,13 +18,13 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
         private readonly TokenGenerator _tokenGenerator;
 
 
-        public AuthManagementController(
-            UserManager<IdentityUser> userManager,
-            TokenGenerator tokenGenerator)
+        public AuthManagementController(UserManager<IdentityUser> userManager, TokenGenerator tokenGenerator)
         {
             _userManager = userManager;
             _tokenGenerator = tokenGenerator;
         }
+
+
 
         [HttpPost]
         [Route("Register")]
@@ -32,7 +32,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
         {
             if (ModelState.IsValid)
             {
-                // We can utilise the model
+                
                 var existingUser = await _userManager.FindByEmailAsync(user.Email);
 
                 if (existingUser != null)

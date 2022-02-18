@@ -3,10 +3,13 @@ using AliGulmen.UnluCoProject.UrunKatalog.Core;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Repositories;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
@@ -27,7 +30,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
 
 
 
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
         public async Task<IEnumerable<BrandResource>> GetBrands()
         {

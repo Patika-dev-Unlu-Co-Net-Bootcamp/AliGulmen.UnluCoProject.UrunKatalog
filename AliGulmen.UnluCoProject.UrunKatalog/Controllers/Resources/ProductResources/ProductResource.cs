@@ -13,7 +13,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ProductResou
         public bool IsSold { get; set; } 
         public int ConditionId { get; set; }
         public int UserId { get; set; }
-        public string ColorId { get; set; }
+        public int ColorId { get; set; }
         public string ColorName { get; set; }
         public int? BrandId { get; set; }
         public int CategoryId { get; set; }
