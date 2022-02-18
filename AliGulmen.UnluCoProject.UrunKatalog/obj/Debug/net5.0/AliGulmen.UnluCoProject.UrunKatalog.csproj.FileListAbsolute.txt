@@ -75,3 +75,5 @@ C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunK
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.dll
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\bin\Debug\net5.0\Microsoft.Extensions.FileProviders.Embedded.dll
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\obj\Debug\net5.0\staticwebassets\AliGulmen.UnluCoProject.UrunKatalog.StaticWebAssets.xml
+C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\bin\Debug\net5.0\EmailService.dll
+C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\bin\Debug\net5.0\EmailService.pdb

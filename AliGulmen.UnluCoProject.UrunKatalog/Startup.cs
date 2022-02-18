@@ -5,6 +5,7 @@ using AliGulmen.UnluCoProject.UrunKatalog.Extensions;
 using AliGulmen.UnluCoProject.UrunKatalog.Persistence;
 using AliGulmen.UnluCoProject.UrunKatalog.Persistence.Repositories;
 using AliGulmen.UnluCoProject.UrunKatalog.Services;
+using EmailService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,6 +46,17 @@ namespace AliGulmen.UnluCoProject.UrunKatalog
            services.AddScoped<IProductRepository, ProductRepository>();
            services.AddScoped<IPurchaseHistoryRepository, PurchaseHistoryRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
+
+
+            var eMailConfig = Configuration
+                .GetSection("EmailConfiguration")
+                .Get<EmailConfiguration>();
+            services.AddSingleton(eMailConfig);
+
+            services.AddScoped<IEmailSender,EmailSender>();
+
 
             services.AddControllers();
 

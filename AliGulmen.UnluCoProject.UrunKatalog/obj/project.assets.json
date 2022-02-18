@@ -1657,6 +1657,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "EmailService/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/EmailService.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EmailService.dll": {}
+        }
       }
     }
   },
@@ -5996,12 +6006,18 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "EmailService/1.0.0": {
+      "type": "project",
+      "path": "../EmailService/EmailService.csproj",
+      "msbuildProject": "../EmailService/EmailService.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "AutoMapper >= 11.0.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 11.0.0",
+      "EmailService >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 5.0.13",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 5.0.13",
       "Microsoft.AspNetCore.Identity.UI >= 5.0.13",
@@ -6047,7 +6063,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\aligu\\Desktop\\patika\\Tasks\\BitirmeProjesi\\AliGulmen.UnluCoProject.UrunKatalog\\EmailService\\EmailService.csproj": {
+              "projectPath": "C:\\Users\\aligu\\Desktop\\patika\\Tasks\\BitirmeProjesi\\AliGulmen.UnluCoProject.UrunKatalog\\EmailService\\EmailService.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
