@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
 using AliGulmen.UnluCoProject.UrunKatalog.DTOs.Requests;
 using AliGulmen.UnluCoProject.UrunKatalog.DTOs.Responses;
 using AliGulmen.UnluCoProject.UrunKatalog.Services;
@@ -14,16 +15,22 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
     [ApiController]
     public class AuthManagementController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly TokenGenerator _tokenGenerator;
 
 
-        public AuthManagementController(UserManager<IdentityUser> userManager, TokenGenerator tokenGenerator)
+        public AuthManagementController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenGenerator tokenGenerator)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
             _tokenGenerator = tokenGenerator;
+
+            
         }
 
+
+     
 
 
         [HttpPost]
@@ -46,7 +53,14 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
                     });
                 }
 
-                var newUser = new IdentityUser() { Email = user.Email, UserName = user.Username };
+                var newUser = new AppUser() { 
+                    Email = user.Email, 
+                    UserName = user.Username,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,   
+                    Gender = Core.Common.Gender.MALE
+
+                };
                 var isCreated = await _userManager.CreateAsync(newUser, user.Password);
                 if (isCreated.Succeeded)
                 {
@@ -90,24 +104,43 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
                     return BadRequest(new RegistrationResponse()
                     {
                         Errors = new List<string>() {
-                                "Invalid login request"
+                                "Wrong Email Adress"
                             },
                         Success = false
                     });
                 }
-
-                var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
-
-                if (!isCorrect)
+                if (await _userManager.IsLockedOutAsync(existingUser))
                 {
                     return BadRequest(new RegistrationResponse()
                     {
                         Errors = new List<string>() {
-                                "Invalid login request"
+                                "Your account has been locked. Please wait 24 hours and try again."
                             },
                         Success = false
                     });
                 }
+
+              
+                var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
+
+                if (!isCorrect)
+                {
+                   
+                        await _userManager.AccessFailedAsync(existingUser);
+
+
+                    return BadRequest(new RegistrationResponse()
+                    {
+                        Errors = new List<string>() {
+                                "Wrong Password"
+                            },
+                        Success = false
+                    });
+                }
+
+              
+
+
 
                 var jwtToken = _tokenGenerator.CreateToken(existingUser);
 
@@ -121,7 +154,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
             return BadRequest(new RegistrationResponse()
             {
                 Errors = new List<string>() {
-                        "Invalid payload"
+                        "Modelstate is not valid!"
                     },
                 Success = false
             });

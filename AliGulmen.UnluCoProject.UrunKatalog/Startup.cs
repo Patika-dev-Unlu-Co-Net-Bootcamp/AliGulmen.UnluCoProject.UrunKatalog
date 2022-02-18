@@ -79,8 +79,19 @@ namespace AliGulmen.UnluCoProject.UrunKatalog
 
             services.AddScoped<TokenGenerator>();
 
-            services.AddDefaultIdentity<IdentityUser>(opt => opt.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<AppUser>(opt => 
+            { 
+                opt.SignIn.RequireConfirmedAccount = true;
+                opt.Password.RequiredLength = 8;
+                opt.Lockout.AllowedForNewUsers = true;
+                opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(24);
+                opt.Lockout.MaxFailedAccessAttempts = 3;
+
+            }
+                                   )
                 .AddEntityFrameworkStores<UrunKatalogDbContext>();
+
+            
 
             services.AddSwaggerGen(c =>
             {
