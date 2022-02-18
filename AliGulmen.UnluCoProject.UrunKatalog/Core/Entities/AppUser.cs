@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Entities
 {
-    public class User : IdentityUser
+    public class AppUser : IdentityUser
     {
         [Required]
         [StringLength(100)]

@@ -32,49 +32,31 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
         public async Task<IEnumerable<UserResource>> GetUsers()
         {
             var users = await _repository.GetAll();
-            var result = _mapper.Map<List<User>, List<UserResource>>(users.ToList());
+            var result = _mapper.Map<List<AppUser>, List<UserResource>>(users.ToList());
             return result;
         }
 
 
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(int id)
+        public async Task<IActionResult> GetUser(string id)
         {
             var user = await _repository.Get(id);
-            var userResource = _mapper.Map<User, UserResource>(user);
+            var userResource = _mapper.Map<AppUser, UserResource>(user);
             return Ok(userResource);
         }
 
 
 
 
-
-        [HttpPost]
-        public async Task<IActionResult> CreateUser(SaveUserResource userResource)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
-            var result = _mapper.Map<SaveUserResource, User>(userResource);
-            _repository.Add(result);
-
-            await _unitOfWork.CompleteAsync();
-            return Created("~api/users", result);
-        }
-
-
-
-
-
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, SaveUserResource userResource)
+        public async Task<IActionResult> UpdateUser(string id, SaveUserResource userResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
             var user = await _repository.Get(id);
-            _mapper.Map<SaveUserResource, User>(userResource, user);
+            _mapper.Map<SaveUserResource, AppUser>(userResource, user);
 
             await _unitOfWork.CompleteAsync();
             return NoContent();
@@ -84,7 +66,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(string id)
         {
 
             var user = await _repository.Get(id);

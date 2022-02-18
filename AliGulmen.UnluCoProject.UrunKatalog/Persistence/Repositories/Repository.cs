@@ -9,32 +9,15 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Persistence.Repositories
     {
 
         private readonly UrunKatalogDbContext _context;
+    
 
-        public Repository(UrunKatalogDbContext context)
+    public Repository(UrunKatalogDbContext context)
         {
             
             _context = context;
         }
        
-        public async Task<TEntity> Get(int id)
-        {
-            var result = await _context.Set<TEntity>().FindAsync(id);
-
-
-            if (result == null)
-                throw new KeyNotFoundException("Not Found!");
-
-
-            return result;
-        }
-
-        public async Task<IEnumerable<TEntity>> GetAll()
-        {
-
-            
-            return await _context.Set<TEntity>().ToListAsync();
-        }
-
+      //we use abstract for gets here because every model has different includes
         public void Add(TEntity entity)
         {
 
@@ -46,5 +29,9 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Persistence.Repositories
         {
            _context.Set<TEntity>().Remove(entity);
         }
+
+        public abstract Task<TEntity> Get(int id);
+
+        public abstract Task<IEnumerable<TEntity>> GetAll();
     }
 }

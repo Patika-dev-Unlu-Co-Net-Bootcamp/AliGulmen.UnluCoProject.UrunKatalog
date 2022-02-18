@@ -1,4 +1,5 @@
 using AliGulmen.UnluCoProject.UrunKatalog.Core;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Repositories;
 using AliGulmen.UnluCoProject.UrunKatalog.Extensions;
 using AliGulmen.UnluCoProject.UrunKatalog.Persistence;

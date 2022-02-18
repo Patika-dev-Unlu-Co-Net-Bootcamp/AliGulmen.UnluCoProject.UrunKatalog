@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 {
     [DbContext(typeof(UrunKatalogDbContext))]
-    [Migration("20220217224314_SeedData")]
-    partial class SeedData
+    [Migration("20220218101530_seeddata")]
+    partial class seeddata
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,84 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
 
             modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Brand", b =>
                 {
@@ -150,17 +228,14 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Offers");
                 });
@@ -213,10 +288,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -229,7 +301,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 
                     b.HasIndex("ConditionId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Products");
                 });
@@ -241,10 +313,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BuyerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BuyerId1")
+                    b.Property<string>("BuyerId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreationDate")
@@ -259,10 +328,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     b.Property<DateTime>("PurchasedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("SellerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SellerId1")
+                    b.Property<string>("SellerId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("SoldPrice")
@@ -270,11 +336,11 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BuyerId1");
+                    b.HasIndex("BuyerId");
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("SellerId1");
+                    b.HasIndex("SellerId");
 
                     b.ToTable("PurchaseHistories");
                 });
@@ -328,77 +394,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -485,35 +480,15 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.User", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasDiscriminator().HasValue("User");
-                });
-
             modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Offer", b =>
                 {
                     b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
 
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.User", "User")
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Product");
 
@@ -542,9 +517,9 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.User", "User")
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Brand");
 
@@ -559,17 +534,17 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 
             modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.PurchaseHistory", b =>
                 {
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.User", "Buyer")
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", "Buyer")
                         .WithMany()
-                        .HasForeignKey("BuyerId1");
+                        .HasForeignKey("BuyerId");
 
                     b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
 
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.User", "Seller")
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", "Seller")
                         .WithMany()
-                        .HasForeignKey("SellerId1");
+                        .HasForeignKey("SellerId");
 
                     b.Navigation("Buyer");
 
@@ -589,7 +564,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -598,7 +573,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -613,7 +588,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -622,7 +597,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

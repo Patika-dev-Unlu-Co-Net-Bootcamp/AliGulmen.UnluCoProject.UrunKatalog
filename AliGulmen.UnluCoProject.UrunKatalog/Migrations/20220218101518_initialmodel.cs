@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 {
-    public partial class initialModel : Migration
+    public partial class initialmodel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,10 +26,9 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Gender = table.Column<int>(type: "int", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -232,8 +231,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     IsOfferable = table.Column<bool>(type: "bit", nullable: false),
                     IsSold = table.Column<bool>(type: "bit", nullable: false),
                     ConditionId = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ColorId = table.Column<int>(type: "int", nullable: true),
                     BrandId = table.Column<int>(type: "int", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
@@ -244,8 +242,8 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Products_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -281,8 +279,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ProductId = table.Column<int>(type: "int", nullable: true),
                     OfferedPrice = table.Column<int>(type: "int", nullable: false),
                     IsAccepted = table.Column<bool>(type: "bit", nullable: false),
@@ -293,8 +290,8 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                 {
                     table.PrimaryKey("PK_Offers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Offers_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Offers_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -313,10 +310,8 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(type: "int", nullable: true),
-                    SellerId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    SellerId = table.Column<int>(type: "int", nullable: true),
-                    BuyerId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    BuyerId = table.Column<int>(type: "int", nullable: false),
+                    SellerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    BuyerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     SoldPrice = table.Column<int>(type: "int", nullable: false),
                     PurchasedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
@@ -326,14 +321,14 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                 {
                     table.PrimaryKey("PK_PurchaseHistories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PurchaseHistories_AspNetUsers_BuyerId1",
-                        column: x => x.BuyerId1,
+                        name: "FK_PurchaseHistories_AspNetUsers_BuyerId",
+                        column: x => x.BuyerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PurchaseHistories_AspNetUsers_SellerId1",
-                        column: x => x.SellerId1,
+                        name: "FK_PurchaseHistories_AspNetUsers_SellerId",
+                        column: x => x.SellerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -390,9 +385,9 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Offers_UserId1",
+                name: "IX_Offers_UserId",
                 table: "Offers",
-                column: "UserId1");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_BrandId",
@@ -415,14 +410,14 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                 column: "ConditionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_UserId1",
+                name: "IX_Products_UserId",
                 table: "Products",
-                column: "UserId1");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PurchaseHistories_BuyerId1",
+                name: "IX_PurchaseHistories_BuyerId",
                 table: "PurchaseHistories",
-                column: "BuyerId1");
+                column: "BuyerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PurchaseHistories_ProductId",
@@ -430,9 +425,9 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PurchaseHistories_SellerId1",
+                name: "IX_PurchaseHistories_SellerId",
                 table: "PurchaseHistories",
-                column: "SellerId1");
+                column: "SellerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

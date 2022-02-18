@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Persistence
 {
-    public class UrunKatalogDbContext : IdentityDbContext
+    public class UrunKatalogDbContext : IdentityDbContext<AppUser>
     {
         public UrunKatalogDbContext(DbContextOptions<UrunKatalogDbContext> options)
             : base(options)
@@ -18,6 +18,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Persistence
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<PurchaseHistory> PurchaseHistories { get; set; }
+        public DbSet<AppUser> AppUser { get; set; }
    
     }
 }

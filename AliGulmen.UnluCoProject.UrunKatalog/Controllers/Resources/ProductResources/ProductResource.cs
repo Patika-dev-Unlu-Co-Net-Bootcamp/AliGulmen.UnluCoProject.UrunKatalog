@@ -11,11 +11,11 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ProductResou
         public int BuyItNowPrice { get; set; }
         public bool IsOfferable { get; set; } 
         public bool IsSold { get; set; } 
-        public int ConditionId { get; set; }
-        public int UserId { get; set; }
-        public int ColorId { get; set; }
+        public string ConditionStatus { get; set; }
+        public string Owner { get; set; }
+        public string UserId { get; set; }
         public string ColorName { get; set; }
-        public int? BrandId { get; set; }
-        public int CategoryId { get; set; }
+        public string BrandName { get; set; }
+        public string CategoryName { get; set; }
     }
 }

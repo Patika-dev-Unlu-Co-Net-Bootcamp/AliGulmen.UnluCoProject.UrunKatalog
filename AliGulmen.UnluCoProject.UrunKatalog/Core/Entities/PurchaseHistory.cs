@@ -6,10 +6,10 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Entities
     {
         public Product Product { get; set; }
         public int? ProductId { get; set; }
-        public User Seller { get; set; }
-        public int? SellerId { get; set; }
-        public User Buyer { get; set; }
-        public int BuyerId { get; set; }
+        public AppUser Seller { get; set; }
+        public string SellerId { get; set; }
+        public AppUser Buyer { get; set; }
+        public string BuyerId { get; set; }
         public int SoldPrice { get; set; }
         public DateTime PurchasedDate { get; set; }
        

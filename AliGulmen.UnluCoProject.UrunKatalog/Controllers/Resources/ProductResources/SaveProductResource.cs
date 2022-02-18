@@ -18,10 +18,9 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ProductResou
         public bool IsSold { get; set; } = false;
         [Required]
         public int ConditionId { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public int? ColorId { get; set; }
         public int? BrandId { get; set; }
-
         [Required]
         public int CategoryId { get; set; }
     }

@@ -1,12 +1,20 @@
-﻿
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 {
-    public partial class SeedData : Migration
+    public partial class seeddata : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.Sql("INSERT INTO AspNetUsers(Id,FirstName,LastName,Gender,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount) VALUES ('1','ahmet1','yılmaz',2, 'ahmet1', 'ahmet1', 'ahmetyilmaz1@xyz.com', 'ahmetyilmaz1@xyz.com', 1, '123456', '0', '1', '053500000001', 1, 0, '01.01.2022', 0, 1)");
+            migrationBuilder.Sql("INSERT INTO AspNetUsers(Id,FirstName,LastName,Gender,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount) VALUES ('2','ahmet2','yılmaz',2, 'ahmet2', 'ahmet2', 'ahmetyilmaz2@xyz.com', 'ahmetyilmaz2@xyz.com', 1, '123456', '0', '1', '053500000002', 1, 0, '01.01.2022', 0, 1)");
+            migrationBuilder.Sql("INSERT INTO AspNetUsers(Id,FirstName,LastName,Gender,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount) VALUES ('3','ahmet3','yılmaz',0, 'ahmet3', 'ahmet3', 'ahmetyilmaz3@xyz.com', 'ahmetyilmaz3@xyz.com', 1, '123456', '0', '1', '053500000003', 1, 0, '01.01.2022', 0, 1)");
+            migrationBuilder.Sql("INSERT INTO AspNetUsers(Id,FirstName,LastName,Gender,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount) VALUES ('4','ahmet4','yılmaz',0, 'ahmet4', 'ahmet4', 'ahmetyilmaz4@xyz.com', 'ahmetyilmaz4@xyz.com', 1, '123456', '0', '1', '053500000004', 1, 0, '01.01.2022', 0, 1)");
+            migrationBuilder.Sql("INSERT INTO AspNetUsers(Id,FirstName,LastName,Gender,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount) VALUES ('5','ahmet5','yılmaz',0, 'ahmet5', 'ahmet5', 'ahmetyilmaz5@xyz.com', 'ahmetyilmaz5@xyz.com', 1, '123456', '0', '1', '053500000005', 1, 0, '01.01.2022', 0, 1)");
+
+
+
+
             migrationBuilder.Sql("Insert INTO Brands (Name,Description,IsActive,CreationDate) VALUES ('Dell','Electronic Components',1,'01.01.2022')");
             migrationBuilder.Sql("Insert INTO Brands (Name,Description,IsActive,CreationDate) VALUES ('Mango','Women Clothing',1,'01.01.2021')");
             migrationBuilder.Sql("Insert INTO Brands (Name,Description,IsActive,CreationDate) VALUES ('Lego','Minimal Games',1,'01.01.2020')");
@@ -35,7 +43,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 
 
 
-        
 
             migrationBuilder.Sql("Insert INTO Products (Name,Description,PictureUrl,BuyItNowPrice,IsOfferable,IsSold,ConditionId,UserId,ColorId,BrandId,CategoryId,IsActive,CreationDate) " +
                 "VALUES ('Latitude E5440','Dell Laptop Latitude E5440 Light Gaming Computer PC i5 8GB 256GB SSD Win 10 Pro','C:\\Images\\1.png',220,1,0,2,1,1,1,1,1,'10.10.2020')");
@@ -75,7 +82,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
             migrationBuilder.Sql("DELETE FROM Categories WHERE Name IN ('Electronics', 'Art', 'Fashion', 'Hobbies', 'Home&Garden')");
             migrationBuilder.Sql("DELETE FROM Conditions WHERE Status IN ('New', 'Used', 'Seller refurbished', 'Open box', 'New with tags', 'New with defects')");
             migrationBuilder.Sql("DELETE FROM Colors WHERE Name IN ('Black', 'Yellow', 'Orange', 'White', 'Purple')");
-            migrationBuilder.Sql("DELETE FROM Users WHERE EMail IN ('sfarans0@amazon.co.uk', 'nconti1@storify.com', 'ehiland2@networkadv.org', 'tbeningfield3@gnu.org', 'gbream4@paypal.com')");
+            migrationBuilder.Sql("DELETE FROM AspNetUsers WHERE Id IN ('1', '2', '3', '5', '4')");
             migrationBuilder.Sql("DELETE FROM Products WHERE Id IN (1,2,3,4,5)");
             migrationBuilder.Sql("DELETE FROM Offers WHERE Id IN (1,2,3,4,5)");
             migrationBuilder.Sql("DELETE FROM PurchaseHistories WHERE Id IN (1,2,3,4,5)");
