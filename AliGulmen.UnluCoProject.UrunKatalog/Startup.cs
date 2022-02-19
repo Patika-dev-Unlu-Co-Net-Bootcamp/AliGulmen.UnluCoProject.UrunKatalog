@@ -6,6 +6,9 @@ using AliGulmen.UnluCoProject.UrunKatalog.Persistence;
 using AliGulmen.UnluCoProject.UrunKatalog.Persistence.Repositories;
 using AliGulmen.UnluCoProject.UrunKatalog.Services;
 using EmailService;
+using EmailService.Services;
+using Hangfire;
+using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,15 +39,41 @@ namespace AliGulmen.UnluCoProject.UrunKatalog
         {
             services.AddDbContext<UrunKatalogDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-           
-           services.AddScoped<ICategoryRepository, CategoryRepository>();
-           services.AddScoped<IBrandRepository, BrandRepository>();
-           services.AddScoped<IConditionRepository, ConditionRepository>();
-           services.AddScoped<IColorRepository, ColorRepository>();
-           services.AddScoped<IUserRepository, UserRepository>();
-           services.AddScoped<IOfferRepository, OfferRepository>();
-           services.AddScoped<IProductRepository, ProductRepository>();
-           services.AddScoped<IPurchaseHistoryRepository, PurchaseHistoryRepository>();
+
+
+            var hangfireConnectionString = Configuration["Connectionstrings:HangfireDev"];
+            services.AddHangfire(config =>
+            {
+
+                var option = new SqlServerStorageOptions
+                {
+                    PrepareSchemaIfNecessary = true,
+                    QueuePollInterval = TimeSpan.FromMinutes(5),
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                    UseRecommendedIsolationLevel = true,
+                    UsePageLocksOnDequeue = true,
+                    DisableGlobalLocks = true
+                };
+                config.UseSqlServerStorage(hangfireConnectionString, option)
+                .WithJobExpirationTimeout(TimeSpan.FromHours(6));
+
+
+            });
+
+            services.AddHangfireServer();
+
+
+
+
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<IConditionRepository, ConditionRepository>();
+            services.AddScoped<IColorRepository, ColorRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IOfferRepository, OfferRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IPurchaseHistoryRepository, PurchaseHistoryRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
@@ -55,7 +84,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog
                 .Get<EmailConfiguration>();
             services.AddSingleton(eMailConfig);
 
-            services.AddScoped<IEmailSender,EmailSender>();
+            services.AddScoped<IEmailSender, EmailSender>();
 
 
             services.AddControllers();
@@ -91,8 +120,8 @@ namespace AliGulmen.UnluCoProject.UrunKatalog
 
             services.AddScoped<TokenGenerator>();
 
-            services.AddDefaultIdentity<AppUser>(opt => 
-            { 
+            services.AddDefaultIdentity<AppUser>(opt =>
+            {
                 opt.SignIn.RequireConfirmedAccount = true;
                 opt.Password.RequiredLength = 8;
                 opt.Lockout.AllowedForNewUsers = true;
@@ -103,7 +132,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog
                                    )
                 .AddEntityFrameworkStores<UrunKatalogDbContext>();
 
-            
+
 
             services.AddSwaggerGen(c =>
             {
@@ -120,6 +149,11 @@ namespace AliGulmen.UnluCoProject.UrunKatalog
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AliGulmen.UnluCoProject.UrunKatalog v1"));
             }
+
+            app.UseHangfireDashboard();
+            GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 5 });
+
+
 
             app.UseCustomGlobalException();
 

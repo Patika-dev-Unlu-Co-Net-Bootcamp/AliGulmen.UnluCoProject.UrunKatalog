@@ -1,14 +1,8 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.UserResources;
-using AliGulmen.UnluCoProject.UrunKatalog.Core;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Repositories;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using EmailService;
+using EmailService.Services;
+using Hangfire;
+using System;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
 {
@@ -18,17 +12,23 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
     {
 
         private readonly IEmailSender _emailSender;
+        private readonly IBackgroundJobClient _backgroundJobClient;
 
-        public MailController(IEmailSender emailSender)
+        public MailController(IEmailSender emailSender, IBackgroundJobClient backgroundJobClient)
         {
             _emailSender = emailSender;
+            _backgroundJobClient = backgroundJobClient;
         }
 
         [HttpGet]
-        public  IActionResult SendMail()
+        
+
+        public IActionResult SendMail()
         {
             var message = new Message("aligulmen91@gmail.com","E-Ticaret Uygulaması","E-Ticaret Deneme maili!");
-            _emailSender.SendEmailAsync(message);
+           // _emailSender.SendEmailAsync(message);
+           // _backgroundJobClient.Schedule<IEmailSender> (x => x.SendEmailAsync(message), new DateTimeOffset(DateTime.Now));
+            _backgroundJobClient.Enqueue<IEmailSender>(x => x.SendEmailAsync(message));
             return Ok();
         }
 

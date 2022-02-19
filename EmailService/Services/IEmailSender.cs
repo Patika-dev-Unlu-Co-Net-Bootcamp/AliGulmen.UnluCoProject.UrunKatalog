@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EmailService
+namespace EmailService.Services
 {
     public interface IEmailSender
     {

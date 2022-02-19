@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using EmailService.Services;
+using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
@@ -17,8 +18,7 @@ namespace EmailService
         {
            await CreateAndSendEmailMessage(message);
 
-        } 
-
+        }
 
         private async Task CreateAndSendEmailMessage(Message message)
         {
