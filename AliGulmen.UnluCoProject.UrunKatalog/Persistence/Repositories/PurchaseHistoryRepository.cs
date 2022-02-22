@@ -1,5 +1,5 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Repositories;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;

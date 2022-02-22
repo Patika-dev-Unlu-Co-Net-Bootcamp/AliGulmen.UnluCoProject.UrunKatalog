@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace AliGulmen.UnluCoProject.UrunKatalog.Core
+namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories
 {
 
 

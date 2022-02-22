@@ -1,4 +1,4 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;

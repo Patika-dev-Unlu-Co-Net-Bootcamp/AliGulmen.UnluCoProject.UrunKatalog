@@ -19,7 +19,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", b =>
+            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -97,7 +97,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Brand", b =>
+            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.Brand", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -125,7 +125,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     b.ToTable("Brands");
                 });
 
-            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Category", b =>
+            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -153,7 +153,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Color", b =>
+            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.Color", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -176,7 +176,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     b.ToTable("Colors");
                 });
 
-            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Condition", b =>
+            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.Condition", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -204,7 +204,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     b.ToTable("Conditions");
                 });
 
-            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Offer", b =>
+            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.Offer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -238,7 +238,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     b.ToTable("Offers");
                 });
 
-            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Product", b =>
+            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -304,7 +304,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.PurchaseHistory", b =>
+            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.PurchaseHistory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -478,13 +478,13 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Offer", b =>
+            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.Offer", b =>
                 {
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Product", "Product")
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
 
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", "User")
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.AppUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
@@ -493,29 +493,29 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Product", b =>
+            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.Product", b =>
                 {
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Brand", "Brand")
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.Brand", "Brand")
                         .WithMany()
                         .HasForeignKey("BrandId");
 
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Category", "Category")
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Color", "Color")
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.Color", "Color")
                         .WithMany()
                         .HasForeignKey("ColorId");
 
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Condition", "Condition")
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.Condition", "Condition")
                         .WithMany()
                         .HasForeignKey("ConditionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", "User")
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.AppUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
@@ -530,17 +530,17 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.PurchaseHistory", b =>
+            modelBuilder.Entity("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.PurchaseHistory", b =>
                 {
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", "Buyer")
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.AppUser", "Buyer")
                         .WithMany()
                         .HasForeignKey("BuyerId");
 
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.Product", "Product")
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
 
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", "Seller")
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.AppUser", "Seller")
                         .WithMany()
                         .HasForeignKey("SellerId");
 
@@ -562,7 +562,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", null)
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -571,7 +571,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", null)
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -586,7 +586,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", null)
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -595,7 +595,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Entities.AppUser", null)
+                    b.HasOne("AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

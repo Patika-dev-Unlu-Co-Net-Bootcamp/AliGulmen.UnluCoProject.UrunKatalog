@@ -1,8 +1,8 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Common;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
-namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Entities
+namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities
 {
     public class AppUser : IdentityUser
     {

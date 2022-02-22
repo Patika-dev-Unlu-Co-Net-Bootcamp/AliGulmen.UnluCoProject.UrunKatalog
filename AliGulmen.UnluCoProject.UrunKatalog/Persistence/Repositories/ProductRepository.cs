@@ -1,5 +1,5 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Repositories;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +49,20 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Persistence.Repositories
                 .ToListAsync();
         }
 
-        
+        public async Task<IEnumerable<Product>> GetAllWithQuery(Filter filter)
+        {
+            var query =  _context.Products
+                                .Include(p => p.Color)
+                                .Include(p => p.Brand)
+                                .Include(p => p.Condition)
+                                .Include(p => p.Category)
+                                .Include(p => p.User)
+                .AsQueryable();
+
+            if (filter.CategoryId.HasValue)
+                query = query.Where(p => p.CategoryId == filter.CategoryId.Value);
+
+            return await query.ToListAsync();
+        }
     }
 }

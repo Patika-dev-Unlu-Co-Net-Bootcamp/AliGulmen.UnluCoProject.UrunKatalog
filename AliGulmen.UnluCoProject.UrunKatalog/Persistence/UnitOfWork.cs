@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using AliGulmen.UnluCoProject.UrunKatalog.Core;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Persistence
 {

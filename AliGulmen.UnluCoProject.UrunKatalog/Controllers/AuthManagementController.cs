@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 using AliGulmen.UnluCoProject.UrunKatalog.DTOs.Requests;
 using AliGulmen.UnluCoProject.UrunKatalog.DTOs.Responses;
 using AliGulmen.UnluCoProject.UrunKatalog.Services;
@@ -58,7 +58,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
                     UserName = user.Username,
                     FirstName = user.FirstName,
                     LastName = user.LastName,   
-                    Gender = Core.Common.Gender.MALE
+                    Gender = Core.Domain.Enums.Gender.MALE
 
                 };
                 var isCreated = await _userManager.CreateAsync(newUser, user.Password);

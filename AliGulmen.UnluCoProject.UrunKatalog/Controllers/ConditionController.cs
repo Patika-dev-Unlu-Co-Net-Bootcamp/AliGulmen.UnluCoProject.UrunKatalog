@@ -1,7 +1,7 @@
 ﻿using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ConditionResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Core;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Repositories;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

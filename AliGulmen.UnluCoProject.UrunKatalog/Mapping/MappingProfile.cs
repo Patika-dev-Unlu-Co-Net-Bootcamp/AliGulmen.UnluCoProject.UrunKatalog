@@ -1,4 +1,5 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.BrandResources;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources;
+using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.BrandResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.CategoryResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ColorResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ConditionResources;
@@ -6,7 +7,7 @@ using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.OfferResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ProductResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.PurchaseHistoryResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.UserResources;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 using AutoMapper;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Mapping
@@ -54,6 +55,9 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Mapping
                 .ForMember(x => x.ProductName, opt => opt.MapFrom(x => x.Product.Name))
                 ;
             CreateMap<SaveOfferResource, Offer>();
+
+            CreateMap<FilterResource, Filter>();
+
 
 
         }

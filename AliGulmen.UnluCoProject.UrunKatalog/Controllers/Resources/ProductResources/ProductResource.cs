@@ -1,4 +1,4 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ProductResources
 {

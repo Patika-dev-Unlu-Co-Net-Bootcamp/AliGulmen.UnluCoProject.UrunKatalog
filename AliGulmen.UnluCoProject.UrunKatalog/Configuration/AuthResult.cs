@@ -1,4 +1,4 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 using System.Collections.Generic;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Configuration

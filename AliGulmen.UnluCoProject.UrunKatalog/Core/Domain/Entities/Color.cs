@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Entities
+namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities
 {
     public class Color : BaseEntity
     {

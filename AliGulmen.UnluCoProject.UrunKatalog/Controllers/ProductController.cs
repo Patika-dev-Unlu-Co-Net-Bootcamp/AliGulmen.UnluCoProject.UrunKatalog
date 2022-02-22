@@ -1,7 +1,8 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ProductResources;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources;
+using AliGulmen.UnluCoProject.UrunKatalog.Controllers.Resources.ProductResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Core;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Repositories;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,17 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers
             var products = await _repository.GetAll();
             var result = _mapper.Map<List<Product>, List<ProductResource>>(products.ToList());
          
+            return result;
+        }
+
+        [HttpGet("/withFilter")]
+        public async Task<IEnumerable<ProductResource>> GetProductsWithQuery([FromQuery]FilterResource filterResource)
+        {
+            var filter = _mapper.Map<FilterResource, Filter>(filterResource);
+            var products = await _repository.GetAllWithQuery(filter);
+
+            var result = _mapper.Map<List<Product>, List<ProductResource>>(products.ToList());
+
             return result;
         }
 

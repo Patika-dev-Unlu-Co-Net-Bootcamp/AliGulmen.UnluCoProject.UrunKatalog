@@ -1,6 +1,6 @@
 using AliGulmen.UnluCoProject.UrunKatalog.Core;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Entities;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Repositories;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
 using AliGulmen.UnluCoProject.UrunKatalog.Extensions;
 using AliGulmen.UnluCoProject.UrunKatalog.Persistence;
 using AliGulmen.UnluCoProject.UrunKatalog.Persistence.Repositories;

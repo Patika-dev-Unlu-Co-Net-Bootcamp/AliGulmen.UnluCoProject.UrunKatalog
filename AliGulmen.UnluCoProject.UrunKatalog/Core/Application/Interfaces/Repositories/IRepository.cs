@@ -1,9 +1,10 @@
-﻿using System;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Repositories
+namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories
 {
     public interface IRepository<TEntity> where TEntity : class
     {
