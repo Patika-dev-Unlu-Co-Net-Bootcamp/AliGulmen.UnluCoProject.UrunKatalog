@@ -1,0 +1,145 @@
+﻿
+@page "/register"
+@inject IHttpClientFactory ClientFactory
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using System.Net.Http.Json
+@using Newtonsoft.Json.Linq
+@inject ProtectedLocalStorage Storage
+@inject NavigationManager UriHelper
+
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-8 col-lg-7 col-xl-6">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">
+      </div>
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+      
+          <EditForm Model="@User" OnValidSubmit="@Submit">
+    <DataAnnotationsValidator />
+    @*<ValidationSummary />*@
+       
+      
+    <!-- Username input -->
+        
+          <div class="form-outline mb-4">
+            <label class="form-label" for="Username">Username</label>
+            <InputText type="text" @bind-Value="User.Username" id="Username" class="form-control form-control-lg" />
+            <ValidationMessage For="() => User.Username" />
+          </div>
+    
+    <!-- Email input -->
+        
+          <div class="form-outline mb-4">
+            <label class="form-label" for="Email">Email address</label>
+            <InputText type="email" @bind-Value="User.Email" id="Email" class="form-control form-control-lg" />
+            <ValidationMessage For="() => User.Email" />
+          </div>
+
+          <!-- Password input -->
+
+          <div class="form-outline mb-4">
+            <label class="form-label" for="Password">Password</label>
+            <InputText type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}"
+            title="En az 8 karakter olmak üzere, Rakam, büyük harf ve küçük harf içeren güçlü bir şifre seçiniz."
+            id="Password" @bind-Value="User.Password" class="form-control form-control-lg" />
+            <ValidationMessage For="() => User.Password" />
+          </div>
+
+      
+     <!-- Firstname input -->
+        
+          <div class="form-outline mb-4">
+            <label class="form-label" for="FirstName">FirstName</label>
+            <InputText type="text" @bind-Value="User.FirstName" id="FirstName" class="form-control form-control-lg" />
+            <ValidationMessage For="() => User.FirstName" />
+          </div>      
+
+            <!-- Lastname input -->
+        
+          <div class="form-outline mb-4">
+            <label class="form-label" for="Lastname">Lastname</label>
+            <InputText type="text" @bind-Value="User.LastName" id="Lastname" class="form-control form-control-lg" />
+            <ValidationMessage For="() => User.LastName" />
+          </div>      
+
+
+          <!-- Gender input -->
+        
+          <div class="form-outline mb-4">
+            <label class="form-label" for="Gender">Gender</label>
+ <InputSelect class="btn btn-secondary dropdown-toggle" @bind-Value="User.Gender"> 
+        @foreach (Enum item in Enum.GetValues(typeof(Gender)))
+        { 
+            <option value="@item">@item.ToString()</option> 
+        } 
+    </InputSelect> 
+            <ValidationMessage For="() => User.Gender" />
+          </div>      
+
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Kayıt Ol</button>
+         
+
+       </EditForm>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+   
+   
+
+
+
+
+@code {
+    public AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Requests.UserRegistrationDto User = new();
+
+    
+
+    public enum Gender
+    {
+        FEMALE = 0,
+        GENDERLESS = 1,
+        MALE = 2
+
+    }
+   
+
+
+
+
+
+    private async Task Submit()
+    {
+
+        var client = ClientFactory.CreateClient();
+
+        var response = await client.PostAsJsonAsync("http://localhost:3000/api/AuthManagement/Register",User);
+
+
+        if (response.IsSuccessStatusCode)
+        {
+            string result = await response.Content.ReadAsStringAsync();
+            JObject resultObject = JObject.Parse(result);
+
+
+
+            string token = resultObject.SelectToken("token").SelectToken("accessToken").Value<string>();
+            await Storage.SetAsync("token", token);
+             UriHelper.NavigateTo("categories");
+        }
+    }
+
+
+
+
+
+
+
+
+    
+}

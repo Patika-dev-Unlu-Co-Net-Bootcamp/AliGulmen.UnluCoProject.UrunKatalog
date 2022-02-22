@@ -5,6 +5,9 @@ using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Requests;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Responses;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Services;
+using EmailService;
+using EmailService.Services;
+using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,18 +22,21 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly TokenGenerator _tokenGenerator;
 
+        private readonly IEmailSender _emailSender;
+        private readonly IBackgroundJobClient _backgroundJobClient;
 
-        public AuthManagementController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenGenerator tokenGenerator)
+
+        public AuthManagementController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenGenerator tokenGenerator, IEmailSender emailSender, IBackgroundJobClient backgroundJobClient)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenGenerator = tokenGenerator;
-
-            
+            _emailSender = emailSender;
+            _backgroundJobClient = backgroundJobClient;
         }
 
 
-     
+
 
 
         [HttpPost]
@@ -65,6 +71,10 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
                 if (isCreated.Succeeded)
                 {
                     var jwtToken = _tokenGenerator.CreateToken(newUser);
+
+
+                    var message = new Message(user.Email, "UrunKatalog Uygulamasına Hoşgeldiniz!", "Üyeliğiniz gerçekleştirilmiştir, aramıza hoşgeldiniz");
+                    _backgroundJobClient.Enqueue<IEmailSender>(x => x.SendEmailAsync(message));
 
                     return Ok(new RegistrationResponse()
                     {

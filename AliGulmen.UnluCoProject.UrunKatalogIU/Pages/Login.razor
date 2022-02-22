@@ -1,0 +1,104 @@
+﻿
+@page "/login"
+@inject IHttpClientFactory ClientFactory
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using System.Net.Http.Json
+@using Newtonsoft.Json.Linq
+@inject ProtectedLocalStorage Storage
+@inject NavigationManager UriHelper
+
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-8 col-lg-7 col-xl-6">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">
+      </div>
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+      
+          <EditForm Model="@User" OnValidSubmit="@Submit">
+    <DataAnnotationsValidator />
+    @*<ValidationSummary />*@
+         
+    
+    <!-- Email input -->
+         
+
+
+          <div class="form-outline mb-4">
+            <InputText type="email" @bind-Value="User.Email" id="Email" class="form-control form-control-lg" />
+            <label class="form-label" for="Email">Email address</label>
+            <ValidationMessage For="() => User.Email" />
+          </div>
+
+          <!-- Password input -->
+
+          <div class="form-outline mb-4">
+             <InputText type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}"
+            title="En az 8 karakterli bir şifre giriniz."
+            id="Password" @bind-Value="User.Password" class="form-control form-control-lg" />
+            <label class="form-label" for="Password">Password</label>
+            <ValidationMessage For="() => User.Password" />
+          </div>
+
+         
+
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Giriş Yap</button>
+            
+
+         
+
+         
+
+       </EditForm>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+   
+   
+
+
+
+
+@code {
+    public AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Requests.UserLoginRequest User = new();
+
+
+
+
+
+
+    private async Task Submit()
+    {
+
+        var client = ClientFactory.CreateClient();
+
+        var response = await client.PostAsJsonAsync("http://localhost:3000/api/AuthManagement/Login",User);
+
+
+        if (response.IsSuccessStatusCode)
+        {
+            string result = await response.Content.ReadAsStringAsync();
+            JObject resultObject = JObject.Parse(result);
+
+
+
+            string token = resultObject.SelectToken("token").SelectToken("accessToken").Value<string>();
+            await Storage.SetAsync("token", token);
+             UriHelper.NavigateTo("categories");
+        }
+    }
+
+
+
+
+
+
+
+
+    
+}

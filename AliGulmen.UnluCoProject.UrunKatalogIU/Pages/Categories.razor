@@ -1,0 +1,124 @@
+﻿@page "/categories"
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Newtonsoft.Json
+@inject IHttpClientFactory ClientFactory
+@inject NavigationManager UriHelper
+
+
+@inject ProtectedLocalStorage Storage
+
+
+
+
+@if (MyCategories == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+     <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Category Name</th>
+                <th>Category Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in MyCategories)
+            {
+                <tr>
+                    <td>@category.Id</td>
+                    <td>@category.Name</td>
+                    <td>@category.Description</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+
+<button class="btn btn-primary" @onclick="@(() => { showModal = true; })">Yeni Kategori Ekle</button>
+<br><br>
+<p> <button class="btn btn-primary" @onclick="SignOut">Çıkış Yap</button></p>
+   
+
+
+
+@if (showModal)
+{
+<div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" @onclick="@(() => { showModal = false; })" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" @onclick="@(() => { showModal = false; })" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+
+
+}
+
+
+
+
+
+@code {
+
+    public List<AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.CategoryResources.CategoryResource> MyCategories { get; set; }
+     bool showModal = false;
+
+    public async Task SignOut()
+    {
+        await Storage.DeleteAsync("token");
+         UriHelper.NavigateTo("login");
+    }
+
+     public async Task AddCategory()
+    {
+         UriHelper.NavigateTo("login");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        var client = ClientFactory.CreateClient();
+
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/categories");
+
+
+        var token =  await Storage.GetAsync<string>("token");
+
+
+        request.Headers.Authorization =
+            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
+
+
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var json = await response.Content.ReadAsStringAsync();
+
+            MyCategories = JsonConvert.DeserializeObject<List<AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.CategoryResources.CategoryResource>>(json);
+
+
+        }
+        else
+        {
+            UriHelper.NavigateTo("login");
+        }
+    }
+}
