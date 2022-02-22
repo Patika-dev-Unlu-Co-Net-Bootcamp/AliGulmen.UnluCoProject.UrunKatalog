@@ -1,5 +1,4 @@
 ﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
-using AliGulmen.UnluCoProject.UrunKatalog.Persistence;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -1,10 +1,7 @@
-using AliGulmen.UnluCoProject.UrunKatalog.Core;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
-using AliGulmen.UnluCoProject.UrunKatalog.Extensions;
-using AliGulmen.UnluCoProject.UrunKatalog.Persistence;
-using AliGulmen.UnluCoProject.UrunKatalog.Persistence.Repositories;
-using AliGulmen.UnluCoProject.UrunKatalog.Services;
+using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Context;
+using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories;
 using EmailService;
 using EmailService.Services;
 using Hangfire;
@@ -12,7 +9,6 @@ using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +18,8 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Reflection;
 using System.Text;
+using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Services;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Extensions;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog
 {
