@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Context;
+using System.Linq;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 {
@@ -43,6 +44,13 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-
+        public async Task<IEnumerable<Offer>> GetMyOffers(string userId)
+        {
+            return await _context.Offers
+                                    .Include(p => p.Product)
+                                    .Include(p => p.User)
+                                    .Where(p => p.UserId == userId)
+                                    .ToListAsync();
+        }
     }
 }

@@ -156,8 +156,7 @@ else
     public List<CategoryResource> Categories = new();
     private int maxAllowedFiles = 1;
     private string _price;
-    private bool isLoading;
-    private int count = 0;
+
     public string pictureUrl;
     private string _userId;
 
@@ -283,9 +282,7 @@ else
 
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {
-        isLoading = true;
-
-
+      
         foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
         {
             try
@@ -305,13 +302,8 @@ else
         }
 
 
-        isLoading = false;
+       
     }
-
-
-
-
-
 
 
 }

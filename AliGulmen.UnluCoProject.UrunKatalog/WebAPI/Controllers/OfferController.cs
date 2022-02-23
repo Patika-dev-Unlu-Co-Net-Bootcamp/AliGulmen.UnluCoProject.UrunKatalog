@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 {
     [Route("api/[controller]s")]
+    [Authorize]
     [ApiController]
     public class OfferController : ControllerBase
     {
@@ -31,6 +34,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
         {
             var offers = await _repository.GetAll();
             var result = _mapper.Map<List<Offer>, List<OfferResource>>(offers.ToList());
+
             return result;
         }
 
@@ -61,6 +65,20 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
             return Created("~api/offers", result);
         }
 
+       
+        
+        
+        
+        [HttpPost("/myOffers")]
+        public async Task<IActionResult> MyOffers(string userId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var offers = await _repository.GetMyOffers(userId);
+            var offerResource = _mapper.Map<List<Offer>, List<OfferResource>>(offers.ToList());
+            return Ok(offerResource);
+        }
 
 
 

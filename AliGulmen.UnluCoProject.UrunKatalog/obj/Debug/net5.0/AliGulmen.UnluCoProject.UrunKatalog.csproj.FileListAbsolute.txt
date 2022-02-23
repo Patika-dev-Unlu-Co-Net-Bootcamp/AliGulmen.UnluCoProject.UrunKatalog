@@ -1,5 +1,7 @@
+C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\bin\Debug\net5.0\appsettings.Development.json
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\bin\Debug\net5.0\AliGulmen.UnluCoProject.UrunKatalog.StaticWebAssets.xml
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\bin\Debug\net5.0\AliGulmen.UnluCoProject.UrunKatalog.exe
+C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\bin\Debug\net5.0\appsettings.json
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\bin\Debug\net5.0\AliGulmen.UnluCoProject.UrunKatalog.deps.json
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\bin\Debug\net5.0\AliGulmen.UnluCoProject.UrunKatalog.runtimeconfig.json
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\bin\Debug\net5.0\AliGulmen.UnluCoProject.UrunKatalog.runtimeconfig.dev.json
@@ -97,5 +99,3 @@ C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunK
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\obj\Debug\net5.0\ref\AliGulmen.UnluCoProject.UrunKatalog.dll
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\obj\Debug\net5.0\AliGulmen.UnluCoProject.UrunKatalog.pdb
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\obj\Debug\net5.0\AliGulmen.UnluCoProject.UrunKatalog.genruntimeconfig.cache
-C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\bin\Debug\net5.0\appsettings.Development.json
-C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog\bin\Debug\net5.0\appsettings.json

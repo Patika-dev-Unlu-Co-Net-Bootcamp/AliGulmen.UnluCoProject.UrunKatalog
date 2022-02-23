@@ -198,8 +198,7 @@ using System.IdentityModel.Tokens.Jwt;
     public List<CategoryResource> Categories = new();
     private int maxAllowedFiles = 1;
     private string _price;
-    private bool isLoading;
-    private int count = 0;
+
     public string pictureUrl;
     private string _userId;
 
@@ -325,9 +324,7 @@ using System.IdentityModel.Tokens.Jwt;
 
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {
-        isLoading = true;
-
-
+      
         foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
         {
             try
@@ -347,13 +344,8 @@ using System.IdentityModel.Tokens.Jwt;
         }
 
 
-        isLoading = false;
+       
     }
-
-
-
-
-
 
 
 
