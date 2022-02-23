@@ -1,6 +1,6 @@
 ﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 
-namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.ProductResources
+namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ProductResources
 {
     public class ProductResource
     {

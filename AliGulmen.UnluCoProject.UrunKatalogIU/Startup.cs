@@ -1,6 +1,7 @@
 using AliGulmen.UnluCoProject.UrunKatalogIU.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +30,11 @@ namespace AliGulmen.UnluCoProject.UrunKatalogIU
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+
+
+            
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +52,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalogIU
             app.UseStaticFiles();
 
             app.UseRouting();
+
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.CategoryResources
+namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.CategoryResources
 {
     public class SaveCategoryResource
     {

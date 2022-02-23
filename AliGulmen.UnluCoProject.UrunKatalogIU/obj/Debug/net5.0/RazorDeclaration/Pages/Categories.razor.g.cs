@@ -105,7 +105,7 @@ using System.Net.Http.Json;
 #nullable disable
 #nullable restore
 #line 5 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Categories.razor"
-using AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.CategoryResources;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.CategoryResources;
 
 #line default
 #line hidden
@@ -171,27 +171,6 @@ using System.Net.Http.Headers;
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

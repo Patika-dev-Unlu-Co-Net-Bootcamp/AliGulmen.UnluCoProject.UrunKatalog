@@ -1,4 +1,4 @@
-﻿namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.ConditionResources
+﻿namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ConditionResources
 {
     public class ConditionResource
     {

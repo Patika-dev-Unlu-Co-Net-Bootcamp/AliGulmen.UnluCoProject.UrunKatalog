@@ -7,7 +7,7 @@
 @inject ProtectedLocalStorage Storage
 @inject NavigationManager UriHelper
 
-<section class="vh-100">
+<section class="vh-90">
   <div class="container py-5 h-100">
     <div class="row d-flex align-items-center justify-content-center h-100">
       <div class="col-md-8 col-lg-7 col-xl-6">
@@ -68,7 +68,7 @@
         
           <div class="form-outline mb-4">
             <label class="form-label" for="Gender">Gender</label>
- <InputSelect class="btn btn-secondary dropdown-toggle" @bind-Value="User.Gender"> 
+ <InputSelect class="btn btn-primary dropdown-toggle" @bind-Value="User.Gender"> 
         @foreach (Enum item in Enum.GetValues(typeof(Gender)))
         { 
             <option value="@item">@item.ToString()</option> 

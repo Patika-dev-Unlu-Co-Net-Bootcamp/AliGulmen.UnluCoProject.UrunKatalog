@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.PurchaseHistoryResources
+namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.PurchaseHistoryResources
 {
     public class PurchaseHistoryResource
     {

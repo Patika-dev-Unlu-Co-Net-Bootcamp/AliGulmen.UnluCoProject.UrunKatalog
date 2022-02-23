@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AliGulmen.UnluCoProject.Uru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailService", "EmailService\EmailService.csproj", "{04E6544E-743B-418A-851D-3154E27E910A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AliGulmen.UnluCoProject.UrunKatalogIU", "AliGulmen.UnluCoProject.UrunKatalogIU\AliGulmen.UnluCoProject.UrunKatalogIU.csproj", "{3CD48FF6-453A-47FA-BFE5-2DE21A95505E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AliGulmen.UnluCoProject.UrunKatalogIU", "AliGulmen.UnluCoProject.UrunKatalogIU\AliGulmen.UnluCoProject.UrunKatalogIU.csproj", "{3CD48FF6-453A-47FA-BFE5-2DE21A95505E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

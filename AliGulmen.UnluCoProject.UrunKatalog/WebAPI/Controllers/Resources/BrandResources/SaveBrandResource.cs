@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.BrandResources
+namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.BrandResources
 {
     public class SaveBrandResource
     {

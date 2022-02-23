@@ -1,4 +1,4 @@
-﻿namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources
+﻿namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources
 {
     public class FilterResource
     {

@@ -1,12 +1,12 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources;
-using AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.BrandResources;
-using AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.CategoryResources;
-using AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.ColorResources;
-using AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.ConditionResources;
-using AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.OfferResources;
-using AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.ProductResources;
-using AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.PurchaseHistoryResources;
-using AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.UserResources;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.BrandResources;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.CategoryResources;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ColorResources;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ConditionResources;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.OfferResources;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ProductResources;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.PurchaseHistoryResources;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.UserResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 using AutoMapper;
 

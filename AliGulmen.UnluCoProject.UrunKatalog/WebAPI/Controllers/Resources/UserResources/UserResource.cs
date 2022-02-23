@@ -1,4 +1,4 @@
-﻿namespace AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.UserResources
+﻿namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.UserResources
 {
     public class UserResource
     {

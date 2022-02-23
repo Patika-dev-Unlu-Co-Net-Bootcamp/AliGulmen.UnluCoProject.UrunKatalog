@@ -1,5 +1,5 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources;
-using AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.ProductResources;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ProductResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
 using AutoMapper;

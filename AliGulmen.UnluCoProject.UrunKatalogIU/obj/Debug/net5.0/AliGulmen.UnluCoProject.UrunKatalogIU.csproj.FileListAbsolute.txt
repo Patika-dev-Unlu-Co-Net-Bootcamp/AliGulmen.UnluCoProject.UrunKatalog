@@ -143,3 +143,5 @@ C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunK
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\obj\Debug\net5.0\Razor\Pages\Categories.razor.g.cs
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\obj\Debug\net5.0\RazorDeclaration\Pages\Register.razor.g.cs
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\obj\Debug\net5.0\Razor\Pages\Register.razor.g.cs
+C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\obj\Debug\net5.0\RazorDeclaration\Pages\AddProduct.razor.g.cs
+C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\obj\Debug\net5.0\Razor\Pages\AddProduct.razor.g.cs

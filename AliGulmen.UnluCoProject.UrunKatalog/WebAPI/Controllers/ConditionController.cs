@@ -1,4 +1,4 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.ConditionResources;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ConditionResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
 using AutoMapper;
