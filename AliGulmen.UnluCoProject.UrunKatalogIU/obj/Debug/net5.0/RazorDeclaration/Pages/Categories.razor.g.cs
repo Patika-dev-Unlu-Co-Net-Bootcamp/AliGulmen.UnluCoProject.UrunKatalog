@@ -96,6 +96,27 @@ using Newtonsoft.Json;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Categories.razor"
+using System.Net.Http.Json;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Categories.razor"
+using AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.CategoryResources;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Categories.razor"
+using System.Net.Http.Headers;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/categories")]
     public partial class Categories : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -105,23 +126,123 @@ using Newtonsoft.Json;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 78 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Categories.razor"
+#line 148 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Categories.razor"
        
 
-    public List<AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.CategoryResources.CategoryResource> MyCategories { get; set; }
-     bool showModal = false;
+    public List<CategoryResource> MyCategories { get; set; }
+    public SaveCategoryResource Category = new();
+    bool showAddModal = false;
+    bool showUpdateModal = false;
+    public CategoryResource CategoryToUpdate = new();
+
 
     public async Task SignOut()
     {
         await Storage.DeleteAsync("token");
-         UriHelper.NavigateTo("login");
+        UriHelper.NavigateTo("login");
     }
 
-     public async Task AddCategory()
+
+
+
+    public async Task UpdateCategory()
     {
-         UriHelper.NavigateTo("login");
+        showUpdateModal = false;
+
+        var client = ClientFactory.CreateClient();
+
+
+        var token =  await Storage.GetAsync<string>("token");
+
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+
+        Category.Name = CategoryToUpdate.Name;
+        Category.Description = CategoryToUpdate.Description;
+
+        var response = await client.PutAsJsonAsync("http://localhost:3000/api/categories/"+CategoryToUpdate.Id,Category);
+
+
+        if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+        {
+
+            UriHelper.NavigateTo("categories");
+            await OnInitializedAsync();
+        }
+
+
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public async Task AddCategory()
+    {
+        showAddModal = false;
+
+        var client = ClientFactory.CreateClient();
+
+
+        var token =  await Storage.GetAsync<string>("token");
+
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+
+        var response = await client.PostAsJsonAsync("http://localhost:3000/api/categories",Category);
+
+
+        if (response.StatusCode == System.Net.HttpStatusCode.Created)
+        {
+
+            UriHelper.NavigateTo("categories");
+            await OnInitializedAsync();
+        }
+    }
+
+
+
+    public async Task DeletCategory(int id)
+    {
+
+        var client = ClientFactory.CreateClient();
+       
+        var token =  await Storage.GetAsync<string>("token");
+
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+
+        var response = await client.DeleteAsync("http://localhost:3000/api/categories/"+id);
+
+
+        if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+        {
+
+            UriHelper.NavigateTo("categories");
+            await OnInitializedAsync();
+        }
+    }
+
+
+    
     protected override async Task OnInitializedAsync()
     {
 
@@ -143,7 +264,7 @@ using Newtonsoft.Json;
         {
             var json = await response.Content.ReadAsStringAsync();
 
-            MyCategories = JsonConvert.DeserializeObject<List<AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.CategoryResources.CategoryResource>>(json);
+            MyCategories = JsonConvert.DeserializeObject<List<CategoryResource>>(json);
 
 
         }

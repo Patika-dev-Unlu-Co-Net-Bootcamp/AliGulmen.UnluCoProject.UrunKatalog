@@ -15,7 +15,17 @@
       "ProjectGuid": "04e6544e-743b-418a-851d-3154e27e910a",
       "DisplayName": "EmailService",
       "ColorIndex": 1
+    },
+    "d98ad058-5102-45c6-9744-118c83dc6d90": {
+      "ProjectGuid": "d98ad058-5102-45c6-9744-118c83dc6d90",
+      "DisplayName": "AliGulmen.UnluCoProject.UrunKatalogUI",
+      "ColorIndex": 2
+    },
+    "3cd48ff6-453a-47fa-bfe5-2de21a95505e": {
+      "ProjectGuid": "3cd48ff6-453a-47fa-bfe5-2de21a95505e",
+      "DisplayName": "AliGulmen.UnluCoProject.UrunKatalogIU",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 4
 }

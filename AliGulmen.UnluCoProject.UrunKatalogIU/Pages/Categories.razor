@@ -1,6 +1,9 @@
 ﻿@page "/categories"
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @using Newtonsoft.Json
+@using System.Net.Http.Json
+@using AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.CategoryResources
+@using System.Net.Http.Headers
 @inject IHttpClientFactory ClientFactory
 @inject NavigationManager UriHelper
 
@@ -20,8 +23,9 @@ else
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Category Name</th>
-                <th>Category Description</th>
+                <th>Kategori İsmi</th>
+                <th>Açıklama</th>
+                <th>Güncelle / Sil</th>
             </tr>
         </thead>
         <tbody>
@@ -31,41 +35,107 @@ else
                     <td>@category.Id</td>
                     <td>@category.Name</td>
                     <td>@category.Description</td>
+                    <td> <button class="btn btn-primary" @onclick="@(() => { showUpdateModal = true; 
+                    CategoryToUpdate.Id=category.Id; 
+                    CategoryToUpdate.Name=category.Name;
+                    CategoryToUpdate.Description=category.Description;})"> Güncelle </button>  
+                        <button class="btn btn-danger" @onclick="() => DeletCategory(category.Id)"> Sil </button> </td>
+                        
                     
                 </tr>
             }
         </tbody>
     </table>
 
-<button class="btn btn-primary" @onclick="@(() => { showModal = true; })">Yeni Kategori Ekle</button>
+<button class="btn btn-primary" @onclick="@(() => { showAddModal = true; })">Yeni Kategori Ekle</button>
 <br><br>
 <p> <button class="btn btn-primary" @onclick="SignOut">Çıkış Yap</button></p>
    
 
 
 
-@if (showModal)
+@if (showAddModal)
 {
 <div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" @onclick="@(() => { showModal = false; })" aria-label="Close">
+                <h5 class="modal-title">Kategori Ekle</h5>
+                <button type="button" class="close" data-dismiss="modal" @onclick="@(() => { showAddModal = false; })" aria-label="Vazgeç">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Modal body text goes here.</p>
-            </div>
+         <EditForm Model="@Category" OnValidSubmit="@AddCategory">
+          <div class="form-group">
+             <label class="form-label" for="CategoryName">Kategori İsmi :</label>
+            <InputText type="text" @bind-Value="Category.Name" id="CategoryName" class="form-control form-control-lg" />
+            <ValidationMessage For="() => Category.Name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="CategoryDesc">Açıklama :</label>
+            <InputText type="text" @bind-Value="Category.Description" id="CategoryDesc" class="form-control form-control-lg" />
+            <ValidationMessage For="() => Category.Description" />
+          </div>
+        </EditForm>
+      </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" @onclick="@(() => { showModal = false; })" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" @onclick="AddCategory">Kaydet</button>
+                <button type="button" class="btn btn-secondary" @onclick="@(() => { showAddModal = false; })" data-dismiss="modal">Vazgeç</button>
             </div>
         </div>
     </div>
 </div>
 }
+
+
+
+
+
+
+
+
+
+
+
+@if (showUpdateModal)
+{
+<div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kategori Güncelle</h5>
+                <button type="button" class="close" data-dismiss="modal" @onclick="@(() => { showUpdateModal = false; })" aria-label="Vazgeç">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+         <EditForm Model="@CategoryToUpdate" OnValidSubmit="@UpdateCategory">
+
+          <div class="form-group">
+             <label class="form-label" for="CategoryToUpdateName">Kategori İsmi :</label>
+            <InputText type="text" @bind-Value="CategoryToUpdate.Name" id="CategoryToUpdateName" class="form-control form-control-lg" />
+            <ValidationMessage For="() => CategoryToUpdate.Name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="CategoryToUpdateDesc">Açıklama :</label>
+            <InputText type="text" @bind-Value="CategoryToUpdate.Description"  id="CategoryToUpdateDesc" class="form-control form-control-lg" />
+            <ValidationMessage For="() => CategoryToUpdate.Description" />
+          </div>
+        </EditForm>
+      </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @onclick="UpdateCategory">Kaydet</button>
+                <button type="button" class="btn btn-secondary" @onclick="@(() => { showUpdateModal = false; })" data-dismiss="modal">Vazgeç</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+
+
+
 
 
 
@@ -77,20 +147,120 @@ else
 
 @code {
 
-    public List<AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.CategoryResources.CategoryResource> MyCategories { get; set; }
-     bool showModal = false;
+    public List<CategoryResource> MyCategories { get; set; }
+    public SaveCategoryResource Category = new();
+    bool showAddModal = false;
+    bool showUpdateModal = false;
+    public CategoryResource CategoryToUpdate = new();
+
 
     public async Task SignOut()
     {
         await Storage.DeleteAsync("token");
-         UriHelper.NavigateTo("login");
+        UriHelper.NavigateTo("login");
     }
 
-     public async Task AddCategory()
+
+
+
+    public async Task UpdateCategory()
     {
-         UriHelper.NavigateTo("login");
+        showUpdateModal = false;
+
+        var client = ClientFactory.CreateClient();
+
+
+        var token =  await Storage.GetAsync<string>("token");
+
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+
+        Category.Name = CategoryToUpdate.Name;
+        Category.Description = CategoryToUpdate.Description;
+
+        var response = await client.PutAsJsonAsync("http://localhost:3000/api/categories/"+CategoryToUpdate.Id,Category);
+
+
+        if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+        {
+
+            UriHelper.NavigateTo("categories");
+            await OnInitializedAsync();
+        }
+
+
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public async Task AddCategory()
+    {
+        showAddModal = false;
+
+        var client = ClientFactory.CreateClient();
+
+
+        var token =  await Storage.GetAsync<string>("token");
+
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+
+        var response = await client.PostAsJsonAsync("http://localhost:3000/api/categories",Category);
+
+
+        if (response.StatusCode == System.Net.HttpStatusCode.Created)
+        {
+
+            UriHelper.NavigateTo("categories");
+            await OnInitializedAsync();
+        }
+    }
+
+
+
+    public async Task DeletCategory(int id)
+    {
+
+        var client = ClientFactory.CreateClient();
+       
+        var token =  await Storage.GetAsync<string>("token");
+
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+
+        var response = await client.DeleteAsync("http://localhost:3000/api/categories/"+id);
+
+
+        if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+        {
+
+            UriHelper.NavigateTo("categories");
+            await OnInitializedAsync();
+        }
+    }
+
+
+    
     protected override async Task OnInitializedAsync()
     {
 
@@ -112,7 +282,7 @@ else
         {
             var json = await response.Content.ReadAsStringAsync();
 
-            MyCategories = JsonConvert.DeserializeObject<List<AliGulmen.UnluCoProject.UrunKatalog.Controllers.WebAPI.Resources.CategoryResources.CategoryResource>>(json);
+            MyCategories = JsonConvert.DeserializeObject<List<CategoryResource>>(json);
 
 
         }
@@ -122,3 +292,4 @@ else
         }
     }
 }
+
