@@ -83,63 +83,42 @@ using AliGulmen.UnluCoProject.UrunKatalogIU.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\MyAccount.razor"
-using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.OfferResources;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\MyAccount.razor"
-using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.PurchaseHistoryResources;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\MyAccount.razor"
+#line 2 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Categories - Copy.razor"
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\MyAccount.razor"
+#line 3 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Categories - Copy.razor"
 using Newtonsoft.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\MyAccount.razor"
+#line 4 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Categories - Copy.razor"
 using System.Net.Http.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\MyAccount.razor"
+#line 5 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Categories - Copy.razor"
 using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.CategoryResources;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\MyAccount.razor"
+#line 6 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Categories - Copy.razor"
 using System.Net.Http.Headers;
 
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 9 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\MyAccount.razor"
-using System.IdentityModel.Tokens.Jwt;
-
-#line default
-#line hidden
-#nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/myaccount")]
-    public partial class MyAccount : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/categories")]
+    public partial class Categories___Copy : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -147,7 +126,7 @@ using System.IdentityModel.Tokens.Jwt;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 149 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\MyAccount.razor"
+#line 148 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Categories - Copy.razor"
        
 
     public List<CategoryResource> MyCategories { get; set; }
@@ -155,12 +134,6 @@ using System.IdentityModel.Tokens.Jwt;
     bool showAddModal = false;
     bool showUpdateModal = false;
     public CategoryResource CategoryToUpdate = new();
-
-
-    public List<OfferResource> MyOffers { get; set; }
-    public List<PurchaseHistoryResource> MyPurchased { get; set; }
-    public List<PurchaseHistoryResource> MySold { get; set; }
-    private string _userId;
 
 
     public async Task SignOut()
@@ -251,22 +224,26 @@ using System.IdentityModel.Tokens.Jwt;
     
     protected override async Task OnInitializedAsync()
     {
-     var client = ClientFactory.CreateClient();
+
+        var client = ClientFactory.CreateClient();
+
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/categories");
 
 
-        var token = await Storage.GetAsync<string>("token");
-        var handler = new JwtSecurityTokenHandler();
-        _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
+        var token =  await Storage.GetAsync<string>("token");
 
-        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response = await client.PostAsJsonAsync("http://localhost:3000/api/myoffers",_userId);
+        request.Headers.Authorization =
+            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
+
+
+        var response = await client.SendAsync(request);
 
         if (response.IsSuccessStatusCode)
         {
             var json = await response.Content.ReadAsStringAsync();
 
-            MyOffers = JsonConvert.DeserializeObject<List<OfferResource>>(json);
+            MyCategories = JsonConvert.DeserializeObject<List<CategoryResource>>(json);
 
 
         }
@@ -274,7 +251,6 @@ using System.IdentityModel.Tokens.Jwt;
         {
             UriHelper.NavigateTo("login");
         }
-
     }
 
 #line default

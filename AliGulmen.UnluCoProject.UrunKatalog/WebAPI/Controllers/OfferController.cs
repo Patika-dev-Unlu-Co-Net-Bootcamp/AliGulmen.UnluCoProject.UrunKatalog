@@ -69,8 +69,8 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
         
         
         
-        [HttpPost("/myOffers")]
-        public async Task<IActionResult> MyOffers(string userId)
+        [HttpPost("/api/myOffers")]
+        public async Task<IActionResult> MyOffers([FromBody]string userId)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
