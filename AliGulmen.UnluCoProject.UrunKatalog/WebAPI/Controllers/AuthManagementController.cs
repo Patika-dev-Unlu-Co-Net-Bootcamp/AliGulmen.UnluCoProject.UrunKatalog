@@ -5,7 +5,6 @@ using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Requests;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Responses;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Services;
-using EmailService;
 using EmailService.Domain;
 using EmailService.Services;
 using Hangfire;
