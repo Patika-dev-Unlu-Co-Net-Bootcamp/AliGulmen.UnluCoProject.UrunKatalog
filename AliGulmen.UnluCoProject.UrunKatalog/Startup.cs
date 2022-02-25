@@ -21,6 +21,7 @@ using System.Text;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Services;
 using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Extensions;
 using EmailService.Configurations;
+using FluentValidation.AspNetCore;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog
 {
@@ -36,6 +37,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddDbContext<UrunKatalogDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

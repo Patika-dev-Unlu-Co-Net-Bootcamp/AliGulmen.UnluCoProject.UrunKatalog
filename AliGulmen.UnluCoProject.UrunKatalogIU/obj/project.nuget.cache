@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "+9Dn7sAVcPTSCKVasw+TK5kDECLBZsGVlhRKC9sYy9jnnx0zgsdF1jReuh/X6piiqMWckgbSDEoLFhXljUkhzA==",
+  "dgSpecHash": "SyjaTn300NCMAOUH5MrilAK0fetRKLn1RG6vRbIIEcQ7J27wj6Veh51dpBXn1xpTcWPnyRiW8itUwA1qvAJDKA==",
   "success": true,
   "projectFilePath": "C:\\Users\\aligu\\Desktop\\patika\\Tasks\\BitirmeProjesi\\AliGulmen.UnluCoProject.UrunKatalog\\AliGulmen.UnluCoProject.UrunKatalogIU\\AliGulmen.UnluCoProject.UrunKatalogIU.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aligu\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\aligu\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
+    "C:\\Users\\aligu\\.nuget\\packages\\fluentvalidation\\10.3.6\\fluentvalidation.10.3.6.nupkg.sha512",
+    "C:\\Users\\aligu\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.3.6\\fluentvalidation.aspnetcore.10.3.6.nupkg.sha512",
+    "C:\\Users\\aligu\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.3.6\\fluentvalidation.dependencyinjectionextensions.10.3.6.nupkg.sha512",
     "C:\\Users\\aligu\\.nuget\\packages\\hangfire\\1.7.28\\hangfire.1.7.28.nupkg.sha512",
     "C:\\Users\\aligu\\.nuget\\packages\\hangfire.aspnetcore\\1.7.28\\hangfire.aspnetcore.1.7.28.nupkg.sha512",
     "C:\\Users\\aligu\\.nuget\\packages\\hangfire.core\\1.7.28\\hangfire.core.1.7.28.nupkg.sha512",

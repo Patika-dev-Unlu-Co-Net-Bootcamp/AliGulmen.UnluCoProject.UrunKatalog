@@ -59,6 +59,10 @@
               "target": "Package",
               "version": "[11.0.0, )"
             },
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[10.3.6, )"
+            },
             "Hangfire": {
               "target": "Package",
               "version": "[1.7.28, )"
@@ -169,6 +173,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[10.3.6, )"
+            },
             "Hangfire": {
               "target": "Package",
               "version": "[1.7.28, )"

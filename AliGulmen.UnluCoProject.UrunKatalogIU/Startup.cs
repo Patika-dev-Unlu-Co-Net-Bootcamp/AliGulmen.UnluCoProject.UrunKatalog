@@ -1,4 +1,5 @@
 using AliGulmen.UnluCoProject.UrunKatalogIU.Data;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -26,6 +27,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalogIU
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddHttpClient();
             services.AddRazorPages();
             services.AddServerSideBlazor();

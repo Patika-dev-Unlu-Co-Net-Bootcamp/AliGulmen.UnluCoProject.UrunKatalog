@@ -1,13 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "tAbFIPpD7LtmwcPPA75FGk+Iu8mcB+vW2YfJTv60no/D+nzKG7gg6BEomSe8rdqD+ijb2BG4cOrIGsaHmw+5Mw==",
+  "dgSpecHash": "ONnYJptfpEi20pGhEvHiXf5ReuI/I/u+ZK43OzeSFHNEQ4WobQgjPlNGoU+MygBTk5SF3kVZD0CeSNhNjxwCTw==",
   "success": true,
   "projectFilePath": "C:\\Users\\aligu\\Desktop\\patika\\Tasks\\BitirmeProjesi\\AliGulmen.UnluCoProject.UrunKatalog\\EmailService\\EmailService.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\aligu\\.nuget\\packages\\fluentvalidation\\10.3.6\\fluentvalidation.10.3.6.nupkg.sha512",
+    "C:\\Users\\aligu\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.3.6\\fluentvalidation.aspnetcore.10.3.6.nupkg.sha512",
+    "C:\\Users\\aligu\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.3.6\\fluentvalidation.dependencyinjectionextensions.10.3.6.nupkg.sha512",
     "C:\\Users\\aligu\\.nuget\\packages\\hangfire\\1.7.28\\hangfire.1.7.28.nupkg.sha512",
     "C:\\Users\\aligu\\.nuget\\packages\\hangfire.aspnetcore\\1.7.28\\hangfire.aspnetcore.1.7.28.nupkg.sha512",
     "C:\\Users\\aligu\\.nuget\\packages\\hangfire.core\\1.7.28\\hangfire.core.1.7.28.nupkg.sha512",
     "C:\\Users\\aligu\\.nuget\\packages\\hangfire.sqlserver\\1.7.28\\hangfire.sqlserver.1.7.28.nupkg.sha512",
+    "C:\\Users\\aligu\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\2.1.0\\microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512",
     "C:\\Users\\aligu\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
     "C:\\Users\\aligu\\.nuget\\packages\\microsoft.win32.registry\\4.4.0\\microsoft.win32.registry.4.4.0.nupkg.sha512",
     "C:\\Users\\aligu\\.nuget\\packages\\newtonsoft.json\\11.0.1\\newtonsoft.json.11.0.1.nupkg.sha512",

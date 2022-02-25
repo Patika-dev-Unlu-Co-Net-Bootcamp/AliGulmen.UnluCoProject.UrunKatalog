@@ -9,3 +9,4 @@ C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunK
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\EmailService\obj\Debug\net5.0\EmailService.dll
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\EmailService\obj\Debug\net5.0\ref\EmailService.dll
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\EmailService\obj\Debug\net5.0\EmailService.pdb
+C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\EmailService\obj\Debug\net5.0\EmailService.csproj.AssemblyReference.cache

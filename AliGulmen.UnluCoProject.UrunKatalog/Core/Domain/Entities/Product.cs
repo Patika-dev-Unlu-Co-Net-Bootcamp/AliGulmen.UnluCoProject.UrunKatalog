@@ -1,23 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿
 namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities
 {
     public class Product : BaseEntity
     {
-        [Required]
-        [StringLength(100)]
+      
         public string Name { get; set; }
-        [Required]
-        [StringLength(500)]
         public string Description { get; set; }
-        [Required]
         public string PictureUrl { get; set; }
-        [Required]
         public int BuyItNowPrice { get; set; }
         public bool IsOfferable { get; set; } = false;
         public bool IsSold { get; set; } = false;
         public Condition Condition { get; set; }
-        [Required]
         public int ConditionId { get; set; }
         public AppUser User { get; set; }
         public string UserId { get; set; }
@@ -26,7 +19,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities
         public Brand Brand { get; set; }
         public int? BrandId { get; set; }
         public Category Category { get; set; }
-        [Required]
         public int CategoryId { get; set; }
     }
 }
