@@ -1,0 +1,303 @@
+﻿@page "/ProductDetail"
+@using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.OfferResources
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Newtonsoft.Json
+@using System.Net.Http.Json
+@using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ProductResources
+@using System.Net.Http.Headers
+@using System.IO
+@using System.IdentityModel.Tokens.Jwt
+@inject IHttpClientFactory ClientFactory
+@inject NavigationManager UriHelper
+@inject Models.AppData AppData
+
+
+@inject ProtectedLocalStorage Storage
+
+
+
+@if (product == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+   
+
+
+    <section class="vh-90">
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-8 col-lg-7 col-xl-6">
+        <img src=@Path.Combine("/Images", product.PictureUrl) style="width:400px;height:400px;" /> 
+      </div>
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+      
+         
+           <div class="form-outline mb-4">@product.Name</div>
+          <div class="form-outline mb-4">@product.Description</div>
+                     <div class="form-outline mb-4">@product.BrandName</div>
+                     <div class="form-outline mb-4">@product.BuyItNowPrice</div>
+                     <div class="form-outline mb-4">@product.CategoryName</div>
+                     <div class="form-outline mb-4">@product.ColorName</div>
+                     <div class="form-outline mb-4">@product.ConditionStatus</div>
+                     <div class="form-outline mb-4">@product.Owner</div>
+                     <div class="form-outline mb-4">@product.IsOfferable</div>
+                     <div class="form-outline mb-4">@product.UserId</div>
+                     <div class="form-outline mb-4">
+                          @if(CurrentOffer is null && product.IsOfferable){
+                           <button class="btn btn-primary" @onclick="(() => { 
+                            showUpdateModal = true;
+                            ProductIdToCreate = product.Id;
+                            NewOffer =  product.BuyItNowPrice.ToString();
+
+                        })"> Teklif Ver </button>
+                        <br>
+                          }
+                        
+                        @if(CurrentOffer is not null){
+                          <button class="btn btn-primary" @onclick="(async () => { await DeleteOffer(product.Id); })"> Teklifi Geri Çek </button>
+                          <br>
+                        }
+                        
+                        @if(product.UserId != _userId && !product.IsSold)
+                        {
+                        <button class="btn btn-danger"  @onclick="(async () => { await BuyProduct(product.Id); })"> Satın Al </button>
+                        }
+                     </div>
+
+
+
+ @if (showUpdateModal)
+{
+<div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Teklifi Güncelle</h5>
+                <button type="button" class="close" data-dismiss="modal" @onclick="@(() => { showUpdateModal = false; })" aria-label="Vazgeç">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+         <EditForm Model="@OffertoCreate" OnValidSubmit="@CreateOffer">
+
+          <div class="form-group">
+             <label class="form-label" for="OffertoUpdateValue">Yeni Teklif :</label>
+             <input type="range" min="0" max="100" step="5" value="@ActualNumber"  @onchange="CheckSliderRating"  @oninput="@((args) => Calc(args.Value.ToString()))"/>
+            <InputText type="text" @bind-Value="NewOffer" id="OffertoUpdateValue" class="form-control form-control-lg" />
+          </div>
+         
+        </EditForm>
+      </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @onclick="CreateOffer">Kaydet</button>
+                <button type="button" class="btn btn-secondary" @onclick="@(() => { showUpdateModal = false; })" data-dismiss="modal">Vazgeç</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+
+
+
+         
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+}
+
+
+
+
+
+@code {
+    private int ActualNumber { get; set; } = 70;
+    private string NewOffer;
+    public SaveOfferResource OffertoCreate = new();
+    public OfferResource CurrentOffer = new();
+    private string _userId;
+    private int ProductIdToCreate;
+    bool showUpdateModal = false;
+
+
+    public ProductResource product { get; set; }
+    public SaveProductResource productToBuy { get; set; }
+    public int ProductId;
+
+    public void CheckSliderRating()
+    {
+        NewOffer = (ActualNumber * product.BuyItNowPrice / 100).ToString();
+    }
+
+
+    public void Calc(string step)
+    {
+        ActualNumber = Convert.ToInt32(step);
+    }
+
+
+
+
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentOffer = null;
+        ProductId = (AppData.ProductId ==0) ? 1: AppData.ProductId;
+        var client = ClientFactory.CreateClient();
+
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products/"+ProductId);
+
+
+
+        var token =  await Storage.GetAsync<string>("token");
+        var handler = new JwtSecurityTokenHandler();
+        _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
+
+        request.Headers.Authorization =
+            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
+
+
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var json = await response.Content.ReadAsStringAsync();
+
+            product = JsonConvert.DeserializeObject<ProductResource>(json);
+            ProductId = product.Id;
+
+        }
+        else
+        {
+            UriHelper.NavigateTo("login");
+        }
+
+
+
+
+        request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/Offers/withFilter?ProductId="+ProductId.ToString() + "&&UserId=" + _userId); 
+
+        request.Headers.Authorization =
+           new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
+
+        response = await client.SendAsync(request);
+        if (response.IsSuccessStatusCode)
+        {
+            var json = await response.Content.ReadAsStringAsync();
+
+            CurrentOffer = JsonConvert.DeserializeObject<OfferResource>(json);
+
+        }
+        else
+        {
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+    public async Task DeleteOffer(int id)
+    {
+
+        var client = ClientFactory.CreateClient();
+
+        var token =  await Storage.GetAsync<string>("token");
+
+
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+
+        var response = await client.DeleteAsync("http://localhost:3000/api/offers/"+id);
+
+
+        if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+        {
+
+            await OnInitializedAsync();
+        }
+    }
+
+
+
+
+
+
+    public async Task BuyProduct(int id)
+    {
+
+        var client = ClientFactory.CreateClient();
+
+        var token =  await Storage.GetAsync<string>("token");
+        var handler = new JwtSecurityTokenHandler();
+        _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
+
+
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+
+        var response = await client.PutAsJsonAsync("http://localhost:3000/api/products/sell/"+id, _userId);
+
+
+        if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+        {
+
+            await OnInitializedAsync();
+        }
+    }
+
+
+
+
+
+
+
+
+
+    public async Task CreateOffer()
+    {
+        showUpdateModal = false;
+
+        var client = ClientFactory.CreateClient();
+
+
+        var token =  await Storage.GetAsync<string>("token");
+        var handler = new JwtSecurityTokenHandler();
+        _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
+
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+        OffertoCreate.OfferedPrice =Convert.ToInt32(NewOffer);
+        OffertoCreate.OfferStatus = UrunKatalog.Core.Domain.Enums.OfferStatus.BEKLEMEDE;
+        OffertoCreate.ProductId = ProductIdToCreate;
+        OffertoCreate.UserId = _userId;
+
+
+        var response = await client.PostAsJsonAsync("http://localhost:3000/api/offers/", OffertoCreate);
+
+
+        if (response.StatusCode == System.Net.HttpStatusCode.Created)
+        {
+
+            await OnInitializedAsync();
+        }
+
+
+    }
+
+
+}
+

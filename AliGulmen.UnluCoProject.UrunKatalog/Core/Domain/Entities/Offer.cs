@@ -1,4 +1,6 @@
 ﻿
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Enums;
+
 namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities
 {
     public class Offer : BaseEntity
@@ -8,7 +10,8 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities
         public Product Product { get; set;}
         public int? ProductId { get; set; }
         public int OfferedPrice { get; set;}
-        public bool IsAccepted { get; set; } = false;
+     //   public bool IsAccepted { get; set; } = false;
+        public OfferStatus OfferStatus { get; set; } = 0;
 
     }
 }

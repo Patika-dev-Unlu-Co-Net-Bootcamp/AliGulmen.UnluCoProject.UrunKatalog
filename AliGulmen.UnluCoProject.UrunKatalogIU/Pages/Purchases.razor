@@ -1,0 +1,136 @@
+﻿@page "/purchases"
+@using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Enums
+@using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.OfferResources
+@using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.PurchaseHistoryResources
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Newtonsoft.Json
+@using System.Net.Http.Json
+@using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.CategoryResources
+@using System.Net.Http.Headers
+@using System.IdentityModel.Tokens.Jwt
+@inject IHttpClientFactory ClientFactory
+@inject NavigationManager UriHelper
+
+
+@inject ProtectedLocalStorage Storage
+
+
+
+
+@if (MyPurchases == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{    <h3>Satın Aldıklarım</h3>
+
+     <table class="table">
+        <thead>
+            <tr>
+
+                <th>Ürün İsmi</th>
+                <th>Satıcı Adı</th>
+                <th>Alınan Fiyat</th>
+                <th>Tarih</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var purchase in MyPurchases)
+            {
+                <tr>
+                    <td>@purchase.ProductName</td>
+                    <td>@purchase.SellerName</td>
+                    <td>@purchase.SoldPrice</td>
+                    <td>@purchase.PurchasedDate</td>                  
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <br />
+    <br />
+    <h3>Sattıklarım</h3>
+
+     <table class="table">
+        <thead>
+            <tr>
+
+                <th>Ürün İsmi</th>
+                <th>Alıcı Adı</th>
+                <th>Satılan Fiyat</th>
+                <th>Tarih</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var purchase in MyPurchases)
+            {
+                <tr>
+                    <td>@purchase.ProductName</td>
+                    <td>@purchase.BuyerName</td>
+                    <td>@purchase.SoldPrice</td>
+                    <td>@purchase.PurchasedDate</td>                  
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+}
+
+
+
+@code {
+    public List<PurchaseHistoryResource> MyPurchases { get; set; }
+    public List<PurchaseHistoryResource> MySold { get; set; }
+    private string _userId;
+
+
+
+    
+    protected override async Task OnInitializedAsync()
+    {
+     var client = ClientFactory.CreateClient();
+
+
+        var token = await Storage.GetAsync<string>("token");
+        var handler = new JwtSecurityTokenHandler();
+        _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
+
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+
+        var response1 = await client.PostAsJsonAsync("http://localhost:3000/api/PurchaseHistories/purchased",_userId);
+
+        if (response1.IsSuccessStatusCode)
+        {
+            var json = await response1.Content.ReadAsStringAsync();
+
+            MyPurchases = JsonConvert.DeserializeObject<List<PurchaseHistoryResource>>(json);
+
+
+        }
+        else
+        {
+            UriHelper.NavigateTo("login");
+        }
+
+
+         var response2 = await client.PostAsJsonAsync("http://localhost:3000/api/PurchaseHistories/sold",_userId);
+
+        if (response2.IsSuccessStatusCode)
+        {
+            var json = await response2.Content.ReadAsStringAsync();
+
+            MySold = JsonConvert.DeserializeObject<List<PurchaseHistoryResource>>(json);
+
+
+        }
+        else
+        {
+            UriHelper.NavigateTo("login");
+        }
+
+
+    }
+}
+

@@ -37,7 +37,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
             return result;
         }
 
-        [HttpGet("/withFilter")]
+        [HttpGet("withFilter")]
         public async Task<IEnumerable<ProductResource>> GetProductsWithQuery([FromQuery]FilterResource filterResource)
         {
             var filter = _mapper.Map<FilterResource, Filter>(filterResource);
@@ -51,7 +51,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProduct(int id)
+        public async Task<IActionResult> GetProduct([FromRoute]int id)
         {
             var product = await _repository.Get(id);
             
@@ -93,6 +93,22 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
             return NoContent();
         }
 
+
+        [HttpPut("Sell/{id}")]
+        public async Task<IActionResult> SellProduct(int id, [FromBody] string userId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var product = await _repository.Get(id);
+            product.UserId = userId;
+            product.IsSold = true;
+            product.IsOfferable = false;
+            
+
+            await _unitOfWork.CompleteAsync();
+            return NoContent();
+        }
 
 
 

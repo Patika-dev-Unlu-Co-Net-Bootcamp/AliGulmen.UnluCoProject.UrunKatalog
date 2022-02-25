@@ -52,5 +52,31 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
                                     .Where(p => p.UserId == userId)
                                     .ToListAsync();
         }
+
+
+
+        public async Task<IEnumerable<Offer>> GetMyProducts(string userId)
+        {
+            return await _context.Offers
+                                    .Include(p => p.Product)
+                                    .Include(p => p.User)
+                                    .Where(p => p.Product.UserId == userId)
+                                    .ToListAsync();
+        }
+
+        public async Task<Offer> GetAllWithQuery(Filter filter)
+        {
+            var query = _context.Offers
+                               .Include(p => p.Product)
+                               .Include(p => p.User)
+                .AsQueryable();
+
+            if (filter.ProductId.HasValue)
+                query = query.Where(p => p.ProductId ==  filter.ProductId.Value);
+            if (filter.UserId !="" && filter.UserId is not null)
+                query = query.Where(p => p.UserId == filter.UserId);
+
+            return await query.FirstOrDefaultAsync(); ;
+        }
     }
 }

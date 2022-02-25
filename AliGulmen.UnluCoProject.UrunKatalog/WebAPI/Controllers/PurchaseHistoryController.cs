@@ -26,13 +26,23 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
 
 
-        [HttpGet]
-        public async Task<IEnumerable<PurchaseHistoryResource>> GetPurchaseHistories()
+        [HttpPost("purchased")]
+        public async Task<IEnumerable<PurchaseHistoryResource>> GetPurchaseHistories([FromBody] string userId)
         {
-            var purchaseHistories = await _repository.GetAll();
+            var purchaseHistories = await _repository.GetAllPurchased(userId);
             var result = _mapper.Map<List<PurchaseHistory>, List<PurchaseHistoryResource>>(purchaseHistories.ToList());
             return result;
         }
+
+
+        [HttpPost("sold")]
+        public async Task<IEnumerable<PurchaseHistoryResource>> GetSoldHistories([FromBody] string userId)
+        {
+            var purchaseHistories = await _repository.GetAllSold(userId);
+            var result = _mapper.Map<List<PurchaseHistory>, List<PurchaseHistoryResource>>(purchaseHistories.ToList());
+            return result;
+        }
+
 
 
 

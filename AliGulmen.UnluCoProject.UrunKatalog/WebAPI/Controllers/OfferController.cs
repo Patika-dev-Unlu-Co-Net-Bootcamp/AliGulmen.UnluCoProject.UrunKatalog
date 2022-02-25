@@ -8,6 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Enums;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 {
@@ -65,12 +67,12 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
             return Created("~api/offers", result);
         }
 
-       
-        
-        
-        
+
+
+
+
         [HttpPost("/api/myOffers")]
-        public async Task<IActionResult> MyOffers([FromBody]string userId)
+        public async Task<IActionResult> GetMyOffers([FromBody] string userId)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -82,19 +84,33 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
 
 
+        [HttpPost("/api/myProducts")]
+        public async Task<IActionResult> GetMyProducts([FromBody] string userId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var offers = await _repository.GetMyProducts(userId);
+            var offerResource = _mapper.Map<List<Offer>, List<OfferResource>>(offers.ToList());
+            return Ok(offerResource);
+        }
+
+
+
+
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateOffer(int id, SaveOfferResource offerResource)
+        public async Task<IActionResult> UpdateOffer(int id, [FromBody]UpdateOfferResource newOffer)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
             var offer = await _repository.Get(id);
-            _mapper.Map<SaveOfferResource, Offer>(offerResource, offer);
-
+            _mapper.Map<UpdateOfferResource, Offer>(newOffer, offer);
             await _unitOfWork.CompleteAsync();
-            return NoContent();
+            return NoContent(); 
         }
+
 
 
 
@@ -110,6 +126,19 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
             return NoContent();
         }
 
+
+
+
+        [HttpGet("withFilter")]
+        public async Task<OfferResource> GetProductsWithQuery([FromQuery] FilterResource filterResource)
+        {
+            var filter = _mapper.Map<FilterResource, Filter>(filterResource);
+            var offers = await _repository.GetAllWithQuery(filter);
+
+            var result = _mapper.Map<Offer, OfferResource>(offers);
+
+            return result;
+        }
 
     }
 }

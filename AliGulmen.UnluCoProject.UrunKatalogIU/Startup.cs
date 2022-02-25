@@ -30,9 +30,10 @@ namespace AliGulmen.UnluCoProject.UrunKatalogIU
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<Models.AppData>();
 
 
-            
+
 
 
         }

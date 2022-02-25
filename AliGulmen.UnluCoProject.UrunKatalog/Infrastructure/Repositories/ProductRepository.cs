@@ -65,5 +65,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 
             return await query.ToListAsync();
         }
+
+       
     }
 }

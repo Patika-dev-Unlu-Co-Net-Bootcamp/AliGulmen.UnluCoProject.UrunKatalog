@@ -1,0 +1,199 @@
+﻿@page "/products"
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Newtonsoft.Json
+@using System.Net.Http.Json
+@using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ProductResources
+@using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.CategoryResources
+@using System.Net.Http.Headers
+@using System.IO
+@inject IHttpClientFactory ClientFactory
+@inject NavigationManager UriHelper
+@inject Models.AppData AppData
+
+
+@inject ProtectedLocalStorage Storage
+
+
+<h3>Tüm ürünler</h3>
+
+@if (MyProducts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+      <div class="form-outline mb-4">
+         <p>Filtreleme işlemini buradan yapabilirsiniz : </p>
+          <select @onchange="FilterResults" class="form-control">
+                           
+                                <option value="">Tüm Kategoriler</option>
+                                 @foreach (var item in Categories)
+                                {
+                                <option value="@item.Id">@item.Name</option>
+                                }
+                                
+                        </select>
+
+
+                    </div>
+
+
+
+     <table class="table">
+        <thead>
+            <tr>
+                    <th>PictureUrl</th>
+                    <th>product.Id</th>
+                    <th>product.Name</th>
+                    <th>product.Description</th>
+                    <th>BrandName</th>
+                    <th>BuyItNowPrice</th>
+                    <th>CategoryName</th>
+                    <th>ColorName</th>
+                    <th>ConditionStatus</th>
+                    <th>Owner</th>
+                    <th>IsOfferable</th>
+                    <th>UserId</th>
+
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in MyProducts)
+            {
+                <tr>
+                  
+
+                    <td><img src=@Path.Combine("/Images", product.PictureUrl) style="width:200px;height:200px;" /> </td>
+                    <td>@product.Id</td>
+                    <td><a href=""@onclick=@(()=> GoToDetailPage(product.Id))> @product.Name</a></td>
+                    <td>@product.Description</td>
+                    <td>@product.BrandName</td>
+                    <td>@product.BuyItNowPrice</td>
+                    <td>@product.CategoryName</td>
+                    <td>@product.ColorName</td>
+                    <td>@product.ConditionStatus</td>
+                    <td>@product.Owner</td>
+                    <td>@product.IsOfferable</td>
+                    <td>@product.UserId</td>
+                 
+                        
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+   
+
+
+
+
+
+
+}
+
+
+
+
+
+@code {
+
+    public List<ProductResource> MyProducts { get; set; }
+    public List<CategoryResource> Categories = new();
+    public CategoryResource Category = new();
+    public string selectedCategory;
+
+    public void GoToDetailPage(int id)
+    {
+        AppData.ProductId = id;
+        UriHelper.NavigateTo("ProductDetail");
+    }
+    public async Task FilterResults(ChangeEventArgs e)
+    {
+        HttpRequestMessage request;
+        var selectedCategory = e.Value.ToString();
+        var client = ClientFactory.CreateClient();
+
+        if (selectedCategory == "")
+        {
+          request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products");
+        }
+        else
+        {
+          request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/Products/withFilter?CategoryId="+selectedCategory);  
+        }
+         
+        
+        
+        var token =  await Storage.GetAsync<string>("token");
+
+
+        request.Headers.Authorization =
+            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
+        var response = await client.SendAsync(request);
+
+         if (response.IsSuccessStatusCode)
+        {
+            var json = await response.Content.ReadAsStringAsync();
+
+            MyProducts = JsonConvert.DeserializeObject<List<ProductResource>>(json);
+
+           
+        }
+
+    }
+
+    
+    protected override async Task OnInitializedAsync()
+    {
+
+        var client = ClientFactory.CreateClient();
+
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products");
+          var request2 = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/categories");
+
+
+
+        var token =  await Storage.GetAsync<string>("token");
+
+
+        request.Headers.Authorization =
+            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
+
+              request2.Headers.Authorization =
+            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
+
+
+        var response = await client.SendAsync(request);
+        var response2 = await client.SendAsync(request2);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var json = await response.Content.ReadAsStringAsync();
+
+            MyProducts = JsonConvert.DeserializeObject<List<ProductResource>>(json);
+
+           
+        }
+        else
+        {
+            UriHelper.NavigateTo("login");
+        }
+
+         if (response2.IsSuccessStatusCode)
+        {
+            var json = await response2.Content.ReadAsStringAsync();
+
+            Categories = JsonConvert.DeserializeObject<List<CategoryResource>>(json);
+
+           
+        }
+        else
+        {
+            UriHelper.NavigateTo("login");
+        }
+    }
+}
+

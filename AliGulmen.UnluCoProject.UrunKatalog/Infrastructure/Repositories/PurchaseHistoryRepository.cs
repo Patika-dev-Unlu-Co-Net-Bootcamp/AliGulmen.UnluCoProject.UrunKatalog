@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Context;
+using System.Linq;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 {
@@ -39,9 +40,31 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
         public override async Task<IEnumerable<PurchaseHistory>> GetAll()
         {
             return await _context.PurchaseHistories
+                                .Include(p => p.Product)
+                                .Include(p => p.Buyer)
+                                .Include(p => p.Seller)
+                .ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<PurchaseHistory>> GetAllPurchased(string userId)
+        {
+            return await _context.PurchaseHistories
+                                .Include(p => p.Product)
+                                .Include(p => p.Buyer)
+                                .Include(p => p.Seller)
+                                .Where(p => p.BuyerId == userId)
+                .ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<PurchaseHistory>> GetAllSold(string userId)
+        {
+            return await _context.PurchaseHistories
                                   .Include(p => p.Product)
                                 .Include(p => p.Buyer)
                                 .Include(p => p.Seller)
+                                 .Where(p => p.SellerId == userId)
                 .ToListAsync();
         }
 

@@ -324,14 +324,14 @@ using System.IdentityModel.Tokens.Jwt;
 
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {
-      
+
         foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
         {
             try
             {
 
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "imageUploads", file.Name);
-                pictureUrl = Path.Combine("imageUploads", file.Name);
+                var path = Path.Combine("wwwroot/Images", file.Name);
+                pictureUrl =  file.Name;
 
                 await using FileStream fs = new(pictureUrl, FileMode.Create);
                 await file.OpenReadStream().CopyToAsync(fs);

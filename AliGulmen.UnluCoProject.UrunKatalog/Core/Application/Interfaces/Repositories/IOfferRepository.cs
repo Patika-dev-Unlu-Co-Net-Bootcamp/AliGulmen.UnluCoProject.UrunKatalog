@@ -7,5 +7,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Reposi
     public interface IOfferRepository : IRepository<Offer>
     {
         Task<IEnumerable<Offer>> GetMyOffers(string userId);
+        Task<IEnumerable<Offer>> GetMyProducts(string userId);
+        Task<Offer> GetAllWithQuery(Filter filter);
     }
 }

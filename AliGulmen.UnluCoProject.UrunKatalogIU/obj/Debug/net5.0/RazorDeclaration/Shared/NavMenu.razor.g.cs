@@ -90,7 +90,7 @@ using AliGulmen.UnluCoProject.UrunKatalogIU.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 52 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Shared\NavMenu.razor"
+#line 67 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
 

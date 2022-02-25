@@ -8,4 +8,9 @@
     <ProjectReference Include="..\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalog.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
 </Project>

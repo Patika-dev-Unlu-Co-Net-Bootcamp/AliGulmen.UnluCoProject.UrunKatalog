@@ -214,11 +214,11 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsAccepted")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<int>("OfferStatus")
+                        .HasColumnType("int");
 
                     b.Property<int>("OfferedPrice")
                         .HasColumnType("int");
