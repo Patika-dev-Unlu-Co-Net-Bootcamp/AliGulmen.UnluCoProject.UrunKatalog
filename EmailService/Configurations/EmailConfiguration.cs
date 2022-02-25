@@ -1,8 +1,5 @@
-﻿using System;
-using System.Net.Mail;
-
-namespace EmailService
-{
+﻿namespace EmailService.Configurations
+{ 
     public class EmailConfiguration
     {
         public string From { get; set; }

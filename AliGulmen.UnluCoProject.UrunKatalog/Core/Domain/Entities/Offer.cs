@@ -10,7 +10,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities
         public Product Product { get; set;}
         public int? ProductId { get; set; }
         public int OfferedPrice { get; set;}
-     //   public bool IsAccepted { get; set; } = false;
         public OfferStatus OfferStatus { get; set; } = 0;
 
     }

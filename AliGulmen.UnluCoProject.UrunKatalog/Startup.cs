@@ -20,6 +20,7 @@ using System.Reflection;
 using System.Text;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Services;
 using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Extensions;
+using EmailService.Configurations;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog
 {

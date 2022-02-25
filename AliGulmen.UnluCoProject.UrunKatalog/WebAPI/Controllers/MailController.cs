@@ -2,6 +2,7 @@
 using EmailService;
 using EmailService.Services;
 using Hangfire;
+using EmailService.Domain;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 {

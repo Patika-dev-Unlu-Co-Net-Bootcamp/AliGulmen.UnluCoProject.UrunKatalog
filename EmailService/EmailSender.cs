@@ -1,7 +1,10 @@
-﻿using EmailService.Services;
+﻿using EmailService.Configurations;
+using EmailService.Domain;
+using EmailService.Services;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+
 
 namespace EmailService
 {

@@ -1,4 +1,4 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Responses;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -17,9 +17,9 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Services
             _configuration = configuration;
         }
 
-        public Token CreateToken(IdentityUser user)
+        public TokenResponse CreateToken(IdentityUser user)
         {
-            Token token = new Token();
+            TokenResponse token = new TokenResponse();
 
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);

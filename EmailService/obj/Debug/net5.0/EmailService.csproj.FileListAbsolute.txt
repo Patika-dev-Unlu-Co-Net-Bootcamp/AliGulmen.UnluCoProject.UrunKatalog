@@ -2,7 +2,6 @@ C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunK
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\EmailService\bin\Debug\net5.0\EmailService.dll
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\EmailService\bin\Debug\net5.0\ref\EmailService.dll
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\EmailService\bin\Debug\net5.0\EmailService.pdb
-C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\EmailService\obj\Debug\net5.0\EmailService.csproj.AssemblyReference.cache
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\EmailService\obj\Debug\net5.0\EmailService.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\EmailService\obj\Debug\net5.0\EmailService.AssemblyInfoInputs.cache
 C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\EmailService\obj\Debug\net5.0\EmailService.AssemblyInfo.cs
