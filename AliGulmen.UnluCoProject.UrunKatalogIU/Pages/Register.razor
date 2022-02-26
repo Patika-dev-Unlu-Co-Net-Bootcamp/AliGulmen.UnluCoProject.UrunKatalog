@@ -7,6 +7,7 @@
 @inject ProtectedLocalStorage Storage
 @inject NavigationManager UriHelper
 
+
 <section class="vh-90">
   <div class="container py-5 h-100">
     <div class="row d-flex align-items-center justify-content-center h-100">
@@ -82,6 +83,10 @@
          
 
        </EditForm>
+       @if(_errors != "" && _errors is not null)
+{<br /><br />
+    <h3 style="color:red;">@_errors</h3>
+}
       </div>
     </div>
   </div>
@@ -97,8 +102,8 @@
 
 @code {
     public AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Requests.UserRegistrationDto User = new();
+    private string _errors;
 
-    
 
     public enum Gender
     {
@@ -107,15 +112,18 @@
         MALE = 2
 
     }
-   
 
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Run(() => _errors = "");
+    }
 
 
 
 
     private async Task Submit()
     {
-
+        _errors = "";
         var client = ClientFactory.CreateClient();
 
         var response = await client.PostAsJsonAsync("http://localhost:3000/api/AuthManagement/Register",User);
@@ -125,12 +133,16 @@
         {
             string result = await response.Content.ReadAsStringAsync();
             JObject resultObject = JObject.Parse(result);
-
-
-
             string token = resultObject.SelectToken("token").SelectToken("accessToken").Value<string>();
             await Storage.SetAsync("token", token);
-             UriHelper.NavigateTo("categories");
+            UriHelper.NavigateTo("login");
+        }
+        else
+        {
+            string result = await response.Content.ReadAsStringAsync();
+            JObject resultObject = JObject.Parse(result);
+            _errors = resultObject.SelectToken("errors").Value<string>();
+
         }
     }
 

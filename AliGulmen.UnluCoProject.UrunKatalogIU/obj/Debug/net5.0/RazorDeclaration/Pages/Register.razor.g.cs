@@ -112,11 +112,11 @@ using Newtonsoft.Json.Linq;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 98 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Register.razor"
+#line 103 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Register.razor"
        
     public AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Requests.UserRegistrationDto User = new();
+    private string _errors;
 
-    
 
     public enum Gender
     {
@@ -125,15 +125,18 @@ using Newtonsoft.Json.Linq;
         MALE = 2
 
     }
-   
 
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Run(() => _errors = "");
+    }
 
 
 
 
     private async Task Submit()
     {
-
+        _errors = "";
         var client = ClientFactory.CreateClient();
 
         var response = await client.PostAsJsonAsync("http://localhost:3000/api/AuthManagement/Register",User);
@@ -143,12 +146,16 @@ using Newtonsoft.Json.Linq;
         {
             string result = await response.Content.ReadAsStringAsync();
             JObject resultObject = JObject.Parse(result);
-
-
-
             string token = resultObject.SelectToken("token").SelectToken("accessToken").Value<string>();
             await Storage.SetAsync("token", token);
-             UriHelper.NavigateTo("categories");
+            UriHelper.NavigateTo("login");
+        }
+        else
+        {
+            string result = await response.Content.ReadAsStringAsync();
+            JObject resultObject = JObject.Parse(result);
+            _errors = resultObject.SelectToken("errors").Value<string>();
+
         }
     }
 

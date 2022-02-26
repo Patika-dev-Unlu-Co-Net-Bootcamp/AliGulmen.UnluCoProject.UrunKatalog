@@ -47,6 +47,10 @@
             
 
        </EditForm>
+        @if(_errors != "" && _errors is not null)
+{<br /><br />
+    <h3 style="color:red;">@_errors</h3>
+}
       </div>
     </div>
   </div>
@@ -62,15 +66,18 @@
 
 @code {
     public AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Requests.UserLoginRequest User = new();
+    private string _errors;
 
 
 
-
-
+      protected override async Task OnInitializedAsync()
+    {
+        await Task.Run(() => _errors = "");
+    }
 
     private async Task Submit()
     {
-
+        _errors="";
         var client = ClientFactory.CreateClient();
 
         var response = await client.PostAsJsonAsync("http://localhost:3000/api/AuthManagement/Login",User);
@@ -86,6 +93,14 @@
             string token = resultObject.SelectToken("token").SelectToken("accessToken").Value<string>();
             await Storage.SetAsync("token", token);
              UriHelper.NavigateTo("categories");
+        }
+
+          else
+        {
+            string result = await response.Content.ReadAsStringAsync();
+            JObject resultObject = JObject.Parse(result);
+            _errors = resultObject.SelectToken("errors").Value<string>();
+
         }
     }
 

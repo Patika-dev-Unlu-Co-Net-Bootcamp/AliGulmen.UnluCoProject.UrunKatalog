@@ -50,11 +50,9 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
                 if (existingUser != null)
                 {
-                    return BadRequest(new RegistrationResponse()
+                    return  BadRequest(new RegistrationResponse()
                     {
-                        Errors = new List<string>() {
-                                "Email already in use"
-                            },
+                        Errors = "Email already in use",
                         Success = false
                     });
                 }
@@ -86,7 +84,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
                 {
                     return BadRequest(new RegistrationResponse()
                     {
-                        Errors = isCreated.Errors.Select(x => x.Description).ToList(),
+                        Errors = isCreated.Errors.Select(x => x.Description).FirstOrDefault(),
                         Success = false
                     });
                 }
@@ -94,9 +92,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
             return BadRequest(new RegistrationResponse()
             {
-                Errors = new List<string>() {
-                        "Invalid payload"
-                    },
+                Errors = "Geçersiz Bilgiler!",
                 Success = false
             });
         }
@@ -113,9 +109,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
                 {
                     return BadRequest(new RegistrationResponse()
                     {
-                        Errors = new List<string>() {
-                                "Wrong Email Adress"
-                            },
+                        Errors = "Hatalı Mail Adresi Girdiniz!",
                         Success = false
                     });
                 }
@@ -123,9 +117,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
                 {
                     return BadRequest(new RegistrationResponse()
                     {
-                        Errors = new List<string>() {
-                                "Your account has been locked. Please wait 24 hours and try again."
-                            },
+                        Errors = "Çok fazla başarısız giriş denemesi. Hesabınız 24 saatliğine bloke edilmiştir.",
                         Success = false
                     });
                 }
@@ -141,9 +133,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
                     return BadRequest(new RegistrationResponse()
                     {
-                        Errors = new List<string>() {
-                                "Wrong Password"
-                            },
+                        Errors = "Hatalı Şifre",
                         Success = false
                     });
                 }
@@ -163,9 +153,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
             return BadRequest(new RegistrationResponse()
             {
-                Errors = new List<string>() {
-                        "Modelstate is not valid!"
-                    },
+                Errors = "Geçersiz Modelstate!",
                 Success = false
             });
         }

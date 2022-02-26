@@ -7,6 +7,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Configuration
     {
         public TokenResponse Token { get; set; }
         public bool Success { get; set; }
-        public List<string> Errors { get; set; }
+        public string Errors { get; set; }
     }
 }
