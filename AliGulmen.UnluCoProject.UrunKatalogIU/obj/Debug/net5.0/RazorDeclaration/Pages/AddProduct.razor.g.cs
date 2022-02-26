@@ -204,6 +204,8 @@ using System.IdentityModel.Tokens.Jwt;
     public List<BrandResource> Brands = new();
     public List<CategoryResource> Categories = new();
     private int maxAllowedFiles = 1;
+        private long maxFileSize = 1024 * 400;
+
     private string _price;
 
     public string pictureUrl;
@@ -353,7 +355,7 @@ using System.IdentityModel.Tokens.Jwt;
                 pictureUrl =  file.Name;
 
                 await using FileStream fs = new(pictureUrl, FileMode.Create);
-                await file.OpenReadStream().CopyToAsync(fs);
+                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
                 Product.PictureUrl = pictureUrl;
             }
             catch (Exception)
