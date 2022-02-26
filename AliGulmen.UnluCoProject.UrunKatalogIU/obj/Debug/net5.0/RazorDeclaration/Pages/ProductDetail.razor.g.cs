@@ -154,7 +154,7 @@ using System.IdentityModel.Tokens.Jwt;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 122 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\ProductDetail.razor"
+#line 138 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\ProductDetail.razor"
        
     private int ActualNumber { get; set; } = 70;
     private string NewOffer;
@@ -242,11 +242,6 @@ using System.IdentityModel.Tokens.Jwt;
         }
 
     }
-
-
-
-
-
 
 
 

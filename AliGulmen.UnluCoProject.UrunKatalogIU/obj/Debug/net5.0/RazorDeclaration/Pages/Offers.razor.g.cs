@@ -145,6 +145,13 @@ using System.IdentityModel.Tokens.Jwt;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 11 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Offers.razor"
+using System.IO;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/offers")]
     public partial class Offers : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -154,7 +161,7 @@ using System.IdentityModel.Tokens.Jwt;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 143 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Offers.razor"
+#line 155 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Offers.razor"
        
     private int ActualNumber { get; set; } = 70;
     private string NewOffer;

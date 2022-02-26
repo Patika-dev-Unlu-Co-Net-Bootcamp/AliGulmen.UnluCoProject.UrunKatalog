@@ -196,7 +196,7 @@ using System.IdentityModel.Tokens.Jwt;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 152 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
+#line 162 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
        
     public SaveProductResource Product = new();
     public List<ConditionResource> Conditions = new();
@@ -208,6 +208,7 @@ using System.IdentityModel.Tokens.Jwt;
 
     public string pictureUrl;
     private string _userId;
+    private string _error;
 
 
 
@@ -221,8 +222,7 @@ using System.IdentityModel.Tokens.Jwt;
 
     protected override async Task OnInitializedAsync()
     {
-
-
+        _error = "";
         var client = ClientFactory.CreateClient();
         var token = await Storage.GetAsync<string>("token");
 
@@ -305,8 +305,14 @@ using System.IdentityModel.Tokens.Jwt;
 
     private async Task AddNewProduct()
     {
-
-        var client = ClientFactory.CreateClient();
+        if(Product.CategoryId == 0 || Product.ConditionId== 0)
+        {
+            _error = "Lütfen Kategori ve Kullanım Durumları Alanlarını Doldurunuz!";
+        }
+        else
+        {
+            _error = "";
+            var client = ClientFactory.CreateClient();
 
 
         var token = await Storage.GetAsync<string>("token");
@@ -323,6 +329,8 @@ using System.IdentityModel.Tokens.Jwt;
         {
             UriHelper.NavigateTo("home");
         }
+        }
+       
 
     }
 

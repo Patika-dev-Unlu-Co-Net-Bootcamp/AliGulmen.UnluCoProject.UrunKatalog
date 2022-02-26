@@ -15,7 +15,6 @@
 @inject ProtectedLocalStorage Storage
 
 
-<h3>Tüm ürünler</h3>
 
 @if (MyProducts == null)
 {
@@ -23,9 +22,10 @@
 }
 else
 {
-      <div class="form-outline mb-4">
-         <p>Filtreleme işlemini buradan yapabilirsiniz : </p>
-          <select @onchange="FilterResults" class="form-control">
+    <div class="container">
+  <div class="col-sm-12 col-lg-12 mb-4 mb-lg-0">
+        
+          <select @onchange="FilterResults" class="custom-select">
                            
                                 <option value="">Tüm Kategoriler</option>
                                  @foreach (var item in Categories)
@@ -39,54 +39,52 @@ else
                     </div>
 
 
-
-     <table class="table">
-        <thead>
-            <tr>
-                    <th>PictureUrl</th>
-                    <th>product.Id</th>
-                    <th>product.Name</th>
-                    <th>product.Description</th>
-                    <th>BrandName</th>
-                    <th>BuyItNowPrice</th>
-                    <th>CategoryName</th>
-                    <th>ColorName</th>
-                    <th>ConditionStatus</th>
-                    <th>Owner</th>
-                    <th>IsOfferable</th>
-                    <th>UserId</th>
+</div>
 
 
 
 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in MyProducts)
+
+
+
+    <!-- Products Section -->
+<div class="container">
+    <div class="row">
+           @foreach (var product in MyProducts)
             {
-                <tr>
-                  
+        <div class="col-6 col-lg-3 mb-6 mb-lg-0 rounded" style=" margin-bottom: 20px; margin-top:20px;">
 
-                    <td><img src=@Path.Combine("/Images", product.PictureUrl) style="width:200px;height:200px;" /> </td>
-                    <td>@product.Id</td>
-                    <td><a href=""@onclick=@(()=> GoToDetailPage(product.Id))> @product.Name</a></td>
-                    <td>@product.Description</td>
-                    <td>@product.BrandName</td>
-                    <td>@product.BuyItNowPrice</td>
-                    <td>@product.CategoryName</td>
-                    <td>@product.ColorName</td>
-                    <td>@product.ConditionStatus</td>
-                    <td>@product.Owner</td>
-                    <td>@product.IsOfferable</td>
-                    <td>@product.UserId</td>
-                 
-                        
-                    
-                </tr>
-            }
-        </tbody>
-    </table>
-   
+            <!-- Card -->
+            <div class="card d-block rounded" >
+                
+                @if(product.IsSold){
+                <div class="position-absolute top-0 left-0 pt-3 pl-3">
+                    <span class="badge badge-danger badge-pill">Satıldı</span>
+                </div>
+                }
+
+                   @if(product.IsOfferable){
+                 <div class="position-absolute top-0 left-0 pt-3 pl-3">
+                    <span class="badge badge-success badge-pill">Teklife Açık</span>
+                </div>
+                   }
+                <img class="card-img-top" src=@Path.Combine("/Images", product.PictureUrl)>
+               
+              
+                <div class="card-footer text-center py-4">
+                    <h3 class="h5 mb-1">@product.Name</h3>
+                    <span class="d-block text-muted font-size-1 mb-3">₺@product.BuyItNowPrice</span>
+                    <a class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover px-3" @onclick=@(()=> GoToDetailPage(product.Id))>Detaylar</a> 
+                </div>
+            </div>
+            <!-- End Card -->
+
+            
+
+
+        </div> }
+    </div>
+</div>
 
 
 
@@ -119,7 +117,7 @@ else
 
         if (selectedCategory == "")
         {
-            request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products?PageSize=3&&PageNumber=1");
+            request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products?PageSize=10&&PageNumber=1");
         }
         else
         {

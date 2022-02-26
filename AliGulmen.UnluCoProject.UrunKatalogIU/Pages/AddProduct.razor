@@ -29,33 +29,32 @@ else
 {
     <EditForm Model="@Product" OnValidSubmit="@AddNewProduct">
         <DataAnnotationsValidator />
-        <ValidationSummary />
+        
         <section class="vh-90">
             <div class="container py-5 h-100">
                 <div class="row d-flex align-items-center justify-content-center h-100">
-                    <div class="col-md-8 col-lg-7 col-xl-6">
-                        <InputFile OnChange="@LoadFiles" accept=".jpg,.png,.jpeg" />
-                    </div>
+                   
                     <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                        <label class="form-label" for="customFile">Resim Seçiniz : </label>
+      <InputFile OnChange="@LoadFiles" id="fileAttachmentBtn" accept=".jpg,.png,.jpeg" name="file-attachment" class="file-attachment-btn__label"/>
 
 
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="ProductPicture">Resim Yolu :</label>
-                            <InputText type="text" disabled=false @bind-Value="Product.PictureUrl" id="ProductPicture" class="form-control form-control-lg" />
+                            <InputText type="text" disabled=false @bind-Value="Product.PictureUrl" id="ProductPicture" class="form-control form-control-md" />
                             <ValidationMessage For="() => Product.PictureUrl" />
                         </div>
 
 
                         <div class="form-outline mb-4">
                             <label class="form-label" for="ProductName">Ürün İsmi</label>
-                            <InputText type="text" @bind-Value="Product.Name" id="ProductName" class="form-control form-control-lg" />
+                            <InputText type="text" @bind-Value="Product.Name" id="ProductName" class="form-control form-control-md" />
                             <ValidationMessage For="() => Product.Name" />
                         </div>
 
 
                         <div class="form-outline mb-4">
                             <label class="form-label" for="ProductDesc">Açıklama</label>
-                            <InputText type="text" @bind-Value="Product.Description" id="ProductDesc" class="form-control form-control-lg" />
+                            <InputText type="text" @bind-Value="Product.Description" id="ProductDesc" class="form-control form-control-md" />
                             <ValidationMessage For="() => Product.Description" />
                         </div>
 
@@ -64,57 +63,65 @@ else
 
                         <div class="form-outline mb-4">
                             <label class="form-label" for="ProductPrice">Hemen Sat Fiyatı</label>
-                            <InputText type="text" @bind-Value="_price" id="ProductPrice" class="form-control form-control-lg" />
+                            <InputText type="text" @bind-Value="_price" id="ProductPrice" class="form-control form-control-md" />
                             <ValidationMessage For="() => Product.Name" />
                         </div>
 
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="ProductIsOfferable">Teklife Açık Mı?</label>
-                            <InputCheckbox type="checkbox" checked id="ProductIsOfferable" @bind-Value="Product.IsOfferable" />
+                             <div class="custom-control custom-switch">
+                            <InputCheckbox type="checkbox" class="custom-control-input"  id="ProductIsOfferable" @bind-Value="Product.IsOfferable"/>
+                            <label class="custom-control-label" for="ProductIsOfferable">
+                            <span class="d-block">Teklife Açık Mı?</span>
+                            <small class="d-block text-muted">Bu seçeneği aktif etmeniz durumunda ürününüz için teklifler alabilirsiniz!</small>
+                             </label>
+                            </div>
+
+
                         </div>
 
 
                         <div class="form-outline mb-4">
                             <label class="form-label" for="Condition">Condition</label>
-                            <InputSelect class="btn btn-primary dropdown-toggle" @bind-Value="Product.ConditionId">
+                            <InputSelect class="custom-select" @bind-Value="Product.ConditionId">
                                 <option selected="selected">Lütfen Seçiniz</option>
                                 @foreach (var item in Conditions)
                                 {
                                 <option value="@item.Id">@item.Status</option>
                                 }
                         </InputSelect>
+                           @if(_error != ""){
+                       <span class="badge badge-danger badge-pill">@_error</span>     
+                            }
                         <ValidationMessage For="() => Product.ConditionId" />
                     </div>
 
                     <div class="form-outline mb-4">
                         <label class="form-label" for="Color">Color</label>
-                        <InputSelect class="btn btn-primary dropdown-toggle" @bind-Value="Product.ColorId">
+                        <InputSelect class="custom-select" @bind-Value="Product.ColorId">
                             <option selected="selected">Lütfen Seçiniz</option>
                             @foreach (var item in Colors)
                                 {
                                 <option value="@item.Id">@item.Name</option>
                                 }
                         </InputSelect>
-                        <ValidationMessage For="() => Product.ColorId" />
                     </div>
 
 
 
                     <div class="form-outline mb-4">
                         <label class="form-label" for="Brand">Brand</label>
-                        <InputSelect class="btn btn-primary dropdown-toggle" @bind-Value="Product.BrandId">
+                        <InputSelect class="custom-select" @bind-Value="Product.BrandId">
                             <option selected="selected">Lütfen Seçiniz</option>
                             @foreach (var item in Brands)
                                 {
                                 <option value="@item.Id">@item.Name</option>
                                 }
                         </InputSelect>
-                        <ValidationMessage For="() => Product.BrandId" />
                     </div>
 
                     <div class="form-outline mb-4">
                         <label class="form-label" for="Category">Category</label>
-                        <InputSelect class="btn btn-primary dropdown-toggle" @bind-Value="Product.CategoryId">
+                        <InputSelect class="custom-select" @bind-Value="Product.CategoryId">
                             <option selected="selected">Lütfen Seçiniz</option>
 
                             @foreach (var item in Categories)
@@ -125,12 +132,15 @@ else
                         <ValidationMessage For="() => Product.CategoryId" />
                     </div>
 
-
+                     @if(_error != ""){
+                       <span class="badge badge-danger badge-pill">@_error</span>     
+                            }
 
                     <!-- Submit button -->
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Ekle</button>
 
-
+                            <ValidationSummary />
+                           
 
 
                 </div>
@@ -160,6 +170,7 @@ else
 
     public string pictureUrl;
     private string _userId;
+    private string _error;
 
 
 
@@ -173,8 +184,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-
-
+        _error = "";
         var client = ClientFactory.CreateClient();
         var token = await Storage.GetAsync<string>("token");
 
@@ -257,8 +267,14 @@ else
 
     private async Task AddNewProduct()
     {
-
-        var client = ClientFactory.CreateClient();
+        if(Product.CategoryId == 0 || Product.ConditionId== 0)
+        {
+            _error = "Lütfen Kategori ve Kullanım Durumları Alanlarını Doldurunuz!";
+        }
+        else
+        {
+            _error = "";
+            var client = ClientFactory.CreateClient();
 
 
         var token = await Storage.GetAsync<string>("token");
@@ -275,6 +291,8 @@ else
         {
             UriHelper.NavigateTo("home");
         }
+        }
+       
 
     }
 

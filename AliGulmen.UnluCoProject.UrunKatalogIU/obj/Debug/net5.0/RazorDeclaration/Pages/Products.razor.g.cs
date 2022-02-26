@@ -147,7 +147,7 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 102 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
+#line 100 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
        
 
     public List<ProductResource> MyProducts { get; set; }
@@ -168,7 +168,7 @@ using System.IO;
 
         if (selectedCategory == "")
         {
-            request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products?PageSize=3&&PageNumber=1");
+            request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products?PageSize=10&&PageNumber=1");
         }
         else
         {

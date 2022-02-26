@@ -112,7 +112,7 @@ using Newtonsoft.Json.Linq;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 103 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Register.razor"
+#line 100 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Register.razor"
        
     public AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Requests.UserRegistrationDto User = new();
     private string _errors;
