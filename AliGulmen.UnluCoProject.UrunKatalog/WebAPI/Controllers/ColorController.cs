@@ -8,11 +8,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 {
     [Route("api/[controller]s")]
     [ApiController]
+    [Authorize]
     public class ColorController : ControllerBase
     {
 

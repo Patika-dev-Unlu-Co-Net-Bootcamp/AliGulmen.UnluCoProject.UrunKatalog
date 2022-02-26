@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 {
     [Route("api/PurchaseHistories")]
     [ApiController]
+    [Authorize]
     public class PurchaseHistoryController : ControllerBase
     {
         private readonly IPurchaseHistoryRepository _repository;

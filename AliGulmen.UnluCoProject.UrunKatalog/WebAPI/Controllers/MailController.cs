@@ -3,11 +3,13 @@ using EmailService;
 using EmailService.Services;
 using Hangfire;
 using EmailService.Domain;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 {
     [Route("api/[controller]s")]
     [ApiController]
+    [Authorize]
     public class MailController : ControllerBase
     {
 

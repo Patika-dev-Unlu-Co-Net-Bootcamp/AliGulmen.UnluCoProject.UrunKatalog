@@ -6,11 +6,13 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using AliGulmen.UnluCoProject.UrunKatalog.Shared;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 {
     [Route("api/[controller]s")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
 
@@ -26,7 +28,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
 
 
-
+        [AllowAnonymous]
         [HttpGet]
         public async Task<PaginatedResult<ProductResource>> GetProducts([FromQuery] FilterResource filterResource)
         {

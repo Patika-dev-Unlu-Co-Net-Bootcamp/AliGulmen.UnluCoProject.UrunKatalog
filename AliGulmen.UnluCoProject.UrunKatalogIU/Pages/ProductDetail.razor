@@ -1,4 +1,5 @@
 ﻿@page "/ProductDetail"
+@using AliGulmen.UnluCoProject.UrunKatalog.Shared
 @using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.OfferResources
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @using Newtonsoft.Json
@@ -56,7 +57,7 @@ else
                           }
                         
                         @if(CurrentOffer is not null){
-                          <button class="btn btn-primary" @onclick="(async () => { await DeleteOffer(product.Id); })"> Teklifi Geri Çek </button>
+                          <button class="btn btn-primary" @onclick="(async () => { await DeleteOffer(CurrentOffer.Id); })"> Teklifi Geri Çek </button>
                           <br>
                         }
                         
@@ -161,7 +162,8 @@ else
 
         var token =  await Storage.GetAsync<string>("token");
         var handler = new JwtSecurityTokenHandler();
-        _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
+        if(token.Success)
+            _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
 
         request.Headers.Authorization =
             new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
@@ -185,7 +187,7 @@ else
 
 
 
-        request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/Offers/withFilter?ProductId="+ProductId.ToString() + "&&UserId=" + _userId); 
+        request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/Offers?ProductId="+ProductId.ToString() + "&&UserId=" + _userId); 
 
         request.Headers.Authorization =
            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
@@ -195,8 +197,8 @@ else
         {
             var json = await response.Content.ReadAsStringAsync();
 
-            CurrentOffer = JsonConvert.DeserializeObject<OfferResource>(json);
-
+            var paginatedResult = JsonConvert.DeserializeObject<PaginatedResult<OfferResource>>(json);
+            CurrentOffer = paginatedResult.Data.FirstOrDefault();
         }
         else
         {
@@ -204,11 +206,6 @@ else
         }
 
     }
-
-
-
-
-
 
 
 
@@ -226,7 +223,7 @@ else
         var response = await client.DeleteAsync("http://localhost:3000/api/offers/"+id);
 
 
-        if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+        if (response.StatusCode == System.Net.HttpStatusCode.NoContent || response.StatusCode == System.Net.HttpStatusCode.NotFound)
         {
 
             await OnInitializedAsync();

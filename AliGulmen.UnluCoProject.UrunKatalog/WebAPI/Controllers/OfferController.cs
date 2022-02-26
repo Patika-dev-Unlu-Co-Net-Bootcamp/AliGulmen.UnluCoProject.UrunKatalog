@@ -59,13 +59,20 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> CreateOffer(SaveOfferResource offerResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
             var result = _mapper.Map<SaveOfferResource, Offer>(offerResource);
-            _repository.Add(result);
+
+            var isOfferable = await _repository.IsOfferable(result);
+            if (isOfferable)
+                _repository.Add(result);
+            else
+                return BadRequest();
+
 
             await _unitOfWork.CompleteAsync();
             return Created("~api/offers", result);
@@ -104,7 +111,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateOffer(int id, [FromBody]UpdateOfferResource newOffer)
+        public async Task<IActionResult> UpdateOffer(int id, [FromBody] UpdateOfferResource newOffer)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -112,7 +119,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
             var offer = await _repository.Get(id);
             _mapper.Map<UpdateOfferResource, Offer>(newOffer, offer);
             await _unitOfWork.CompleteAsync();
-            return NoContent(); 
+            return NoContent();
         }
 
 

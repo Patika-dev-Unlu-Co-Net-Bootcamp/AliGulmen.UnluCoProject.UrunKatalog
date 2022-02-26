@@ -281,6 +281,7 @@ using System.IdentityModel.Tokens.Jwt;
 
         var token = await Storage.GetAsync<string>("token");
         var handler = new JwtSecurityTokenHandler();
+        if(token.Success)
         _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);

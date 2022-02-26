@@ -76,6 +76,15 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
                                     .ToListAsync();
         }
 
-      
+        public async Task<bool> IsOfferable(Offer offer)
+        {
+            var query = await _context.Products
+                                .FirstOrDefaultAsync(p => p.Id == offer.ProductId);
+
+            return query.IsOfferable;
+
+
+
+        }
     }
 }

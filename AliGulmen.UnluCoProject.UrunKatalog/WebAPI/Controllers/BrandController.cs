@@ -15,6 +15,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 {
     [Route("api/[controller]s")]
     [ApiController]
+    [Authorize]
     public class BrandController : ControllerBase
     {
         private readonly IBrandRepository _repository;
@@ -29,7 +30,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        
         [HttpGet]
         public async Task<PaginatedResult<BrandResource>> GetProducts([FromQuery] FilterResource filterResource)
         {
