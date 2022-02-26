@@ -5,6 +5,30 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Shared
 {
     public class PaginatedResult<T> 
     {
+        public PaginatedResult(List<T> data)
+        {
+            Data = data;
+        }
+
+       
+
+        internal PaginatedResult(List<T> data = default, int count = 0, int page = 1, int pageSize = 10)
+        {
+            Data = data;
+            CurrentPage = page;
+            PageSize = pageSize;
+            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+            TotalCount = count;
+        }
+
+        
+
+        public static PaginatedResult<T> Success(List<T> data, int count, int page, int pageSize)
+        {
+            return new PaginatedResult<T>(data, count, page, pageSize);
+        }
+
+
         public List<T> Data { get; set; }
         public int CurrentPage { get; set; }
 
@@ -16,31 +40,5 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Shared
         public bool HasPreviousPage => CurrentPage > 1;
 
         public bool HasNextPage => CurrentPage < TotalPages;
-
-
-
-
-        public PaginatedResult(List<T> data)
-        {
-            Data = data;
-        }
-
-
-        internal PaginatedResult(List<T> data = default, int count = 0, int page = 1, int pageSize = 10)
-        {
-            Data = data;
-            CurrentPage = page;
-            PageSize = pageSize;
-            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
-            TotalCount = count;
-        }
-
-        public static PaginatedResult<T> Success(List<T> data, int count, int page, int pageSize)
-        {
-            return new PaginatedResult<T>(data, count, page, pageSize);
-        }
-
-
-
     }
 }

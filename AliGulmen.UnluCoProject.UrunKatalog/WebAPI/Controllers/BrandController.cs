@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 {
@@ -29,12 +31,18 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
-        public async Task<IEnumerable<BrandResource>> GetBrands()
+        public async Task<PaginatedResult<BrandResource>> GetProducts([FromQuery] FilterResource filterResource)
         {
-            var brands = await _repository.GetAll();
-            var result = _mapper.Map<List<Brand>, List<BrandResource>>(brands.ToList());
+            var filter = _mapper.Map<FilterResource, Filter>(filterResource);
+            var brands = await _repository.GetAll(filter);
+
+            var result = _mapper.Map<PaginatedResult<Brand>, PaginatedResult<BrandResource>>(brands);
+
             return result;
         }
+
+
+
 
 
 

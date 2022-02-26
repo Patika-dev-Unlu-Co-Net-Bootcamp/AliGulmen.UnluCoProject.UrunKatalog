@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Context;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 {
@@ -33,11 +34,21 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 
 
 
-        public override async Task<IEnumerable<Brand>> GetAll()
+        public override async Task<PaginatedResult<Brand>> GetAll(Filter filter)
         {
-            return await _context.Brands
-                .ToListAsync();
+
+            var query = _context.Brands
+               .AsQueryable();
+
+               var result = await query.ToPaginatedListAsync(filter.PageNumber, filter.PageSize);
+
+
+            return result;
+
         }
+
+
+     
 
     }
 }

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 {
@@ -30,12 +32,16 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<CategoryResource>> GetCategories()
+        public async Task<PaginatedResult<CategoryResource>> GetProducts([FromQuery] FilterResource filterResource)
         {
-            var categories = await _repository.GetAll();
-            var result = _mapper.Map<List<Category>, List<CategoryResource>>(categories.ToList());
+            var filter = _mapper.Map<FilterResource, Filter>(filterResource);
+            var categories = await _repository.GetAll(filter);
+
+            var result = _mapper.Map<PaginatedResult<Category>, PaginatedResult<CategoryResource>>(categories);
+
             return result;
         }
+
 
 
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Context;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 {
@@ -39,20 +40,9 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 
       
 
-        public override async Task<IEnumerable<Product>> GetAll()
+        public override async Task<PaginatedResult<Product>> GetAll(Filter filter)
         {
-            return await _context.Products
-                                .Include(p => p.Color)
-                                .Include(p => p.Brand)
-                                .Include(p => p.Condition)
-                                .Include(p => p.Category)
-                                .Include(p => p.User)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Product>> GetAllWithQuery(Filter filter)
-        {
-            var query =  _context.Products
+            var query = _context.Products
                                 .Include(p => p.Color)
                                 .Include(p => p.Brand)
                                 .Include(p => p.Condition)
@@ -61,10 +51,14 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
                 .AsQueryable();
 
             if (filter.CategoryId.HasValue)
-                query = query.Where(p => p.CategoryId == filter.CategoryId.Value);
+                query = query.Where(p => p.CategoryId == filter.CategoryId.Value).AsQueryable();
 
-            return await query.ToListAsync();
+            var result = await query.ToPaginatedListAsync(filter.PageNumber, filter.PageSize);
+
+
+            return result;
         }
+
 
        
     }

@@ -1,4 +1,5 @@
 ﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ProductResources;
 using AutoMapper;
 
@@ -18,6 +19,9 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Mapping
             CreateMap<SaveProductResource, Product>();
 
 
+            CreateMap<PaginatedResult<Product>, PaginatedResult<ProductResource>>();
+
+         
         }
     }
 }

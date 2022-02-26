@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 {
@@ -29,24 +30,17 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<ProductResource>> GetProducts()
-        {
-            var products = await _repository.GetAll();
-            var result = _mapper.Map<List<Product>, List<ProductResource>>(products.ToList());
-         
-            return result;
-        }
-
-        [HttpGet("withFilter")]
-        public async Task<IEnumerable<ProductResource>> GetProductsWithQuery([FromQuery]FilterResource filterResource)
+        public async Task<PaginatedResult<ProductResource>> GetProducts([FromQuery] FilterResource filterResource)
         {
             var filter = _mapper.Map<FilterResource, Filter>(filterResource);
-            var products = await _repository.GetAllWithQuery(filter);
+            var products = await _repository.GetAll(filter);
 
-            var result = _mapper.Map<List<Product>, List<ProductResource>>(products.ToList());
+            var result = _mapper.Map<PaginatedResult<Product>, PaginatedResult<ProductResource>>(products);
 
             return result;
         }
+
+
 
 
 

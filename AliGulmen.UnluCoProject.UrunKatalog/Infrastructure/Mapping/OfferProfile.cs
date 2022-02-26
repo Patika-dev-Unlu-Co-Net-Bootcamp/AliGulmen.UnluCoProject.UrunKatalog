@@ -1,4 +1,5 @@
 ﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.OfferResources;
 using AutoMapper;
 
@@ -17,6 +18,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Mapping
                            ;
             CreateMap<SaveOfferResource, Offer>();
             CreateMap<UpdateOfferResource, Offer>();
+            CreateMap<PaginatedResult<Offer>, PaginatedResult<OfferResource>>();
         }
     }
 }

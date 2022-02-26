@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Context;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 {
@@ -32,6 +34,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 
         public abstract Task<TEntity> Get(int id);
 
-        public abstract Task<IEnumerable<TEntity>> GetAll();
+        public abstract Task<PaginatedResult<TEntity>> GetAll(Filter filter);
     }
 }

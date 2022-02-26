@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Context;
 using System.Linq;
+using System;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 {
@@ -37,13 +39,22 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 
 
 
-        public override async Task<IEnumerable<PurchaseHistory>> GetAll()
+        public override async Task<PaginatedResult<PurchaseHistory>> GetAll(Filter filter)
         {
-            return await _context.PurchaseHistories
+
+            var query = _context.PurchaseHistories
                                 .Include(p => p.Product)
                                 .Include(p => p.Buyer)
                                 .Include(p => p.Seller)
-                .ToListAsync();
+              .AsQueryable();
+
+
+
+
+
+            var result = await query.ToPaginatedListAsync(filter.PageNumber, filter.PageSize);
+
+            return result;
         }
 
 

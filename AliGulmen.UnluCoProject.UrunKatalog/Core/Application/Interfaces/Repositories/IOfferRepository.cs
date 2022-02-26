@@ -8,6 +8,5 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Reposi
     {
         Task<IEnumerable<Offer>> GetMyOffers(string userId);
         Task<IEnumerable<Offer>> GetMyProducts(string userId);
-        Task<Offer> GetAllWithQuery(Filter filter);
     }
 }

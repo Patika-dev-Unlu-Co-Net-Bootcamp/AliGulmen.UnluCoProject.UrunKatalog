@@ -1,6 +1,7 @@
 ﻿using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.CategoryResources;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 using AutoMapper;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Mapping
 {
@@ -11,7 +12,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Mapping
 
             CreateMap<Category, CategoryResource>();
             CreateMap<SaveCategoryResource, Category>();
-
+            CreateMap<PaginatedResult<Category>, PaginatedResult<CategoryResource>>();
 
 
         }

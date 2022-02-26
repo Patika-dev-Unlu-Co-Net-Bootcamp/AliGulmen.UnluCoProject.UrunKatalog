@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Context;
 using System.Linq;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 {
@@ -36,12 +37,23 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 
 
 
-        public override async Task<IEnumerable<Offer>> GetAll()
+        public override async Task<PaginatedResult<Offer>> GetAll(Filter filter)
         {
-            return await _context.Offers
+            var query = _context.Offers
                                  .Include(p => p.Product)
                                 .Include(p => p.User)
-                .ToListAsync();
+                .AsQueryable();
+
+            if (filter.ProductId.HasValue)
+                query = query.Where(p => p.ProductId == filter.ProductId.Value);
+            if (filter.UserId != "" && filter.UserId is not null)
+                query = query.Where(p => p.UserId == filter.UserId);
+
+
+            var result = await query.ToPaginatedListAsync(filter.PageNumber, filter.PageSize);
+
+            return result;
+
         }
 
         public async Task<IEnumerable<Offer>> GetMyOffers(string userId)
@@ -64,19 +76,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
                                     .ToListAsync();
         }
 
-        public async Task<Offer> GetAllWithQuery(Filter filter)
-        {
-            var query = _context.Offers
-                               .Include(p => p.Product)
-                               .Include(p => p.User)
-                .AsQueryable();
-
-            if (filter.ProductId.HasValue)
-                query = query.Where(p => p.ProductId ==  filter.ProductId.Value);
-            if (filter.UserId !="" && filter.UserId is not null)
-                query = query.Where(p => p.UserId == filter.UserId);
-
-            return await query.FirstOrDefaultAsync(); ;
-        }
+      
     }
 }

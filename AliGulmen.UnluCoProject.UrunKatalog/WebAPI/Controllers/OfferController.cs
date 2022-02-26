@@ -10,6 +10,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Enums;
 using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 {
@@ -32,13 +33,16 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<OfferResource>> GetOffers()
+        public async Task<PaginatedResult<OfferResource>> GetProducts([FromQuery] FilterResource filterResource)
         {
-            var offers = await _repository.GetAll();
-            var result = _mapper.Map<List<Offer>, List<OfferResource>>(offers.ToList());
+            var filter = _mapper.Map<FilterResource, Filter>(filterResource);
+            var offers = await _repository.GetAll(filter);
+
+            var result = _mapper.Map<PaginatedResult<Offer>, PaginatedResult<OfferResource>>(offers);
 
             return result;
         }
+
 
 
 
@@ -126,19 +130,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
             return NoContent();
         }
 
-
-
-
-        [HttpGet("withFilter")]
-        public async Task<OfferResource> GetProductsWithQuery([FromQuery] FilterResource filterResource)
-        {
-            var filter = _mapper.Map<FilterResource, Filter>(filterResource);
-            var offers = await _repository.GetAllWithQuery(filter);
-
-            var result = _mapper.Map<Offer, OfferResource>(offers);
-
-            return result;
-        }
 
     }
 }

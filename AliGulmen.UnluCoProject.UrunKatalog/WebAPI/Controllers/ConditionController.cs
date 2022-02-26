@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 {
@@ -27,12 +29,16 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<ConditionResource>> GetConditions()
+        public async Task<PaginatedResult<ConditionResource>> GetProducts([FromQuery] FilterResource filterResource)
         {
-            var conditions = await _repository.GetAll();
-            var result = _mapper.Map<List<Condition>, List<ConditionResource>>(conditions.ToList());
+            var filter = _mapper.Map<FilterResource, Filter>(filterResource);
+            var conditions = await _repository.GetAll(filter);
+
+            var result = _mapper.Map<PaginatedResult<Condition>, PaginatedResult<ConditionResource>>(conditions);
+
             return result;
         }
+
 
 
 

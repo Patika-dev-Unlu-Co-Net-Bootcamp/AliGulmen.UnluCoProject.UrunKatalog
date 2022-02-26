@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories
@@ -7,7 +9,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Reposi
     {
         Task<TEntity> Get(int id);
 
-        Task<IEnumerable<TEntity>> GetAll();
+        Task<PaginatedResult<TEntity>> GetAll(Filter filter);
 
         void Add(TEntity entity);
         void Remove(TEntity entity);

@@ -161,11 +161,11 @@ using System.IO;
 
         if (selectedCategory == "")
         {
-          request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products");
+          request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products?PageSize=2&&PageNumber=2");
         }
         else
         {
-          request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/Products/withFilter?CategoryId="+selectedCategory);  
+          request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/Products?CategoryId="+selectedCategory+"&&PageSize=2&&PageNumber=2");  
         }
          
         
