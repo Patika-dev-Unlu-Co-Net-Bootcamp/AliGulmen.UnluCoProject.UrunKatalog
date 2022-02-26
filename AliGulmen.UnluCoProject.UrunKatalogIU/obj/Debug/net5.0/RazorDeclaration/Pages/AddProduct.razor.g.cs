@@ -84,97 +84,104 @@ using AliGulmen.UnluCoProject.UrunKatalogIU.Shared;
 #nullable disable
 #nullable restore
 #line 3 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 4 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
-using System.Net.Http.Json;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 5 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
-using Microsoft.AspNetCore.Hosting;
+using System.Net.Http.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 6 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
-using Newtonsoft.Json;
+using Microsoft.AspNetCore.Hosting;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 7 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 8 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
-using System.IO;
+using Newtonsoft.Json.Linq;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 9 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
-using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ProductResources;
+using System.IO;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 10 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
-using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ConditionResources;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ProductResources;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 11 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
-using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ColorResources;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ConditionResources;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 12 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
-using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.CategoryResources;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ColorResources;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 13 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
-using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.BrandResources;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.CategoryResources;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 14 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
-using System.Net.Http.Headers;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.BrandResources;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 15 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
-using System.Security.Claims;
+using System.Net.Http.Headers;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 16 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
+using System.Security.Claims;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 17 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
 using System.IdentityModel.Tokens.Jwt;
 
 #line default
@@ -189,7 +196,7 @@ using System.IdentityModel.Tokens.Jwt;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 151 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
+#line 152 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
        
     public SaveProductResource Product = new();
     public List<ConditionResource> Conditions = new();
@@ -247,7 +254,8 @@ using System.IdentityModel.Tokens.Jwt;
         if (response1.IsSuccessStatusCode)
         {
             var json = await response1.Content.ReadAsStringAsync();
-            Conditions = JsonConvert.DeserializeObject<List<ConditionResource>>(json);
+            var paginatedResult = JsonConvert.DeserializeObject<PaginatedResult<ConditionResource>>(json);
+            Conditions = paginatedResult.Data;
         }
         else
         {
@@ -257,7 +265,8 @@ using System.IdentityModel.Tokens.Jwt;
         if (response2.IsSuccessStatusCode)
         {
             var json = await response2.Content.ReadAsStringAsync();
-            Colors = JsonConvert.DeserializeObject<List<ColorResource>>(json);
+            var paginatedResult = JsonConvert.DeserializeObject<PaginatedResult<ColorResource>>(json);
+            Colors = paginatedResult.Data;
         }
         else
         {
@@ -268,7 +277,8 @@ using System.IdentityModel.Tokens.Jwt;
         if (response3.IsSuccessStatusCode)
         {
             var json = await response3.Content.ReadAsStringAsync();
-            Brands = JsonConvert.DeserializeObject<List<BrandResource>>(json);
+            var paginatedResult = JsonConvert.DeserializeObject<PaginatedResult<BrandResource>>(json);
+            Brands = paginatedResult.Data;
         }
         else
         {
@@ -279,7 +289,8 @@ using System.IdentityModel.Tokens.Jwt;
         if (response4.IsSuccessStatusCode)
         {
             var json = await response4.Content.ReadAsStringAsync();
-            Categories = JsonConvert.DeserializeObject<List<CategoryResource>>(json);
+            var paginatedResult = JsonConvert.DeserializeObject<PaginatedResult<CategoryResource>>(json);
+            Categories = paginatedResult.Data;
         }
         else
         {

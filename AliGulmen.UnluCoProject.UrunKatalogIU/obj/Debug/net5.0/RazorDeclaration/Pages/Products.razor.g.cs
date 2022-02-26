@@ -84,48 +84,55 @@ using AliGulmen.UnluCoProject.UrunKatalogIU.Shared;
 #nullable disable
 #nullable restore
 #line 2 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 3 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
-using Newtonsoft.Json;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 4 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
-using System.Net.Http.Json;
+using Newtonsoft.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 5 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
-using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ProductResources;
+using System.Net.Http.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 6 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
-using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.CategoryResources;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.ProductResources;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 7 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
-using System.Net.Http.Headers;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.CategoryResources;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 8 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
+using System.Net.Http.Headers;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 9 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
 using System.IO;
 
 #line default
@@ -140,7 +147,7 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 101 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
+#line 102 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
        
 
     public List<ProductResource> MyProducts { get; set; }
@@ -161,15 +168,15 @@ using System.IO;
 
         if (selectedCategory == "")
         {
-          request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products?PageSize=2&&PageNumber=2");
+            request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products?PageSize=3&&PageNumber=1");
         }
         else
         {
-          request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/Products?CategoryId="+selectedCategory+"&&PageSize=2&&PageNumber=2");  
+            request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/Products?CategoryId="+selectedCategory+"&&PageSize=10&&PageNumber=1");  
         }
-         
-        
-        
+
+
+
         var token =  await Storage.GetAsync<string>("token");
 
 
@@ -177,25 +184,25 @@ using System.IO;
             new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
         var response = await client.SendAsync(request);
 
-         if (response.IsSuccessStatusCode)
+        if (response.IsSuccessStatusCode)
         {
             var json = await response.Content.ReadAsStringAsync();
 
-            MyProducts = JsonConvert.DeserializeObject<List<ProductResource>>(json);
+           var paginatedResult = JsonConvert.DeserializeObject<PaginatedResult<ProductResource>>(json);
+            MyProducts = paginatedResult.Data;
 
-           
         }
 
     }
 
-    
+
     protected override async Task OnInitializedAsync()
     {
 
         var client = ClientFactory.CreateClient();
 
-        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products");
-          var request2 = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/categories");
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products?PageSize=10&&PageNumber=1");
+        var request2 = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/categories");
 
 
 
@@ -205,8 +212,8 @@ using System.IO;
         request.Headers.Authorization =
             new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
 
-              request2.Headers.Authorization =
-            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
+        request2.Headers.Authorization =
+      new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
 
 
         var response = await client.SendAsync(request);
@@ -216,9 +223,9 @@ using System.IO;
         {
             var json = await response.Content.ReadAsStringAsync();
 
-            MyProducts = JsonConvert.DeserializeObject<List<ProductResource>>(json);
+            var paginatedResult = JsonConvert.DeserializeObject<PaginatedResult<ProductResource>>(json);
+            MyProducts = paginatedResult.Data;
 
-           
         }
         else
         {
@@ -229,9 +236,9 @@ using System.IO;
         {
             var json = await response2.Content.ReadAsStringAsync();
 
-            Categories = JsonConvert.DeserializeObject<List<CategoryResource>>(json);
+            var paginatedResult = JsonConvert.DeserializeObject<PaginatedResult<CategoryResource>>(json);
 
-           
+            Categories = paginatedResult.Data;
         }
         else
         {
