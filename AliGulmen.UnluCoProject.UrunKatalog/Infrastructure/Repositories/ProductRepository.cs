@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Context;
 using AliGulmen.UnluCoProject.UrunKatalog.Shared;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.PurchaseHistoryResources;
+using AutoMapper;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 {
@@ -18,6 +20,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
             _context = context;
         }
 
+      
         public override async Task<Product> Get(int id)
         {
             var result = await _context.Products
@@ -60,6 +63,16 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
         }
 
 
-       
+
+
+        public async Task CreateSellInformation(PurchaseHistory purchaseInfo)
+        {
+           
+
+           await Task.Run(() => _context.PurchaseHistories.Add(purchaseInfo));
+        }
+
+
+
     }
 }

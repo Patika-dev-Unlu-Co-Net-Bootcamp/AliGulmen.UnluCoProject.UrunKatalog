@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 using Microsoft.AspNetCore.Authorization;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.PurchaseHistoryResources;
+using System;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 {
@@ -95,10 +97,17 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
                 return BadRequest();
 
             var product = await _repository.Get(id);
-            product.UserId = userId;
-            product.IsSold = true;
-            product.IsOfferable = false;
-            
+            SavePurchaseHistoryResource purchaseInfo = new();
+            purchaseInfo.ProductId = product.Id;
+            purchaseInfo.BuyerId = userId;
+            purchaseInfo.SellerId = product.UserId;
+            purchaseInfo.PurchasedDate = DateTime.Now;
+            purchaseInfo.SoldPrice = product.BuyItNowPrice;
+
+            var result = _mapper.Map<SavePurchaseHistoryResource, PurchaseHistory>(purchaseInfo);
+
+             await _repository.CreateSellInformation(result);
+           
 
             await _unitOfWork.CompleteAsync();
             return NoContent();

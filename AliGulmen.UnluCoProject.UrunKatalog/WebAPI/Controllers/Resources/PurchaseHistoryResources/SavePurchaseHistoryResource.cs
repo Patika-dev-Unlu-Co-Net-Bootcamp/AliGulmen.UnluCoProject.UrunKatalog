@@ -5,8 +5,8 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.Purch
     public class SavePurchaseHistoryResource
     {
         public int? ProductId { get; set; }
-         public int? SellerId { get; set; }
-        public int BuyerId { get; set; }
+         public string SellerId { get; set; }
+        public string BuyerId { get; set; }
         public int SoldPrice { get; set; }
         public DateTime PurchasedDate { get; set; }
     }
