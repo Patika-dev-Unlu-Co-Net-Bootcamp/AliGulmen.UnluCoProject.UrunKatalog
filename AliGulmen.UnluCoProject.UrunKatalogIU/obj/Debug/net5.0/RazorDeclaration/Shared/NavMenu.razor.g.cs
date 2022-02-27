@@ -108,6 +108,7 @@ using AliGulmen.UnluCoProject.UrunKatalogIU.Models;
         collapseNavMenu = !collapseNavMenu;
     }
 
+
 #line default
 #line hidden
 #nullable disable

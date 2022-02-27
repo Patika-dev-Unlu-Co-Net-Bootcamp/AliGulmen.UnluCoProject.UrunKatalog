@@ -119,24 +119,24 @@ using Newtonsoft.Json.Linq;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 71 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Login.razor"
+#line 74 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Login.razor"
        
     public AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Requests.UserLoginRequest User = new();
     private string _errors;
 
 
 
-      protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         await Task.Run(() => _errors = "");
     }
 
     private async Task Submit()
     {
-        _errors="";
+        _errors = "";
         var client = ClientFactory.CreateClient();
 
-        var response = await client.PostAsJsonAsync("http://localhost:3000/api/AuthManagement/Login",User);
+        var response = await client.PostAsJsonAsync("http://localhost:3000/api/AuthManagement/Login", User);
 
 
         if (response.IsSuccessStatusCode)
@@ -148,11 +148,11 @@ using Newtonsoft.Json.Linq;
 
             string token = resultObject.SelectToken("token").SelectToken("accessToken").Value<string>();
             await Storage.SetAsync("token", token);
-             app.IsLoggedIn = true;
-             UriHelper.NavigateTo("categories");
+            app.IsLoggedIn = true;
+            UriHelper.NavigateTo("categories");
         }
 
-          else
+        else
         {
             string result = await response.Content.ReadAsStringAsync();
             JObject resultObject = JObject.Parse(result);
@@ -163,12 +163,6 @@ using Newtonsoft.Json.Linq;
 
 
 
-
-
-
-
-
-    
 
 #line default
 #line hidden

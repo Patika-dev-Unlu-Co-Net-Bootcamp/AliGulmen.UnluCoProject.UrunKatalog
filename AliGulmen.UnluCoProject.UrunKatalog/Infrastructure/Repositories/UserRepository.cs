@@ -1,8 +1,8 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Context;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
@@ -15,19 +15,14 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
         {
             _context = context;
         }
-
        
         public async Task<AppUser> Get(string id)
         {
             var result = await _context.Users
-                                 .FirstOrDefaultAsync(p => p.Id == id);
-
-
+                               .FirstOrDefaultAsync(p => p.Id == id);
 
             if (result == null)
                 throw new KeyNotFoundException("Not Found!");
-
-
 
             return result;
         }
@@ -35,7 +30,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
         public async Task<IEnumerable<AppUser>> GetAll()
         {
             return await _context.Users
-                .ToListAsync();
+                                 .ToListAsync();
         }
 
         public void Remove(AppUser appUser)

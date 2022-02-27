@@ -20,7 +20,7 @@
 }
 else
 {
-     <table class="table">
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -36,103 +36,108 @@ else
                     <td>@category.Id</td>
                     <td>@category.Name</td>
                     <td>@category.Description</td>
-                    <td> <button class="btn btn-primary" @onclick="@(() => { showUpdateModal = true; 
-                    CategoryToUpdate.Id=category.Id; 
+                    <td>
+                        <button class="btn btn-primary" @onclick="@(() => { showUpdateModal = true;
+                    CategoryToUpdate.Id=category.Id;
                     CategoryToUpdate.Name=category.Name;
-                    CategoryToUpdate.Description=category.Description;})"> Güncelle </button>  
-                        <button class="btn btn-danger" @onclick="() => DeletCategory(category.Id)"> Sil </button> </td>
-                        
-                    
+                    CategoryToUpdate.Description=category.Description;})">
+                            Güncelle
+                        </button>
+                        <button class="btn btn-danger" @onclick="() => DeletCategory(category.Id)"> Sil </button>
+                    </td>
+
+
                 </tr>
             }
         </tbody>
     </table>
 
-<button class="btn btn-primary" @onclick="@(() => { showAddModal = true; })">Yeni Kategori Ekle</button>
-<br><br>
-<p> <button class="btn btn-primary" @onclick="SignOut">Çıkış Yap</button></p>
-   
-
-
-
-@if (showAddModal)
-{
-<div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Kategori Ekle</h5>
-                <button type="button" class="close" data-dismiss="modal" @onclick="@(() => { showAddModal = false; })" aria-label="Vazgeç">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-         <EditForm Model="@Category" OnValidSubmit="@AddCategory">
-          <div class="form-group">
-             <label class="form-label" for="CategoryName">Kategori İsmi :</label>
-            <InputText type="text" @bind-Value="Category.Name" id="CategoryName" class="form-control form-control-lg" />
-            <ValidationMessage For="() => Category.Name" />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="CategoryDesc">Açıklama :</label>
-            <InputText type="text" @bind-Value="Category.Description" id="CategoryDesc" class="form-control form-control-lg" />
-            <ValidationMessage For="() => Category.Description" />
-          </div>
-        </EditForm>
-      </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @onclick="AddCategory">Kaydet</button>
-                <button type="button" class="btn btn-secondary" @onclick="@(() => { showAddModal = false; })" data-dismiss="modal">Vazgeç</button>
-            </div>
-        </div>
-    </div>
-</div>
-}
+    <button class="btn btn-primary" @onclick="@(() => { showAddModal = true; })">Yeni Kategori Ekle</button>
+    <br>
+    <br>
+    <p> <button class="btn btn-primary" @onclick="SignOut">Çıkış Yap</button></p>
 
 
 
 
-
-
-
-
-
-
-
-@if (showUpdateModal)
-{
-<div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Kategori Güncelle</h5>
-                <button type="button" class="close" data-dismiss="modal" @onclick="@(() => { showUpdateModal = false; })" aria-label="Vazgeç">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-         <EditForm Model="@CategoryToUpdate" OnValidSubmit="@UpdateCategory">
-
-          <div class="form-group">
-             <label class="form-label" for="CategoryToUpdateName">Kategori İsmi :</label>
-            <InputText type="text" @bind-Value="CategoryToUpdate.Name" id="CategoryToUpdateName" class="form-control form-control-lg" />
-            <ValidationMessage For="() => CategoryToUpdate.Name" />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="CategoryToUpdateDesc">Açıklama :</label>
-            <InputText type="text" @bind-Value="CategoryToUpdate.Description"  id="CategoryToUpdateDesc" class="form-control form-control-lg" />
-            <ValidationMessage For="() => CategoryToUpdate.Description" />
-          </div>
-        </EditForm>
-      </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @onclick="UpdateCategory">Kaydet</button>
-                <button type="button" class="btn btn-secondary" @onclick="@(() => { showUpdateModal = false; })" data-dismiss="modal">Vazgeç</button>
+    @if (showAddModal)
+    {
+        <div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Kategori Ekle</h5>
+                        <button type="button" class="close" data-dismiss="modal" @onclick="@(() => { showAddModal = false; })" aria-label="Vazgeç">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <EditForm Model="@Category" OnValidSubmit="@AddCategory">
+                            <div class="form-group">
+                                <label class="form-label" for="CategoryName">Kategori İsmi :</label>
+                                <InputText type="text" @bind-Value="Category.Name" id="CategoryName" class="form-control form-control-lg" />
+                                <ValidationMessage For="() => Category.Name" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="CategoryDesc">Açıklama :</label>
+                                <InputText type="text" @bind-Value="Category.Description" id="CategoryDesc" class="form-control form-control-lg" />
+                                <ValidationMessage For="() => Category.Description" />
+                            </div>
+                        </EditForm>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" @onclick="AddCategory">Kaydet</button>
+                        <button type="button" class="btn btn-secondary" @onclick="@(() => { showAddModal = false; })" data-dismiss="modal">Vazgeç</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-}
+    }
+
+
+
+
+
+
+
+
+
+
+
+    @if (showUpdateModal)
+    {
+        <div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Kategori Güncelle</h5>
+                        <button type="button" class="close" data-dismiss="modal" @onclick="@(() => { showUpdateModal = false; })" aria-label="Vazgeç">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <EditForm Model="@CategoryToUpdate" OnValidSubmit="@UpdateCategory">
+
+                            <div class="form-group">
+                                <label class="form-label" for="CategoryToUpdateName">Kategori İsmi :</label>
+                                <InputText type="text" @bind-Value="CategoryToUpdate.Name" id="CategoryToUpdateName" class="form-control form-control-lg" />
+                                <ValidationMessage For="() => CategoryToUpdate.Name" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="CategoryToUpdateDesc">Açıklama :</label>
+                                <InputText type="text" @bind-Value="CategoryToUpdate.Description" id="CategoryToUpdateDesc" class="form-control form-control-lg" />
+                                <ValidationMessage For="() => CategoryToUpdate.Description" />
+                            </div>
+                        </EditForm>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" @onclick="UpdateCategory">Kaydet</button>
+                        <button type="button" class="btn btn-secondary" @onclick="@(() => { showUpdateModal = false; })" data-dismiss="modal">Vazgeç</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 
 
 
@@ -171,14 +176,14 @@ else
         var client = ClientFactory.CreateClient();
 
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
         Category.Name = CategoryToUpdate.Name;
         Category.Description = CategoryToUpdate.Description;
 
-        var response = await client.PutAsJsonAsync("http://localhost:3000/api/categories/"+CategoryToUpdate.Id,Category);
+        var response = await client.PutAsJsonAsync("http://localhost:3000/api/categories/" + CategoryToUpdate.Id, Category);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -202,11 +207,11 @@ else
         var client = ClientFactory.CreateClient();
 
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response = await client.PostAsJsonAsync("http://localhost:3000/api/categories",Category);
+        var response = await client.PostAsJsonAsync("http://localhost:3000/api/categories", Category);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.Created)
@@ -223,12 +228,12 @@ else
     {
 
         var client = ClientFactory.CreateClient();
-       
-        var token =  await Storage.GetAsync<string>("token");
+
+        var token = await Storage.GetAsync<string>("token");
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response = await client.DeleteAsync("http://localhost:3000/api/categories/"+id);
+        var response = await client.DeleteAsync("http://localhost:3000/api/categories/" + id);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -240,7 +245,7 @@ else
     }
 
 
-    
+
     protected override async Task OnInitializedAsync()
     {
 
@@ -249,7 +254,7 @@ else
         var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/categories");
 
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
 
 
         request.Headers.Authorization =
@@ -262,7 +267,7 @@ else
         {
             var json = await response.Content.ReadAsStringAsync();
 
-              var paginatedResult = JsonConvert.DeserializeObject<PaginatedResult<CategoryResource>>(json);
+            var paginatedResult = JsonConvert.DeserializeObject<PaginatedResult<CategoryResource>>(json);
 
             MyCategories = paginatedResult.Data;
 

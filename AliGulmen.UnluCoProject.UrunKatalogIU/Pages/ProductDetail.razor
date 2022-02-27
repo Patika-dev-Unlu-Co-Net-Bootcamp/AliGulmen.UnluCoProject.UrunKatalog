@@ -23,135 +23,138 @@
 }
 else
 {
-   
+
 
 
     <ul class="list-unstyled">
-  <!-- Products -->
-  <li class="card py-3 mb-5">
-    <div class="row">
-      <div class="col-4 pr-0">
-         <img src=@Path.Combine("/Images", product.PictureUrl) class="rounded" style="width:80%;height:auto;" /> 
-      </div>
+        <!-- Products -->
+    <li class="card py-3 mb-5">
+            <div class="row">
+                <div class="col-4 pr-0">
+                    <img src=@Path.Combine("/Images", product.PictureUrl) class="rounded" style="width:80%;height:auto;" />
+                </div>
 
-      <div class="col-8">
-        <div class="card-body py-5 px-md-4">
-          <div class="mb-2">
-            <a class="d-inline-block text-secondary small font-weight-medium mb-1" href="#">@product.CategoryName</a> 
-            @if(product.IsOfferable){
-            <span class="badge badge-success badge-pill ml-1">Teklife Açık!</span>
-            }
-             @if(product.IsSold){
-            <span class="badge badge-danger badge-pill ml-1">Satıldı!</span>
-             }
-            <h2 class="h5 font-weight-normal">
-              <a class="text-secondary" href="#">@product.Name</a>             
+                <div class="col-8">
+                    <div class="card-body py-5 px-md-4">
+                        <div class="mb-2">
+                            <a class="d-inline-block text-secondary small font-weight-medium mb-1" href="#">@product.CategoryName</a>
+                            @if (product.IsOfferable)
+                            {
+                                <span class="badge badge-success badge-pill ml-1">Teklife Açık!</span>
+                            }
+                            @if (product.IsSold)
+                            {
+                                <span class="badge badge-danger badge-pill ml-1">Satıldı!</span>
+                            }
+                            <h2 class="h5 font-weight-normal">
+                                <a class="text-secondary" href="#">@product.Name</a>
 
-             <br/> <span class="h6">@product.Description</span>
-             <br/> <span class="h6" style="font-weight: bold;">Marka : </span> <span class="h6">@product.BrandName </span>
-             <br/> <span class="h6" style="font-weight: bold;">Renk : </span> <span class="h6">@product.ColorName </span>
-             <br/> <span class="h6" style="font-weight: bold;">Kullanım Durumu : </span> <span class="h6">@product.ConditionStatus </span>
-             <br/> <span class="h6" style="font-weight: bold;">Satıcı : </span> <span class="h6">@product.Owner </span>
-            </h2>
-            <div class="d-block">
-              
-              <span class="h5" style="font-weight:bold;">₺@product.BuyItNowPrice</span>
-            </div>
-          </div>
-           @if(CurrentOffer is null && product.IsOfferable && product.UserId != _userId){
-          <button type="button" class="btn btn-sm btn-outline-primary btn-sm-wide btn-pill transition-3d-hover mr-1" @onclick="(() => { 
-                            showUpdateModal = true;
-                            ProductIdToCreate = product.Id;
-                            NewOffer =  product.BuyItNowPrice.ToString();
+                                <br /> <span class="h6">@product.Description</span>
+                                <br /> <span class="h6" style="font-weight: bold;">Marka : </span> <span class="h6">@product.BrandName </span>
+                                <br /> <span class="h6" style="font-weight: bold;">Renk : </span> <span class="h6">@product.ColorName </span>
+                                <br /> <span class="h6" style="font-weight: bold;">Kullanım Durumu : </span> <span class="h6">@product.ConditionStatus </span>
+                                <br /> <span class="h6" style="font-weight: bold;">Satıcı : </span> <span class="h6">@product.Owner </span>
+                            </h2>
+                            <div class="d-block">
 
-                        })">Teklif Ver</button>
-           }
-             @if(CurrentOffer is not null && product.UserId != _userId){
-                  <button type="button" class="btn btn-sm btn-outline-primary btn-sm-wide btn-pill transition-3d-hover mr-1" 
-                  @onclick="(async () => { await DeleteOffer(CurrentOffer.Id); })">Teklifi Geri Çek</button>
-                        }
-
-              @if(product.UserId != _userId && !product.IsSold && product.UserId != _userId)
+                                <span class="h5" style="font-weight:bold;">₺@product.BuyItNowPrice</span>
+                            </div>
+                        </div>
+                        @if (CurrentOffer is null && product.IsOfferable && product.UserId != _userId)
                         {
-                             <button type="button" class="btn btn-sm btn-outline-primary btn-sm-wide btn-pill transition-3d-hover mr-1" 
-                  @onclick="(async () => { await BuyProduct(product.Id); })">Satın Al</button>
+                            <button type="button" class="btn btn-sm btn-outline-primary btn-sm-wide btn-pill transition-3d-hover mr-1" @onclick="(() => {
+                            showUpdateModal = true;
+                            _productIdToCreate = product.Id;
+                            _newOffer =  product.BuyItNowPrice.ToString();
+
+                        })">
+                                Teklif Ver
+                            </button>
                         }
-         
-        </div>
-      </div>
-    </div>
-  </li>
-  <!-- End Products -->
+                        @if (CurrentOffer is not null && product.UserId != _userId)
+                        {
+                            <button type="button" class="btn btn-sm btn-outline-primary btn-sm-wide btn-pill transition-3d-hover mr-1"
+                            @onclick="(async () => { await DeleteOffer(CurrentOffer.Id); })">
+                                Teklifi Geri Çek
+                            </button>
+                        }
+
+                        @if (product.UserId != _userId && !product.IsSold && product.UserId != _userId)
+                        {
+                            <button type="button" class="btn btn-sm btn-outline-primary btn-sm-wide btn-pill transition-3d-hover mr-1"
+                            @onclick="(async () => { await BuyProduct(product.Id); })">
+                                Satın Al
+                            </button>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </li>
+        <!-- End Products -->
 </ul>
 
-                     <div class="form-outline mb-4">
-                     
-                      
-                        
-                      
-                     </div>
+    <div class="form-outline mb-4">
+    </div>
 
 
 
- @if (showUpdateModal)
-{
-<div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Teklifi Güncelle</h5>
-                <button type="button" class="close" data-dismiss="modal" @onclick="@(() => { showUpdateModal = false; })" aria-label="Vazgeç">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-         <EditForm Model="@OffertoCreate" OnValidSubmit="@CreateOffer">
+    @if (showUpdateModal)
+    {
+        <div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Teklifi Güncelle</h5>
+                        <button type="button" class="close" data-dismiss="modal" @onclick="@(() => { showUpdateModal = false; })" aria-label="Vazgeç">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <EditForm Model="@OffertoCreate" OnValidSubmit="@CreateOffer">
 
-          <div class="form-group">
-             <label class="form-label" for="OffertoUpdateValue">Yeni Teklif :</label>
-             <input type="range" min="0" max="100" step="5" value="@ActualNumber"  @onchange="CheckSliderRating"  @oninput="@((args) => Calc(args.Value.ToString()))"/>
-            <InputText type="text" @bind-Value="NewOffer" id="OffertoUpdateValue" class="form-control form-control-lg" />
-          </div>
-         
-        </EditForm>
-      </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @onclick="CreateOffer">Kaydet</button>
-                <button type="button" class="btn btn-secondary" @onclick="@(() => { showUpdateModal = false; })" data-dismiss="modal">Vazgeç</button>
+                            <div class="form-group">
+                                <label class="form-label" for="OffertoUpdateValue">Yeni Teklif :</label>
+                                <input type="range" min="0" max="100" step="5" value="@ActualNumber" @onchange="CheckSliderRating" @oninput="@((args) => Calc(args.Value.ToString()))" />
+                                <InputText type="text" @bind-Value="_newOffer" id="OffertoUpdateValue" class="form-control form-control-lg" />
+                            </div>
+
+                        </EditForm>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" @onclick="CreateOffer">Kaydet</button>
+                        <button type="button" class="btn btn-secondary" @onclick="@(() => { showUpdateModal = false; })" data-dismiss="modal">Vazgeç</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-}
+    }
 
 
 
 
-         
+
 
 }
-
-
 
 
 
 @code {
     private int ActualNumber { get; set; } = 70;
-    private string NewOffer;
     public SaveOfferResource OffertoCreate = new();
     public OfferResource CurrentOffer = new();
     private string _userId;
-    private int ProductIdToCreate;
+    private int _productIdToCreate;
     bool showUpdateModal = false;
-
-
     public ProductResource product { get; set; }
     public SaveProductResource productToBuy { get; set; }
     public int ProductId;
+    private string _newOffer;
+
 
     public void CheckSliderRating()
     {
-        NewOffer = (ActualNumber * product.BuyItNowPrice / 100).ToString();
+        _newOffer = (ActualNumber * product.BuyItNowPrice / 100).ToString();
     }
 
 
@@ -169,16 +172,16 @@ else
     protected override async Task OnInitializedAsync()
     {
         CurrentOffer = null;
-        ProductId = (AppData.ProductId ==0) ? 1: AppData.ProductId;
+        ProductId = (AppData.ProductId == 0) ? 1 : AppData.ProductId;
         var client = ClientFactory.CreateClient();
 
-        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products/"+ProductId);
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products/" + ProductId);
 
 
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
         var handler = new JwtSecurityTokenHandler();
-        if(token.Success)
+        if (token.Success)
             _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
 
         request.Headers.Authorization =
@@ -203,7 +206,7 @@ else
 
 
 
-        request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/Offers?ProductId="+ProductId.ToString() + "&&UserId=" + _userId); 
+        request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/Offers?ProductId=" + ProductId.ToString() + "&&UserId=" + _userId);
 
         request.Headers.Authorization =
            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
@@ -231,12 +234,12 @@ else
 
         var client = ClientFactory.CreateClient();
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
 
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response = await client.DeleteAsync("http://localhost:3000/api/offers/"+id);
+        var response = await client.DeleteAsync("http://localhost:3000/api/offers/" + id);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent || response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -256,14 +259,14 @@ else
 
         var client = ClientFactory.CreateClient();
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
         var handler = new JwtSecurityTokenHandler();
         _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
 
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response = await client.PutAsJsonAsync("http://localhost:3000/api/products/sell/"+id, _userId);
+        var response = await client.PutAsJsonAsync("http://localhost:3000/api/products/sell/" + id, _userId);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -274,13 +277,6 @@ else
     }
 
 
-
-
-
-
-
-
-
     public async Task CreateOffer()
     {
         showUpdateModal = false;
@@ -288,14 +284,14 @@ else
         var client = ClientFactory.CreateClient();
 
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
         var handler = new JwtSecurityTokenHandler();
         _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
-        OffertoCreate.OfferedPrice =Convert.ToInt32(NewOffer);
+        OffertoCreate.OfferedPrice = Convert.ToInt32(_newOffer);
         OffertoCreate.OfferStatus = UrunKatalog.Core.Domain.Enums.OfferStatus.BEKLEMEDE;
-        OffertoCreate.ProductId = ProductIdToCreate;
+        OffertoCreate.ProductId = _productIdToCreate;
         OffertoCreate.UserId = _userId;
 
 

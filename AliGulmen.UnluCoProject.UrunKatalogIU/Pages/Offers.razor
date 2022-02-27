@@ -23,9 +23,10 @@
     <p><em>Loading...</em></p>
 }
 else
-{    <h3>Verdiğim Teklifler</h3>
+{
+        <h3>Verdiğim Teklifler</h3>
 
-     <table class="table">
+    <table class="table">
         <thead>
             <tr>
 
@@ -39,33 +40,36 @@ else
         <tbody>
             @foreach (var offer in MyOffers)
             {
-               
+
                 <tr>
                     <td>@offer.ProductName</td>
                     <td>@offer.OfferedPrice</td>
                     <td>@offer.CurrentPrice</td>
                     <td>@offer.OfferStatus</td>
-                    <td>   
-                        
+                    <td>
+
                         @if (offer.OfferStatus == OfferStatus.KABUL_EDILDI)
                         {
                             <button class="btn btn-primary" @onclick="() => BuyWithOfferPrice(offer.Id)"> Teklifle Al </button>
                         }
-                        else{
-                             <button class="btn btn-primary" @onclick="(() => { 
+                        else
+                        {
+                            <button class="btn btn-primary" @onclick="(() => {
                             showUpdateModal = true;
-                            IdtoUpdate = offer.Id;
-                            CurrentPrice = offer.CurrentPrice;
-                            NewOffer =  offer.OfferedPrice.ToString();
+                            _idToUpdate = offer.Id;
+                            _currentPrice = offer.CurrentPrice;
+                            _newOffer =  offer.OfferedPrice.ToString();
 
-                        })"> Güncelle </button>
+                        })">
+                                Güncelle
+                            </button>
                         }
-                      
-                        <button class="btn btn-danger" @onclick="() => DeleteOffer(offer.Id)"> Geri Çek </button> 
+
+                        <button class="btn btn-danger" @onclick="() => DeleteOffer(offer.Id)"> Geri Çek </button>
                     </td>
-                                 
+
                 </tr>
-              
+
             }
         </tbody>
     </table>
@@ -77,7 +81,7 @@ else
     <br />
 
 
-     <table class="table">
+    <table class="table">
         <thead>
             <tr>
 
@@ -96,67 +100,52 @@ else
                     <td>@offer.OfferedPrice</td>
                     <td>@offer.CurrentPrice</td>
                     <td>@offer.OfferStatus</td>
-                    <td>   
-                        <button class="btn btn-primary"@onclick="() =>UpdateOfferStatus(offer.Id, offer.OfferedPrice ,OfferStatus.KABUL_EDILDI)"> Kabul Et </button>
-                        <button class="btn btn-danger" @onclick="() =>UpdateOfferStatus(offer.Id, offer.OfferedPrice, OfferStatus.REDDEDILDI)"> Reddet </button> 
+                    <td>
+                        <button class="btn btn-primary" @onclick="() =>UpdateOfferStatus(offer.Id, offer.OfferedPrice ,OfferStatus.KABUL_EDILDI)"> Kabul Et </button>
+                        <button class="btn btn-danger" @onclick="() =>UpdateOfferStatus(offer.Id, offer.OfferedPrice, OfferStatus.REDDEDILDI)"> Reddet </button>
                     </td>
-                                 
+
                 </tr>
             }
         </tbody>
     </table>
-   
-
-
-
-
-
-
-
-
-
-
 
 
 
 
 
     @if (showUpdateModal)
-{
-<div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Teklifi Güncelle</h5>
-                <button type="button" class="close" data-dismiss="modal" @onclick="@(() => { showUpdateModal = false; })" aria-label="Vazgeç">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-         <EditForm Model="@OffertoUpdate" OnValidSubmit="@UpdateOffer">
+    {
+        <div class="modal fade show" tabindex="-1" role="dialog" style="display: block;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Teklifi Güncelle</h5>
+                        <button type="button" class="close" data-dismiss="modal" @onclick="@(() => { showUpdateModal = false; })" aria-label="Vazgeç">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <EditForm Model="@OffertoUpdate" OnValidSubmit="@UpdateOffer">
 
-          <div class="form-group">
-             <label class="form-label" for="OffertoUpdateValue">Yeni Teklif :</label>
-             <input type="range" min="0" max="100" step="5" value="@ActualNumber"  @onchange="CheckSliderRating"  @oninput="@((args) => Calc(args.Value.ToString()))"/>
-            <InputText type="text" @bind-Value="NewOffer" id="OffertoUpdateValue" class="form-control form-control-lg" />
-          </div>
-         
-        </EditForm>
-      </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @onclick="UpdateOffer">Kaydet</button>
-                <button type="button" class="btn btn-secondary" @onclick="@(() => { showUpdateModal = false; })" data-dismiss="modal">Vazgeç</button>
+                            <div class="form-group">
+                                <label class="form-label" for="OffertoUpdateValue">Yeni Teklif :</label>
+                                <input type="range" min="0" max="100" step="5" value="@ActualNumber" @onchange="CheckSliderRating" @oninput="@((args) => Calc(args.Value.ToString()))" />
+                                <InputText type="text" @bind-Value="_newOffer" id="OffertoUpdateValue" class="form-control form-control-lg" />
+                            </div>
+
+                        </EditForm>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" @onclick="UpdateOffer">Kaydet</button>
+                        <button type="button" class="btn btn-secondary" @onclick="@(() => { showUpdateModal = false; })" data-dismiss="modal">Vazgeç</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<p> <button class="btn btn-primary" @onclick="SignOut">Çıkış Yap</button></p>
+        <p> <button class="btn btn-primary" @onclick="SignOut">Çıkış Yap</button></p>
 
-}
-
-
-
-
+    }
 
 
 
@@ -166,19 +155,20 @@ else
 
 @code {
     private int ActualNumber { get; set; } = 70;
-    private string NewOffer;
     public List<OfferResource> MyOffers { get; set; }
     public List<OfferResource> MyProducts { get; set; }
     public UpdateOfferResource OffertoUpdate = new();
     public List<PurchaseHistoryResource> MyPurchased { get; set; }
     public List<PurchaseHistoryResource> MySold { get; set; }
     private string _userId;
-    private int IdtoUpdate;
-    private int CurrentPrice;
+    private int _idToUpdate;
+    private int _currentPrice;
+    private string _newOffer;
+
 
     public void CheckSliderRating()
     {
-        NewOffer = (ActualNumber * CurrentPrice / 100).ToString();
+        _newOffer = (ActualNumber * _currentPrice / 100).ToString();
     }
 
 
@@ -191,8 +181,8 @@ else
     bool showUpdateModal = false;
 
 
-    
-      public async Task SignOut()
+
+    public async Task SignOut()
     {
         await Storage.DeleteAsync("token");
         UriHelper.NavigateTo("login");
@@ -211,14 +201,14 @@ else
         var client = ClientFactory.CreateClient();
 
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
-        OffertoUpdate.OfferedPrice =Convert.ToInt32(NewOffer);
+        OffertoUpdate.OfferedPrice = Convert.ToInt32(_newOffer);
         OffertoUpdate.OfferStatus = OfferStatus.BEKLEMEDE;
 
 
-        var response = await client.PutAsJsonAsync("http://localhost:3000/api/offers/"+IdtoUpdate, OffertoUpdate);
+        var response = await client.PutAsJsonAsync("http://localhost:3000/api/offers/" + _idToUpdate, OffertoUpdate);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -236,11 +226,11 @@ else
 
         var client = ClientFactory.CreateClient();
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response = await client.DeleteAsync("http://localhost:3000/api/offers/"+id);
+        var response = await client.DeleteAsync("http://localhost:3000/api/offers/" + id);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -260,10 +250,10 @@ else
     {
         var client = ClientFactory.CreateClient();
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response = await client.PostAsJsonAsync("http://localhost:3000/api/products/BuyWithOffer",id);
+        var response = await client.PostAsJsonAsync("http://localhost:3000/api/products/BuyWithOffer", id);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -271,7 +261,7 @@ else
 
             await OnInitializedAsync();
         }
-      
+
     }
 
 
@@ -287,19 +277,19 @@ else
 
 
 
-     public async Task UpdateOfferStatus(int id, int offeredPrice, OfferStatus updatedStatus)
+    public async Task UpdateOfferStatus(int id, int offeredPrice, OfferStatus updatedStatus)
     {
 
         var client = ClientFactory.CreateClient();
-       
-        var token =  await Storage.GetAsync<string>("token");
+
+        var token = await Storage.GetAsync<string>("token");
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
-         OffertoUpdate.OfferedPrice =offeredPrice;
+        OffertoUpdate.OfferedPrice = offeredPrice;
         OffertoUpdate.OfferStatus = updatedStatus;
 
 
-        var response = await client.PutAsJsonAsync("http://localhost:3000/api/offers/"+id, OffertoUpdate);
+        var response = await client.PutAsJsonAsync("http://localhost:3000/api/offers/" + id, OffertoUpdate);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -316,20 +306,20 @@ else
 
 
 
-    
+
     protected override async Task OnInitializedAsync()
-    {  
-     var client = ClientFactory.CreateClient();
+    {
+        var client = ClientFactory.CreateClient();
 
 
         var token = await Storage.GetAsync<string>("token");
         var handler = new JwtSecurityTokenHandler();
-        if(token.Success)
-        _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
+        if (token.Success)
+            _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response1 = await client.PostAsJsonAsync("http://localhost:3000/api/myOffers",_userId);
+        var response1 = await client.PostAsJsonAsync("http://localhost:3000/api/myOffers", _userId);
 
         if (response1.IsSuccessStatusCode)
         {
@@ -345,7 +335,7 @@ else
         }
 
 
-         var response2 = await client.PostAsJsonAsync("http://localhost:3000/api/myproducts",_userId);
+        var response2 = await client.PostAsJsonAsync("http://localhost:3000/api/myproducts", _userId);
 
         if (response2.IsSuccessStatusCode)
         {

@@ -16,18 +16,18 @@
         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">
       </div>
       <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-      
+
           <EditForm Model="@User" OnValidSubmit="@Submit">
     <DataAnnotationsValidator />
     @*<ValidationSummary />*@
-         
-    
+
+
     <!-- Email input -->
-         
+
 
 
           <div class="form-outline mb-4">
-                          
+
             <label class="form-label" for="Email">Email address</label>
 
             <InputText type="email" @bind-Value="User.Email" id="Email" class="form-control form-control-lg" />
@@ -44,17 +44,20 @@
             <ValidationMessage For="() => User.Password" />
           </div>
 
-         
+
 
           <!-- Submit button -->
           <button type="submit" class="btn btn-primary btn-lg btn-block">Giriş Yap</button>
-            
+
 
        </EditForm>
-        @if(_errors != "" && _errors is not null)
-{<br /><br />
-    <h3 style="color:red;">@_errors</h3>
-}
+        @if (_errors != "" && _errors is not null)
+                {
+                    <br />
+
+                    <br />
+        <h3 style="color:red;">@_errors</h3>
+                }
       </div>
     </div>
   </div>
@@ -62,8 +65,8 @@
 
 
 
-   
-   
+
+
 
 
 
@@ -74,17 +77,17 @@
 
 
 
-      protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         await Task.Run(() => _errors = "");
     }
 
     private async Task Submit()
     {
-        _errors="";
+        _errors = "";
         var client = ClientFactory.CreateClient();
 
-        var response = await client.PostAsJsonAsync("http://localhost:3000/api/AuthManagement/Login",User);
+        var response = await client.PostAsJsonAsync("http://localhost:3000/api/AuthManagement/Login", User);
 
 
         if (response.IsSuccessStatusCode)
@@ -96,11 +99,11 @@
 
             string token = resultObject.SelectToken("token").SelectToken("accessToken").Value<string>();
             await Storage.SetAsync("token", token);
-             app.IsLoggedIn = true;
-             UriHelper.NavigateTo("categories");
+            app.IsLoggedIn = true;
+            UriHelper.NavigateTo("categories");
         }
 
-          else
+        else
         {
             string result = await response.Content.ReadAsStringAsync();
             JObject resultObject = JObject.Parse(result);
@@ -111,10 +114,4 @@
 
 
 
-
-
-
-
-
-    
 }

@@ -161,22 +161,23 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 167 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Offers.razor"
+#line 156 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Offers.razor"
        
     private int ActualNumber { get; set; } = 70;
-    private string NewOffer;
     public List<OfferResource> MyOffers { get; set; }
     public List<OfferResource> MyProducts { get; set; }
     public UpdateOfferResource OffertoUpdate = new();
     public List<PurchaseHistoryResource> MyPurchased { get; set; }
     public List<PurchaseHistoryResource> MySold { get; set; }
     private string _userId;
-    private int IdtoUpdate;
-    private int CurrentPrice;
+    private int _idToUpdate;
+    private int _currentPrice;
+    private string _newOffer;
+
 
     public void CheckSliderRating()
     {
-        NewOffer = (ActualNumber * CurrentPrice / 100).ToString();
+        _newOffer = (ActualNumber * _currentPrice / 100).ToString();
     }
 
 
@@ -189,8 +190,8 @@ using System.IO;
     bool showUpdateModal = false;
 
 
-    
-      public async Task SignOut()
+
+    public async Task SignOut()
     {
         await Storage.DeleteAsync("token");
         UriHelper.NavigateTo("login");
@@ -209,14 +210,14 @@ using System.IO;
         var client = ClientFactory.CreateClient();
 
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
-        OffertoUpdate.OfferedPrice =Convert.ToInt32(NewOffer);
+        OffertoUpdate.OfferedPrice = Convert.ToInt32(_newOffer);
         OffertoUpdate.OfferStatus = OfferStatus.BEKLEMEDE;
 
 
-        var response = await client.PutAsJsonAsync("http://localhost:3000/api/offers/"+IdtoUpdate, OffertoUpdate);
+        var response = await client.PutAsJsonAsync("http://localhost:3000/api/offers/" + _idToUpdate, OffertoUpdate);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -234,11 +235,11 @@ using System.IO;
 
         var client = ClientFactory.CreateClient();
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response = await client.DeleteAsync("http://localhost:3000/api/offers/"+id);
+        var response = await client.DeleteAsync("http://localhost:3000/api/offers/" + id);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -258,10 +259,10 @@ using System.IO;
     {
         var client = ClientFactory.CreateClient();
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response = await client.PostAsJsonAsync("http://localhost:3000/api/products/BuyWithOffer",id);
+        var response = await client.PostAsJsonAsync("http://localhost:3000/api/products/BuyWithOffer", id);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -269,7 +270,7 @@ using System.IO;
 
             await OnInitializedAsync();
         }
-      
+
     }
 
 
@@ -285,19 +286,19 @@ using System.IO;
 
 
 
-     public async Task UpdateOfferStatus(int id, int offeredPrice, OfferStatus updatedStatus)
+    public async Task UpdateOfferStatus(int id, int offeredPrice, OfferStatus updatedStatus)
     {
 
         var client = ClientFactory.CreateClient();
-       
-        var token =  await Storage.GetAsync<string>("token");
+
+        var token = await Storage.GetAsync<string>("token");
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
-         OffertoUpdate.OfferedPrice =offeredPrice;
+        OffertoUpdate.OfferedPrice = offeredPrice;
         OffertoUpdate.OfferStatus = updatedStatus;
 
 
-        var response = await client.PutAsJsonAsync("http://localhost:3000/api/offers/"+id, OffertoUpdate);
+        var response = await client.PutAsJsonAsync("http://localhost:3000/api/offers/" + id, OffertoUpdate);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -314,20 +315,20 @@ using System.IO;
 
 
 
-    
+
     protected override async Task OnInitializedAsync()
-    {  
-     var client = ClientFactory.CreateClient();
+    {
+        var client = ClientFactory.CreateClient();
 
 
         var token = await Storage.GetAsync<string>("token");
         var handler = new JwtSecurityTokenHandler();
-        if(token.Success)
-        _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
+        if (token.Success)
+            _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response1 = await client.PostAsJsonAsync("http://localhost:3000/api/myOffers",_userId);
+        var response1 = await client.PostAsJsonAsync("http://localhost:3000/api/myOffers", _userId);
 
         if (response1.IsSuccessStatusCode)
         {
@@ -343,7 +344,7 @@ using System.IO;
         }
 
 
-         var response2 = await client.PostAsJsonAsync("http://localhost:3000/api/myproducts",_userId);
+        var response2 = await client.PostAsJsonAsync("http://localhost:3000/api/myproducts", _userId);
 
         if (response2.IsSuccessStatusCode)
         {

@@ -1,10 +1,10 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
+﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Context;
-using System.Linq;
 using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
@@ -25,12 +25,8 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
                                 .Include(p => p.User)
                                 .FirstOrDefaultAsync(p => p.Id == id);
 
-
-
             if (result == null)
                 throw new KeyNotFoundException("Not Found!");
-
-
 
             return result;
         }
@@ -40,15 +36,15 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
         public override async Task<PaginatedResult<Offer>> GetAll(Filter filter)
         {
             var query = _context.Offers
-                                 .Include(p => p.Product)
+                                .Include(p => p.Product)
                                 .Include(p => p.User)
-                .AsQueryable();
+                                .AsQueryable();
 
             if (filter.ProductId.HasValue)
                 query = query.Where(p => p.ProductId == filter.ProductId.Value);
+
             if (filter.UserId != "" && filter.UserId is not null)
                 query = query.Where(p => p.UserId == filter.UserId);
-
 
             var result = await query.ToPaginatedListAsync(filter.PageNumber, filter.PageSize);
 
@@ -66,8 +62,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
                                     .ToListAsync();
         }
 
-
-
         public async Task<IEnumerable<Offer>> GetMyProducts(string userId)
         {
             return await _context.Offers
@@ -84,8 +78,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
                                 .FirstOrDefaultAsync(p => p.Id == offer.ProductId);
 
             return query.IsOfferable;
-
-
 
         }
     }

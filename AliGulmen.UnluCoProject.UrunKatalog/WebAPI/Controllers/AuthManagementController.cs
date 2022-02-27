@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Requests;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Responses;
@@ -9,8 +10,7 @@ using AliGulmen.UnluCoProject.UrunKatalogIU.Models;
 using EmailService.Domain;
 using EmailService.Services;
 using Hangfire;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+
 
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers

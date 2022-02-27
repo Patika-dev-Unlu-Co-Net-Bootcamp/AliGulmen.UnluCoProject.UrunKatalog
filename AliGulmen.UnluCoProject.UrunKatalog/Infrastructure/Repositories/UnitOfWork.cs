@@ -12,7 +12,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Context
             _context = context;
         }
 
-
         public async Task CompleteAsync()
         {
             await _context.SaveChangesAsync();

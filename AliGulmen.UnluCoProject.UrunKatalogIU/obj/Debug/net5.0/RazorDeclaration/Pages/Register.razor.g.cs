@@ -83,28 +83,28 @@ using AliGulmen.UnluCoProject.UrunKatalogIU.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Register.razor"
+#line 3 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Register.razor"
 using AliGulmen.UnluCoProject.UrunKatalogIU.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Register.razor"
+#line 4 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Register.razor"
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Register.razor"
+#line 5 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Register.razor"
 using System.Net.Http.Json;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Register.razor"
+#line 6 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Register.razor"
 using Newtonsoft.Json.Linq;
 
 #line default
@@ -119,7 +119,7 @@ using Newtonsoft.Json.Linq;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 102 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Register.razor"
+#line 104 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Register.razor"
        
     public AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Requests.UserRegistrationDto User = new();
     private string _errors;
@@ -146,7 +146,7 @@ using Newtonsoft.Json.Linq;
         _errors = "";
         var client = ClientFactory.CreateClient();
 
-        var response = await client.PostAsJsonAsync("http://localhost:3000/api/AuthManagement/Register",User);
+        var response = await client.PostAsJsonAsync("http://localhost:3000/api/AuthManagement/Register", User);
 
 
         if (response.IsSuccessStatusCode)
@@ -155,7 +155,7 @@ using Newtonsoft.Json.Linq;
             JObject resultObject = JObject.Parse(result);
             string token = resultObject.SelectToken("token").SelectToken("accessToken").Value<string>();
             await Storage.SetAsync("token", token);
-             app.IsLoggedIn = true;
+            app.IsLoggedIn = true;
             UriHelper.NavigateTo("login");
         }
         else
@@ -168,13 +168,6 @@ using Newtonsoft.Json.Linq;
     }
 
 
-
-
-
-
-
-
-    
 
 #line default
 #line hidden

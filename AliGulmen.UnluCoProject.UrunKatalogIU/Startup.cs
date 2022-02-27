@@ -1,4 +1,3 @@
-using AliGulmen.UnluCoProject.UrunKatalogIU.Data;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,7 +26,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalogIU
             services.AddHttpClient();
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<Models.AppData>();
 
 

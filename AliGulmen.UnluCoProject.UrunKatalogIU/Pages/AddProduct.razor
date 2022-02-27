@@ -29,14 +29,14 @@ else
 {
     <EditForm Model="@Product" OnValidSubmit="@AddNewProduct">
         <DataAnnotationsValidator />
-        
+
         <section class="vh-90">
             <div class="container py-5 h-100">
                 <div class="row d-flex align-items-center justify-content-center h-100">
-                   
+
                     <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
                         <label class="form-label" for="customFile">Resim Seçiniz : </label>
-      <InputFile OnChange="@LoadFiles" id="fileAttachmentBtn" accept=".jpg,.png,.jpeg" name="file-attachment" class="file-attachment-btn__label"/>
+                        <InputFile OnChange="@LoadFiles" id="fileAttachmentBtn" accept=".jpg,.png,.jpeg" name="file-attachment" class="file-attachment-btn__label" />
 
 
                         <div class="form-outline mb-4">
@@ -68,12 +68,12 @@ else
                         </div>
 
                         <div class="form-outline mb-4">
-                             <div class="custom-control custom-switch">
-                            <InputCheckbox type="checkbox" class="custom-control-input"  id="ProductIsOfferable" @bind-Value="Product.IsOfferable"/>
-                            <label class="custom-control-label" for="ProductIsOfferable">
-                            <span class="d-block">Teklife Açık Mı?</span>
-                            <small class="d-block text-muted">Bu seçeneği aktif etmeniz durumunda ürününüz için teklifler alabilirsiniz!</small>
-                             </label>
+                            <div class="custom-control custom-switch">
+                                <InputCheckbox type="checkbox" class="custom-control-input" id="ProductIsOfferable" @bind-Value="Product.IsOfferable" />
+                                <label class="custom-control-label" for="ProductIsOfferable">
+                                    <span class="d-block">Teklife Açık Mı?</span>
+                                    <small class="d-block text-muted">Bu seçeneği aktif etmeniz durumunda ürününüz için teklifler alabilirsiniz!</small>
+                                </label>
                             </div>
 
 
@@ -89,17 +89,18 @@ else
                                 <option value="@item.Id">@item.Status</option>
                                 }
                         </InputSelect>
-                           @if(_error != ""){
-                       <span class="badge badge-danger badge-pill">@_error</span>     
+                        @if (_error != "")
+                            {
+                                <span class="badge badge-danger badge-pill">@_error</span>
                             }
-                        <ValidationMessage For="() => Product.ConditionId" />
-                    </div>
+                            <ValidationMessage For="() => Product.ConditionId" />
+                        </div>
 
-                    <div class="form-outline mb-4">
-                        <label class="form-label" for="Color">Color</label>
-                        <InputSelect class="custom-select" @bind-Value="Product.ColorId">
-                            <option selected="selected">Lütfen Seçiniz</option>
-                            @foreach (var item in Colors)
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="Color">Color</label>
+                            <InputSelect class="custom-select" @bind-Value="Product.ColorId">
+                                <option selected="selected">Lütfen Seçiniz</option>
+                                @foreach (var item in Colors)
                                 {
                                 <option value="@item.Id">@item.Name</option>
                                 }
@@ -132,25 +133,26 @@ else
                         <ValidationMessage For="() => Product.CategoryId" />
                     </div>
 
-                     @if(_error != ""){
-                       <span class="badge badge-danger badge-pill">@_error</span>     
-                            }
+                    @if (_error != "")
+                        {
+                            <span class="badge badge-danger badge-pill">@_error</span>
+                        }
 
-                    <!-- Submit button -->
+                        <!-- Submit button -->
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Ekle</button>
 
-                            <ValidationSummary />
-                           
+                        <ValidationSummary />
 
 
+
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-</EditForm>
+    </EditForm>
 
-<p> <button class="btn btn-primary" @onclick="SignOut">Çıkış Yap</button></p>
+    <p> <button class="btn btn-primary" @onclick="SignOut">Çıkış Yap</button></p>
 
 
 }
@@ -166,28 +168,12 @@ else
     public List<ColorResource> Colors = new();
     public List<BrandResource> Brands = new();
     public List<CategoryResource> Categories = new();
-    private int maxAllowedFiles = 1;
-        private long maxFileSize = 1024 * 400;
-
-    private string _price;
-
     public string pictureUrl;
+    private int _maxAllowedFiles = 1;
+    private long _maxFileSize = 1024 * 400;
+    private string _price;
     private string _userId;
     private string _error;
-
-
-
-
-
-      public async Task SignOut()
-    {
-        await Storage.DeleteAsync("token");
-        UriHelper.NavigateTo("login");
-    }
-
-
-
-
 
 
     protected override async Task OnInitializedAsync()
@@ -270,12 +256,16 @@ else
 
     }
 
-
+    public async Task SignOut()
+    {
+        await Storage.DeleteAsync("token");
+        UriHelper.NavigateTo("login");
+    }
 
 
     private async Task AddNewProduct()
     {
-        if(Product.CategoryId == 0 || Product.ConditionId== 0)
+        if (Product.CategoryId == 0 || Product.ConditionId == 0)
         {
             _error = "Lütfen Kategori ve Kullanım Durumları Alanlarını Doldurunuz!";
         }
@@ -285,45 +275,39 @@ else
             var client = ClientFactory.CreateClient();
 
 
-        var token = await Storage.GetAsync<string>("token");
-        var handler = new JwtSecurityTokenHandler();
-        _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
-        Product.UserId = _userId;
-        Product.BuyItNowPrice = Int32.Parse(_price);
+            var token = await Storage.GetAsync<string>("token");
+            var handler = new JwtSecurityTokenHandler();
+            _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
+            Product.UserId = _userId;
+            Product.BuyItNowPrice = Int32.Parse(_price);
 
-        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
-        var response = await client.PostAsJsonAsync("http://localhost:3000/api/products", Product);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+            var response = await client.PostAsJsonAsync("http://localhost:3000/api/products", Product);
 
 
-        if (response.StatusCode == System.Net.HttpStatusCode.Created)
-        {
-            UriHelper.NavigateTo("home");
+            if (response.StatusCode == System.Net.HttpStatusCode.Created)
+            {
+                UriHelper.NavigateTo("home");
+            }
         }
-        }
-       
+
 
     }
-
-
-
-
-
-
 
 
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {
 
-        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        foreach (var file in e.GetMultipleFiles(_maxAllowedFiles))
         {
             try
             {
 
                 var path = Path.Combine("wwwroot/Images", file.Name);
-                pictureUrl =  file.Name;
+                pictureUrl = file.Name;
 
                 await using FileStream fs = new(pictureUrl, FileMode.Create);
-                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
+                await file.OpenReadStream(_maxFileSize).CopyToAsync(fs);
                 Product.PictureUrl = pictureUrl;
             }
             catch (Exception)
@@ -333,7 +317,7 @@ else
         }
 
 
-       
+
     }
 
 

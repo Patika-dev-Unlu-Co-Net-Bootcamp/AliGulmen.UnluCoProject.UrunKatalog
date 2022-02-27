@@ -147,7 +147,7 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 118 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
+#line 115 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
        
 
     public List<ProductResource> MyProducts { get; set; }
@@ -161,7 +161,7 @@ using System.IO;
    
 
     public void GoToDetailPage(int id)
-    {
+ {
         AppData.ProductId = id;
         UriHelper.NavigateTo("ProductDetail");
     }
@@ -189,6 +189,7 @@ using System.IO;
             new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
         var response = await client.SendAsync(request);
 
+
         if (response.IsSuccessStatusCode)
         {
             var json = await response.Content.ReadAsStringAsync();
@@ -213,7 +214,7 @@ using System.IO;
 
 
 
-        var token =  await Storage.GetAsync<string>("token");
+          var token =  await Storage.GetAsync<string>("token");
 
 
         request.Headers.Authorization =

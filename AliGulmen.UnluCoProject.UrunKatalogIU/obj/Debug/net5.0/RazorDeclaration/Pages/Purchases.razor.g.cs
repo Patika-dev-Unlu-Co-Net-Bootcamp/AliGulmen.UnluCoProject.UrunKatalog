@@ -154,7 +154,7 @@ using System.IdentityModel.Tokens.Jwt;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 83 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Purchases.razor"
+#line 84 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Purchases.razor"
        
     public List<PurchaseHistoryResource> MyPurchases { get; set; }
     public List<PurchaseHistoryResource> MySold { get; set; }
@@ -162,20 +162,20 @@ using System.IdentityModel.Tokens.Jwt;
 
 
 
-    
+
     protected override async Task OnInitializedAsync()
     {
-     var client = ClientFactory.CreateClient();
+        var client = ClientFactory.CreateClient();
 
 
         var token = await Storage.GetAsync<string>("token");
         var handler = new JwtSecurityTokenHandler();
-         if(token.Success)
-        _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
+        if (token.Success)
+            _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response1 = await client.PostAsJsonAsync("http://localhost:3000/api/PurchaseHistories/purchased",_userId);
+        var response1 = await client.PostAsJsonAsync("http://localhost:3000/api/PurchaseHistories/purchased", _userId);
 
         if (response1.IsSuccessStatusCode)
         {
@@ -191,7 +191,7 @@ using System.IdentityModel.Tokens.Jwt;
         }
 
 
-         var response2 = await client.PostAsJsonAsync("http://localhost:3000/api/PurchaseHistories/sold",_userId);
+        var response2 = await client.PostAsJsonAsync("http://localhost:3000/api/PurchaseHistories/sold", _userId);
 
         if (response2.IsSuccessStatusCode)
         {

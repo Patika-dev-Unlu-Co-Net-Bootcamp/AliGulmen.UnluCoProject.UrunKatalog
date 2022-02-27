@@ -1,13 +1,10 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.BrandResources;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
-using AutoMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.BrandResources;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
 using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources;
 

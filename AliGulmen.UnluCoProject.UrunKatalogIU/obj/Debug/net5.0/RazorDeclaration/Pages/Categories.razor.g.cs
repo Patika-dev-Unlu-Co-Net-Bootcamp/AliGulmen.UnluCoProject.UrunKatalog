@@ -133,7 +133,7 @@ using System.Net.Http.Headers;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 149 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Categories.razor"
+#line 154 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Categories.razor"
        
 
     public List<CategoryResource> MyCategories { get; set; }
@@ -159,14 +159,14 @@ using System.Net.Http.Headers;
         var client = ClientFactory.CreateClient();
 
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
         Category.Name = CategoryToUpdate.Name;
         Category.Description = CategoryToUpdate.Description;
 
-        var response = await client.PutAsJsonAsync("http://localhost:3000/api/categories/"+CategoryToUpdate.Id,Category);
+        var response = await client.PutAsJsonAsync("http://localhost:3000/api/categories/" + CategoryToUpdate.Id, Category);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -190,11 +190,11 @@ using System.Net.Http.Headers;
         var client = ClientFactory.CreateClient();
 
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response = await client.PostAsJsonAsync("http://localhost:3000/api/categories",Category);
+        var response = await client.PostAsJsonAsync("http://localhost:3000/api/categories", Category);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.Created)
@@ -211,12 +211,12 @@ using System.Net.Http.Headers;
     {
 
         var client = ClientFactory.CreateClient();
-       
-        var token =  await Storage.GetAsync<string>("token");
+
+        var token = await Storage.GetAsync<string>("token");
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response = await client.DeleteAsync("http://localhost:3000/api/categories/"+id);
+        var response = await client.DeleteAsync("http://localhost:3000/api/categories/" + id);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -228,7 +228,7 @@ using System.Net.Http.Headers;
     }
 
 
-    
+
     protected override async Task OnInitializedAsync()
     {
 
@@ -237,7 +237,7 @@ using System.Net.Http.Headers;
         var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/categories");
 
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
 
 
         request.Headers.Authorization =
@@ -250,7 +250,7 @@ using System.Net.Http.Headers;
         {
             var json = await response.Content.ReadAsStringAsync();
 
-              var paginatedResult = JsonConvert.DeserializeObject<PaginatedResult<CategoryResource>>(json);
+            var paginatedResult = JsonConvert.DeserializeObject<PaginatedResult<CategoryResource>>(json);
 
             MyCategories = paginatedResult.Data;
 

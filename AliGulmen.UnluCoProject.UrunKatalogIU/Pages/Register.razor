@@ -1,5 +1,4 @@
-﻿
-@page "/register"
+﻿@page "/register"
 @inject IHttpClientFactory ClientFactory
 @using AliGulmen.UnluCoProject.UrunKatalogIU.Models
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
@@ -13,24 +12,24 @@
 <section class="vh-90">
   <div class="container py-5 h-100">
     <div class="row d-flex align-items-center justify-content-center h-100">
-    
+
       <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-      
+
           <EditForm Model="@User" OnValidSubmit="@Submit">
     <DataAnnotationsValidator />
     @*<ValidationSummary />*@
-       
-      
+
+
     <!-- Username input -->
-        
+
           <div class="form-outline mb-4">
             <label class="form-label" for="Username">Username</label>
             <InputText type="text" @bind-Value="User.Username" id="Username" class="form-control form-control-lg" />
             <ValidationMessage For="() => User.Username" />
           </div>
-    
+
     <!-- Email input -->
-        
+
           <div class="form-outline mb-4">
             <label class="form-label" for="Email">Email address</label>
             <InputText type="email" @bind-Value="User.Email" id="Email" class="form-control form-control-lg" />
@@ -47,9 +46,9 @@
             <ValidationMessage For="() => User.Password" />
           </div>
 
-      
+
      <!-- Firstname input -->
-        
+
           <div class="form-outline mb-4">
             <label class="form-label" for="FirstName">FirstName</label>
             <InputText type="text" @bind-Value="User.FirstName" id="FirstName" class="form-control form-control-lg" />
@@ -57,7 +56,7 @@
           </div>      
 
             <!-- Lastname input -->
-        
+
           <div class="form-outline mb-4">
             <label class="form-label" for="Lastname">Lastname</label>
             <InputText type="text" @bind-Value="User.LastName" id="Lastname" class="form-control form-control-lg" />
@@ -70,22 +69,25 @@
             <label class="form-label" for="Gender">Gender</label>
  <InputSelect class="custom-select" @bind-Value="User.Gender"> 
         @foreach (Enum item in Enum.GetValues(typeof(Gender)))
-        { 
-            <option value="@item">@item.ToString()</option> 
-        } 
+                            { 
+                <option value="@item">@item.ToString()</option> 
+                            } 
     </InputSelect> 
             <ValidationMessage For="() => User.Gender" />
           </div>      
 
           <!-- Submit button -->
           <button type="submit" class="btn btn-primary btn-lg btn-block">Kayıt Ol</button>
-         
+
 
        </EditForm>
-       @if(_errors != "" && _errors is not null)
-{<br /><br />
-    <h3 style="color:red;">@_errors</h3>
-}
+                @if (_errors != "" && _errors is not null)
+                {
+                    <br />
+
+                    <br />
+        <h3 style="color:red;">@_errors</h3>
+                }
       </div>
     </div>
   </div>
@@ -93,8 +95,8 @@
 
 
 
-   
-   
+
+
 
 
 
@@ -125,7 +127,7 @@
         _errors = "";
         var client = ClientFactory.CreateClient();
 
-        var response = await client.PostAsJsonAsync("http://localhost:3000/api/AuthManagement/Register",User);
+        var response = await client.PostAsJsonAsync("http://localhost:3000/api/AuthManagement/Register", User);
 
 
         if (response.IsSuccessStatusCode)
@@ -134,7 +136,7 @@
             JObject resultObject = JObject.Parse(result);
             string token = resultObject.SelectToken("token").SelectToken("accessToken").Value<string>();
             await Storage.SetAsync("token", token);
-             app.IsLoggedIn = true;
+            app.IsLoggedIn = true;
             UriHelper.NavigateTo("login");
         }
         else
@@ -147,11 +149,4 @@
     }
 
 
-
-
-
-
-
-
-    
 }

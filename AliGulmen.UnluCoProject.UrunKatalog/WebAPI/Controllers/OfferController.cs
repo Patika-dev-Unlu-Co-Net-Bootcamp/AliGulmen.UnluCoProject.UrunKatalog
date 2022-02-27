@@ -6,9 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Enums;
 using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources;
 using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 

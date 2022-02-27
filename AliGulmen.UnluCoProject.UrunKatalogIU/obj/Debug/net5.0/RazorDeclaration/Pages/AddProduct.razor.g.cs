@@ -196,35 +196,19 @@ using System.IdentityModel.Tokens.Jwt;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 163 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
+#line 165 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
        
     public SaveProductResource Product = new();
     public List<ConditionResource> Conditions = new();
     public List<ColorResource> Colors = new();
     public List<BrandResource> Brands = new();
     public List<CategoryResource> Categories = new();
-    private int maxAllowedFiles = 1;
-        private long maxFileSize = 1024 * 400;
-
-    private string _price;
-
     public string pictureUrl;
+    private int _maxAllowedFiles = 1;
+    private long _maxFileSize = 1024 * 400;
+    private string _price;
     private string _userId;
     private string _error;
-
-
-
-
-
-      public async Task SignOut()
-    {
-        await Storage.DeleteAsync("token");
-        UriHelper.NavigateTo("login");
-    }
-
-
-
-
 
 
     protected override async Task OnInitializedAsync()
@@ -307,12 +291,16 @@ using System.IdentityModel.Tokens.Jwt;
 
     }
 
-
+    public async Task SignOut()
+    {
+        await Storage.DeleteAsync("token");
+        UriHelper.NavigateTo("login");
+    }
 
 
     private async Task AddNewProduct()
     {
-        if(Product.CategoryId == 0 || Product.ConditionId== 0)
+        if (Product.CategoryId == 0 || Product.ConditionId == 0)
         {
             _error = "Lütfen Kategori ve Kullanım Durumları Alanlarını Doldurunuz!";
         }
@@ -322,45 +310,39 @@ using System.IdentityModel.Tokens.Jwt;
             var client = ClientFactory.CreateClient();
 
 
-        var token = await Storage.GetAsync<string>("token");
-        var handler = new JwtSecurityTokenHandler();
-        _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
-        Product.UserId = _userId;
-        Product.BuyItNowPrice = Int32.Parse(_price);
+            var token = await Storage.GetAsync<string>("token");
+            var handler = new JwtSecurityTokenHandler();
+            _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
+            Product.UserId = _userId;
+            Product.BuyItNowPrice = Int32.Parse(_price);
 
-        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
-        var response = await client.PostAsJsonAsync("http://localhost:3000/api/products", Product);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+            var response = await client.PostAsJsonAsync("http://localhost:3000/api/products", Product);
 
 
-        if (response.StatusCode == System.Net.HttpStatusCode.Created)
-        {
-            UriHelper.NavigateTo("home");
+            if (response.StatusCode == System.Net.HttpStatusCode.Created)
+            {
+                UriHelper.NavigateTo("home");
+            }
         }
-        }
-       
+
 
     }
-
-
-
-
-
-
 
 
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {
 
-        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        foreach (var file in e.GetMultipleFiles(_maxAllowedFiles))
         {
             try
             {
 
                 var path = Path.Combine("wwwroot/Images", file.Name);
-                pictureUrl =  file.Name;
+                pictureUrl = file.Name;
 
                 await using FileStream fs = new(pictureUrl, FileMode.Create);
-                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
+                await file.OpenReadStream(_maxFileSize).CopyToAsync(fs);
                 Product.PictureUrl = pictureUrl;
             }
             catch (Exception)
@@ -370,7 +352,7 @@ using System.IdentityModel.Tokens.Jwt;
         }
 
 
-       
+
     }
 
 

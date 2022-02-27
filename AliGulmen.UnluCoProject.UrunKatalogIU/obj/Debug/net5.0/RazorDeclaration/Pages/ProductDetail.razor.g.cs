@@ -154,24 +154,23 @@ using System.IdentityModel.Tokens.Jwt;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 138 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\ProductDetail.razor"
+#line 142 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\ProductDetail.razor"
        
     private int ActualNumber { get; set; } = 70;
-    private string NewOffer;
     public SaveOfferResource OffertoCreate = new();
     public OfferResource CurrentOffer = new();
     private string _userId;
-    private int ProductIdToCreate;
+    private int _productIdToCreate;
     bool showUpdateModal = false;
-
-
     public ProductResource product { get; set; }
     public SaveProductResource productToBuy { get; set; }
     public int ProductId;
+    private string _newOffer;
+
 
     public void CheckSliderRating()
     {
-        NewOffer = (ActualNumber * product.BuyItNowPrice / 100).ToString();
+        _newOffer = (ActualNumber * product.BuyItNowPrice / 100).ToString();
     }
 
 
@@ -189,16 +188,16 @@ using System.IdentityModel.Tokens.Jwt;
     protected override async Task OnInitializedAsync()
     {
         CurrentOffer = null;
-        ProductId = (AppData.ProductId ==0) ? 1: AppData.ProductId;
+        ProductId = (AppData.ProductId == 0) ? 1 : AppData.ProductId;
         var client = ClientFactory.CreateClient();
 
-        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products/"+ProductId);
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products/" + ProductId);
 
 
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
         var handler = new JwtSecurityTokenHandler();
-        if(token.Success)
+        if (token.Success)
             _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
 
         request.Headers.Authorization =
@@ -223,7 +222,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 
 
-        request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/Offers?ProductId="+ProductId.ToString() + "&&UserId=" + _userId); 
+        request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/Offers?ProductId=" + ProductId.ToString() + "&&UserId=" + _userId);
 
         request.Headers.Authorization =
            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
@@ -251,12 +250,12 @@ using System.IdentityModel.Tokens.Jwt;
 
         var client = ClientFactory.CreateClient();
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
 
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response = await client.DeleteAsync("http://localhost:3000/api/offers/"+id);
+        var response = await client.DeleteAsync("http://localhost:3000/api/offers/" + id);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent || response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -276,14 +275,14 @@ using System.IdentityModel.Tokens.Jwt;
 
         var client = ClientFactory.CreateClient();
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
         var handler = new JwtSecurityTokenHandler();
         _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
 
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response = await client.PutAsJsonAsync("http://localhost:3000/api/products/sell/"+id, _userId);
+        var response = await client.PutAsJsonAsync("http://localhost:3000/api/products/sell/" + id, _userId);
 
 
         if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -294,13 +293,6 @@ using System.IdentityModel.Tokens.Jwt;
     }
 
 
-
-
-
-
-
-
-
     public async Task CreateOffer()
     {
         showUpdateModal = false;
@@ -308,14 +300,14 @@ using System.IdentityModel.Tokens.Jwt;
         var client = ClientFactory.CreateClient();
 
 
-        var token =  await Storage.GetAsync<string>("token");
+        var token = await Storage.GetAsync<string>("token");
         var handler = new JwtSecurityTokenHandler();
         _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
-        OffertoCreate.OfferedPrice =Convert.ToInt32(NewOffer);
+        OffertoCreate.OfferedPrice = Convert.ToInt32(_newOffer);
         OffertoCreate.OfferStatus = UrunKatalog.Core.Domain.Enums.OfferStatus.BEKLEMEDE;
-        OffertoCreate.ProductId = ProductIdToCreate;
+        OffertoCreate.ProductId = _productIdToCreate;
         OffertoCreate.UserId = _userId;
 
 

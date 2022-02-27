@@ -1,12 +1,12 @@
-﻿using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
-using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
+using AliGulmen.UnluCoProject.UrunKatalog.Core.Application.Interfaces.Repositories;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Context;
 using AliGulmen.UnluCoProject.UrunKatalog.Shared;
-using Microsoft.Data.SqlClient;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 {
@@ -30,12 +30,8 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
                                 .Include(p => p.User)
                                 .FirstOrDefaultAsync(p => p.Id == id);
 
-
-
             if (result == null)
                 throw new KeyNotFoundException("Not Found!");
-
-
 
             return result;
         }
@@ -50,13 +46,12 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
                                 .Include(p => p.Condition)
                                 .Include(p => p.Category)
                                 .Include(p => p.User)
-                .AsQueryable();
+                                .AsQueryable();
 
             if (filter.CategoryId.HasValue)
                 query = query.Where(p => p.CategoryId == filter.CategoryId.Value).AsQueryable();
 
             var result = await query.ToPaginatedListAsync(filter.PageNumber, filter.PageSize);
-
 
             return result;
         }
@@ -66,8 +61,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 
         public async Task CreateSellInformation(PurchaseHistory purchaseInfo)
         {
-           
-
            await Task.Run(() => _context.PurchaseHistories.Add(purchaseInfo));
         }
 
@@ -80,7 +73,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
             //will do with stored procedure
             //  string StoredProc = "exec proc_BuyWithOffer " + "@offerId = " + id;
             SqlParameter param1 = new SqlParameter("@offerId", id);
-
             await Task.Run(() => _context.Database.ExecuteSqlRaw("exec proc_BuyWithOffer @offerId", param1));
 
         }

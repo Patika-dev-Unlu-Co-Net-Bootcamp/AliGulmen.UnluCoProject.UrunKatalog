@@ -22,9 +22,10 @@
     <p><em>Loading...</em></p>
 }
 else
-{    <h3>Satın Aldıklarım</h3>
+{
+        <h3>Satın Aldıklarım</h3>
 
-     <table class="table">
+    <table class="table">
         <thead>
             <tr>
 
@@ -41,7 +42,7 @@ else
                     <td>@purchase.ProductName</td>
                     <td>@purchase.SellerName</td>
                     <td>@purchase.SoldPrice</td>
-                    <td>@purchase.PurchasedDate</td>                  
+                    <td>@purchase.PurchasedDate</td>
                 </tr>
             }
         </tbody>
@@ -52,7 +53,7 @@ else
     <br />
     <h3>Sattıklarım</h3>
 
-     <table class="table">
+    <table class="table">
         <thead>
             <tr>
 
@@ -69,7 +70,7 @@ else
                     <td>@purchase.ProductName</td>
                     <td>@purchase.BuyerName</td>
                     <td>@purchase.SoldPrice</td>
-                    <td>@purchase.PurchasedDate</td>                  
+                    <td>@purchase.PurchasedDate</td>
                 </tr>
             }
         </tbody>
@@ -87,20 +88,20 @@ else
 
 
 
-    
+
     protected override async Task OnInitializedAsync()
     {
-     var client = ClientFactory.CreateClient();
+        var client = ClientFactory.CreateClient();
 
 
         var token = await Storage.GetAsync<string>("token");
         var handler = new JwtSecurityTokenHandler();
-         if(token.Success)
-        _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
+        if (token.Success)
+            _userId = handler.ReadJwtToken(token.Value).Claims.First().Value;
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        var response1 = await client.PostAsJsonAsync("http://localhost:3000/api/PurchaseHistories/purchased",_userId);
+        var response1 = await client.PostAsJsonAsync("http://localhost:3000/api/PurchaseHistories/purchased", _userId);
 
         if (response1.IsSuccessStatusCode)
         {
@@ -116,7 +117,7 @@ else
         }
 
 
-         var response2 = await client.PostAsJsonAsync("http://localhost:3000/api/PurchaseHistories/sold",_userId);
+        var response2 = await client.PostAsJsonAsync("http://localhost:3000/api/PurchaseHistories/sold", _userId);
 
         if (response2.IsSuccessStatusCode)
         {
