@@ -25,7 +25,17 @@
       "ProjectGuid": "3cd48ff6-453a-47fa-bfe5-2de21a95505e",
       "DisplayName": "AliGulmen.UnluCoProject.UrunKatalogIU",
       "ColorIndex": 3
+    },
+    "bc54fef1-d5fd-4b66-8642-43352c3110eb": {
+      "ProjectGuid": "bc54fef1-d5fd-4b66-8642-43352c3110eb",
+      "DisplayName": "EMailServiceTest",
+      "ColorIndex": 4
+    },
+    "c374e383-203d-4a83-90ca-15e1745cf8fb": {
+      "ProjectGuid": "c374e383-203d-4a83-90ca-15e1745cf8fb",
+      "DisplayName": "SendEmailAsyncTest",
+      "ColorIndex": 5
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 6
 }
