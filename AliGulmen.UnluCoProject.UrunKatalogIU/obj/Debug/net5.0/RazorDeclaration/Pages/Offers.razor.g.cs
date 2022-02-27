@@ -315,7 +315,7 @@ using System.IO;
 
     
     protected override async Task OnInitializedAsync()
-    {
+    {  
      var client = ClientFactory.CreateClient();
 
 

@@ -14,6 +14,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalogIU
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -22,5 +23,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalogIU
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
     }
 }

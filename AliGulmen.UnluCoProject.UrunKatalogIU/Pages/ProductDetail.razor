@@ -58,7 +58,7 @@ else
               <span class="h5" style="font-weight:bold;">₺@product.BuyItNowPrice</span>
             </div>
           </div>
-           @if(CurrentOffer is null && product.IsOfferable){
+           @if(CurrentOffer is null && product.IsOfferable && product.UserId != _userId){
           <button type="button" class="btn btn-sm btn-outline-primary btn-sm-wide btn-pill transition-3d-hover mr-1" @onclick="(() => { 
                             showUpdateModal = true;
                             ProductIdToCreate = product.Id;
@@ -66,12 +66,12 @@ else
 
                         })">Teklif Ver</button>
            }
-             @if(CurrentOffer is not null){
+             @if(CurrentOffer is not null && product.UserId != _userId){
                   <button type="button" class="btn btn-sm btn-outline-primary btn-sm-wide btn-pill transition-3d-hover mr-1" 
                   @onclick="(async () => { await DeleteOffer(CurrentOffer.Id); })">Teklifi Geri Çek</button>
                         }
 
-              @if(product.UserId != _userId && !product.IsSold)
+              @if(product.UserId != _userId && !product.IsSold && product.UserId != _userId)
                         {
                              <button type="button" class="btn btn-sm btn-outline-primary btn-sm-wide btn-pill transition-3d-hover mr-1" 
                   @onclick="(async () => { await BuyProduct(product.Id); })">Satın Al</button>
