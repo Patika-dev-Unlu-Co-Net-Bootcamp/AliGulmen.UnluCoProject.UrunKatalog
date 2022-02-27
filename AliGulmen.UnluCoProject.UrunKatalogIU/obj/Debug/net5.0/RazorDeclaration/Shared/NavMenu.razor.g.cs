@@ -82,6 +82,13 @@ using AliGulmen.UnluCoProject.UrunKatalogIU.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 1 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Shared\NavMenu.razor"
+using AliGulmen.UnluCoProject.UrunKatalogIU.Models;
+
+#line default
+#line hidden
+#nullable disable
     public partial class NavMenu : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -90,7 +97,7 @@ using AliGulmen.UnluCoProject.UrunKatalogIU.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 69 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Shared\NavMenu.razor"
+#line 73 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
 
@@ -104,6 +111,7 @@ using AliGulmen.UnluCoProject.UrunKatalogIU.Shared;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AppData app { get; set; }
     }
 }
 #pragma warning restore 1591

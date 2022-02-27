@@ -1,16 +1,37 @@
-﻿@inherits LayoutComponentBase
+﻿@using AliGulmen.UnluCoProject.UrunKatalogIU.Models
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inherits LayoutComponentBase
+@inject NavigationManager UriHelper
+@inject ProtectedLocalStorage Storage
+@inject AppData app
 
 <div class="page">
+    
+
     <div class="sidebar">
         <NavMenu />
     </div>
-
+     
     <div class="main">
-       
-
         <div class="content px-4">
             @Body
         </div>
     </div>
 </div>
+@if (app.IsLoggedIn)
+{
+    <div class="col-sm-2 d-flex justify-content-end" style=" position:absolute; right:0px; top  :0px;">
+    <p> <button class="btn btn-primary" @onclick="SignOut">Çıkış Yap</button></p>
+    </div>
+}
 
+@code{
+
+    public async Task SignOut()
+    {
+        await Storage.DeleteAsync("token");
+        app.IsLoggedIn = false;
+        UriHelper.NavigateTo("login");
+    }
+}
+ 

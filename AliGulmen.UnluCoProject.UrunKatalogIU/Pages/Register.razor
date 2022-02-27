@@ -1,11 +1,13 @@
 ﻿
 @page "/register"
 @inject IHttpClientFactory ClientFactory
+@using AliGulmen.UnluCoProject.UrunKatalogIU.Models
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @using System.Net.Http.Json
 @using Newtonsoft.Json.Linq
 @inject ProtectedLocalStorage Storage
 @inject NavigationManager UriHelper
+@inject AppData app
 
 
 <section class="vh-90">
@@ -132,6 +134,7 @@
             JObject resultObject = JObject.Parse(result);
             string token = resultObject.SelectToken("token").SelectToken("accessToken").Value<string>();
             await Storage.SetAsync("token", token);
+             app.IsLoggedIn = true;
             UriHelper.NavigateTo("login");
         }
         else

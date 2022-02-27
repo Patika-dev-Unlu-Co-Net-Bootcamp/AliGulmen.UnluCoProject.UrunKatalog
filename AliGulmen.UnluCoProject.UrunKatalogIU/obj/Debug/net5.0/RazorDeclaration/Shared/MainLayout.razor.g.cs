@@ -82,6 +82,20 @@ using AliGulmen.UnluCoProject.UrunKatalogIU.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 1 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Shared\MainLayout.razor"
+using AliGulmen.UnluCoProject.UrunKatalogIU.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Shared\MainLayout.razor"
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+
+#line default
+#line hidden
+#nullable disable
     public partial class MainLayout : LayoutComponentBase
     {
         #pragma warning disable 1998
@@ -89,6 +103,23 @@ using AliGulmen.UnluCoProject.UrunKatalogIU.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 28 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Shared\MainLayout.razor"
+      
+
+    public async Task SignOut()
+    {
+        await Storage.DeleteAsync("token");
+        app.IsLoggedIn = false;
+        UriHelper.NavigateTo("login");
+    }
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AppData app { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ProtectedLocalStorage Storage { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager UriHelper { get; set; }
     }
 }
 #pragma warning restore 1591

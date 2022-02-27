@@ -147,19 +147,18 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 101 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
+#line 118 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
        
 
     public List<ProductResource> MyProducts { get; set; }
     public List<CategoryResource> Categories = new();
     public CategoryResource Category = new();
     public string selectedCategory;
-    
-      public async Task SignOut()
-    {
-        await Storage.DeleteAsync("token");
-        UriHelper.NavigateTo("login");
-    }
+    public bool hasNextPage;
+    public bool hasPrevPage;
+    public int currentPage;
+
+   
 
     public void GoToDetailPage(int id)
     {
@@ -194,9 +193,11 @@ using System.IO;
         {
             var json = await response.Content.ReadAsStringAsync();
 
-           var paginatedResult = JsonConvert.DeserializeObject<PaginatedResult<ProductResource>>(json);
+            var paginatedResult = JsonConvert.DeserializeObject<PaginatedResult<ProductResource>>(json);
             MyProducts = paginatedResult.Data;
-
+            hasNextPage = paginatedResult.HasNextPage;
+            hasPrevPage = paginatedResult.HasPreviousPage;
+            currentPage = paginatedResult.CurrentPage;
         }
 
     }
@@ -207,7 +208,7 @@ using System.IO;
 
         var client = ClientFactory.CreateClient();
 
-        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products?PageSize=10&&PageNumber=1");
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/products?PageSize=3&&PageNumber=1");
         var request2 = new HttpRequestMessage(HttpMethod.Get, "http://localhost:3000/api/categories");
 
 
@@ -231,6 +232,9 @@ using System.IO;
 
             var paginatedResult = JsonConvert.DeserializeObject<PaginatedResult<ProductResource>>(json);
             MyProducts = paginatedResult.Data;
+            hasNextPage = paginatedResult.HasNextPage;
+            hasPrevPage = paginatedResult.HasPreviousPage;
+            currentPage = paginatedResult.CurrentPage;
 
         }
         else
