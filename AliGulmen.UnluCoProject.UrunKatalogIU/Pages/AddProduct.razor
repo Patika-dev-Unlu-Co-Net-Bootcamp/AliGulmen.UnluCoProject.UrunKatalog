@@ -150,6 +150,7 @@ else
 
 </EditForm>
 
+<p> <button class="btn btn-primary" @onclick="SignOut">Çıkış Yap</button></p>
 
 
 }
@@ -178,6 +179,11 @@ else
 
 
 
+      public async Task SignOut()
+    {
+        await Storage.DeleteAsync("token");
+        UriHelper.NavigateTo("login");
+    }
 
 
 

@@ -196,7 +196,7 @@ using System.IdentityModel.Tokens.Jwt;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 162 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
+#line 163 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\AddProduct.razor"
        
     public SaveProductResource Product = new();
     public List<ConditionResource> Conditions = new();
@@ -216,6 +216,11 @@ using System.IdentityModel.Tokens.Jwt;
 
 
 
+      public async Task SignOut()
+    {
+        await Storage.DeleteAsync("token");
+        UriHelper.NavigateTo("login");
+    }
 
 
 

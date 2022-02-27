@@ -5,6 +5,7 @@ using AliGulmen.UnluCoProject.UrunKatalog.Core.Domain.Entities;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Requests;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.DTOs.Responses;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Services;
+using AliGulmen.UnluCoProject.UrunKatalogIU.Models;
 using EmailService.Domain;
 using EmailService.Services;
 using Hangfire;
@@ -123,6 +124,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
                 }
 
                 var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
+                var singInResult = await _signInManager.CheckPasswordSignInAsync(existingUser, user.Password, false);
 
                 if (!isCorrect)
                 {
@@ -137,9 +139,9 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
                     });
                 }
 
-              
 
 
+                await _signInManager.SignInAsync(existingUser,false);
 
                 var jwtToken = _tokenGenerator.CreateToken(existingUser);
 
@@ -157,7 +159,19 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
             });
         }
 
-      
+
+
+        [HttpGet("CurrentUser")]
+        public CurrentUser CurrentUserInfo()
+        {
+            return new CurrentUser
+            {
+                IsAuthenticated = User.Identity.IsAuthenticated,
+                UserName = User.Identity.Name,
+            };
+        }
+
+
     }
 
 }

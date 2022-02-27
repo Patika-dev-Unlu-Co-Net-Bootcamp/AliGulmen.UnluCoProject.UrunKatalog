@@ -150,6 +150,8 @@ else
         </div>
     </div>
 </div>
+<p> <button class="btn btn-primary" @onclick="SignOut">Çıkış Yap</button></p>
+
 }
 
 
@@ -189,14 +191,15 @@ else
     bool showUpdateModal = false;
 
 
-
-
-
-    public async Task SignOut()
+    
+      public async Task SignOut()
     {
         await Storage.DeleteAsync("token");
         UriHelper.NavigateTo("login");
     }
+
+
+
 
 
 

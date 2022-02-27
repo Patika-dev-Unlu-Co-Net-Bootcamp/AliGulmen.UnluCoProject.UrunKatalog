@@ -147,13 +147,19 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 100 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
+#line 101 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
        
 
     public List<ProductResource> MyProducts { get; set; }
     public List<CategoryResource> Categories = new();
     public CategoryResource Category = new();
     public string selectedCategory;
+    
+      public async Task SignOut()
+    {
+        await Storage.DeleteAsync("token");
+        UriHelper.NavigateTo("login");
+    }
 
     public void GoToDetailPage(int id)
     {

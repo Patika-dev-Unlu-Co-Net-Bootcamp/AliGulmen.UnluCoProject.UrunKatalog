@@ -88,6 +88,7 @@ else
 
 
 
+<p> <button class="btn btn-primary" @onclick="SignOut">Çıkış Yap</button></p>
 
 
 
@@ -103,6 +104,12 @@ else
     public List<CategoryResource> Categories = new();
     public CategoryResource Category = new();
     public string selectedCategory;
+    
+      public async Task SignOut()
+    {
+        await Storage.DeleteAsync("token");
+        UriHelper.NavigateTo("login");
+    }
 
     public void GoToDetailPage(int id)
     {

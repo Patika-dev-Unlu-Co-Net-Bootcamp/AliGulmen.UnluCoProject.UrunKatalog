@@ -161,7 +161,7 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 165 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Offers.razor"
+#line 167 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Offers.razor"
        
     private int ActualNumber { get; set; } = 70;
     private string NewOffer;
@@ -189,14 +189,15 @@ using System.IO;
     bool showUpdateModal = false;
 
 
-
-
-
-    public async Task SignOut()
+    
+      public async Task SignOut()
     {
         await Storage.DeleteAsync("token");
         UriHelper.NavigateTo("login");
     }
+
+
+
 
 
 

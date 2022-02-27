@@ -25,18 +25,20 @@
 
 
           <div class="form-outline mb-4">
-            <InputText type="email" @bind-Value="User.Email" id="Email" class="form-control form-control-lg" />
+                          
             <label class="form-label" for="Email">Email address</label>
+
+            <InputText type="email" @bind-Value="User.Email" id="Email" class="form-control form-control-lg" />
             <ValidationMessage For="() => User.Email" />
           </div>
 
           <!-- Password input -->
 
           <div class="form-outline mb-4">
+                          <label class="form-label" for="Password">Password</label>
              <InputText type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}"
             title="En az 8 karakterli bir şifre giriniz."
             id="Password" @bind-Value="User.Password" class="form-control form-control-lg" />
-            <label class="form-label" for="Password">Password</label>
             <ValidationMessage For="() => User.Password" />
           </div>
 
