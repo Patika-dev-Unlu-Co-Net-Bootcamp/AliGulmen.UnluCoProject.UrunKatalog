@@ -2,6 +2,9 @@ using EmailService;
 using EmailService.Domain;
 using EmailService.Configurations;
 using Xunit;
+using Moq;
+using EmailService.Services;
+using System.Threading.Tasks;
 
 namespace EMailServiceTest
 {
@@ -12,18 +15,20 @@ namespace EMailServiceTest
         {
             var emailMock = new EmailConfiguration { From = "aligulmen91@gmail.com" };
 
-            Message messageMock = new Message("aligulmen91@gmail.com","subject","body");
+            Message messageMock = new Message("aligulmen91@gmail.com", "subject", "body");
 
             //arrange
 
             var eMailSender = new EmailSender(emailMock);
 
             //act
-           var mail = eMailSender.CreateEmail(messageMock);
+            var mail = eMailSender.CreateEmail(messageMock);
 
             //assert
             Assert.NotNull(mail);
-            
+
         }
     }
+
+
 }
