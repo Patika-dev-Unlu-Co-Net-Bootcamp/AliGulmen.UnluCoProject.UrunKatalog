@@ -19,11 +19,11 @@ namespace EmailService
 
         public async Task SendEmailAsync(Message message)
         {
-           await CreateAndSendEmailMessage(message);
+           await SendEmailMessage(message);
 
         }
 
-        private async Task CreateAndSendEmailMessage(Message message)
+        public MailMessage CreateEmail(Message message)
         {
             MailMessage mail = new MailMessage();
             mail.To.Add(message.To);
@@ -31,7 +31,15 @@ namespace EmailService
             mail.Subject = message.Subject;
             mail.Body = message.Body;
             mail.IsBodyHtml = true;
-            
+            return mail;
+        }
+
+        private async Task SendEmailMessage(Message message)
+        {
+
+            MailMessage mail = CreateEmail(message);
+             
+
             SmtpClient smtp = new SmtpClient();
             smtp.Credentials = new NetworkCredential(_eMailConfig.From, _eMailConfig.Password);
             smtp.Port = _eMailConfig.Port;

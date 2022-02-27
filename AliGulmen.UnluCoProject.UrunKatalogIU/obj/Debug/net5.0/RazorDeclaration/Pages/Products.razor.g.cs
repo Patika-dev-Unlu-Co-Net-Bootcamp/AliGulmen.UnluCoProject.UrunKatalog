@@ -147,7 +147,7 @@ using System.IO;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 115 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
+#line 116 "C:\Users\aligu\Desktop\patika\Tasks\BitirmeProjesi\AliGulmen.UnluCoProject.UrunKatalog\AliGulmen.UnluCoProject.UrunKatalogIU\Pages\Products.razor"
        
 
     public List<ProductResource> MyProducts { get; set; }

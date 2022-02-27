@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailService", "EmailServic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AliGulmen.UnluCoProject.UrunKatalogIU", "AliGulmen.UnluCoProject.UrunKatalogIU\AliGulmen.UnluCoProject.UrunKatalogIU.csproj", "{3CD48FF6-453A-47FA-BFE5-2DE21A95505E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMailServiceTest", "EMailServiceTest\EMailServiceTest.csproj", "{BC54FEF1-D5FD-4B66-8642-43352C3110EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3CD48FF6-453A-47FA-BFE5-2DE21A95505E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CD48FF6-453A-47FA-BFE5-2DE21A95505E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CD48FF6-453A-47FA-BFE5-2DE21A95505E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC54FEF1-D5FD-4B66-8642-43352C3110EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC54FEF1-D5FD-4B66-8642-43352C3110EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC54FEF1-D5FD-4B66-8642-43352C3110EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC54FEF1-D5FD-4B66-8642-43352C3110EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
