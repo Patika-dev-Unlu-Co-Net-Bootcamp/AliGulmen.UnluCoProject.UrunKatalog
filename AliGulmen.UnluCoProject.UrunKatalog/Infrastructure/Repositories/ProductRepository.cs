@@ -6,8 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Context;
 using AliGulmen.UnluCoProject.UrunKatalog.Shared;
-using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.PurchaseHistoryResources;
-using AutoMapper;
+using Microsoft.Data.SqlClient;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 {
@@ -74,5 +73,16 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
 
 
 
+
+
+        public async Task BuyWithOffer(int id)
+        {
+            //will do with stored procedure
+            //  string StoredProc = "exec proc_BuyWithOffer " + "@offerId = " + id;
+            SqlParameter param1 = new SqlParameter("@offerId", id);
+
+            await Task.Run(() => _context.Database.ExecuteSqlRaw("exec proc_BuyWithOffer @offerId", param1));
+
+        }
     }
 }

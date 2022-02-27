@@ -9,6 +9,7 @@ using AliGulmen.UnluCoProject.UrunKatalog.Shared;
 using Microsoft.AspNetCore.Authorization;
 using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.PurchaseHistoryResources;
 using System;
+using AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers.Resources.OfferResources;
 
 namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
 {
@@ -113,6 +114,19 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
             return NoContent();
         }
 
+
+        [HttpPost("BuyWithOffer")]
+        public async Task<IActionResult> BuyWithOffer([FromBody]int id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+
+            //will do with stored procedure
+            await _repository.BuyWithOffer(id);
+            await _unitOfWork.CompleteAsync();
+            return NoContent();
+        }
 
 
         [HttpDelete("{id}")]

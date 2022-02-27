@@ -39,23 +39,33 @@ else
         <tbody>
             @foreach (var offer in MyOffers)
             {
+               
                 <tr>
                     <td>@offer.ProductName</td>
                     <td>@offer.OfferedPrice</td>
                     <td>@offer.CurrentPrice</td>
                     <td>@offer.OfferStatus</td>
                     <td>   
-                        <button class="btn btn-primary" @onclick="(() => { 
+                        
+                        @if (offer.OfferStatus == OfferStatus.KABUL_EDILDI)
+                        {
+                            <button class="btn btn-primary" @onclick="() => BuyWithOfferPrice(offer.Id)"> Teklifle Al </button>
+                        }
+                        else{
+                             <button class="btn btn-primary" @onclick="(() => { 
                             showUpdateModal = true;
                             IdtoUpdate = offer.Id;
                             CurrentPrice = offer.CurrentPrice;
                             NewOffer =  offer.OfferedPrice.ToString();
 
                         })"> Güncelle </button>
+                        }
+                      
                         <button class="btn btn-danger" @onclick="() => DeleteOffer(offer.Id)"> Geri Çek </button> 
                     </td>
                                  
                 </tr>
+              
             }
         </tbody>
     </table>
@@ -222,7 +232,7 @@ else
     {
 
         var client = ClientFactory.CreateClient();
-       
+
         var token =  await Storage.GetAsync<string>("token");
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
@@ -236,6 +246,39 @@ else
             await OnInitializedAsync();
         }
     }
+
+
+
+
+
+
+
+    public async Task BuyWithOfferPrice(int id)
+    {
+        var client = ClientFactory.CreateClient();
+
+        var token =  await Storage.GetAsync<string>("token");
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+
+        var response = await client.PostAsJsonAsync("http://localhost:3000/api/products/BuyWithOffer",id);
+
+
+        if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+        {
+
+            await OnInitializedAsync();
+        }
+      
+    }
+
+
+
+
+
+
+
+
+
 
 
 

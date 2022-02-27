@@ -122,7 +122,6 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.WebAPI.Controllers
                     });
                 }
 
-              
                 var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
 
                 if (!isCorrect)

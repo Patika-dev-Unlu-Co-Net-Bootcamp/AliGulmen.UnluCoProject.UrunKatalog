@@ -62,6 +62,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
                                     .Include(p => p.Product)
                                     .Include(p => p.User)
                                     .Where(p => p.UserId == userId)
+                                    .Where(p => p.Product.UserId != userId)
                                     .ToListAsync();
         }
 
@@ -73,6 +74,7 @@ namespace AliGulmen.UnluCoProject.UrunKatalog.Infrastructure.Repositories
                                     .Include(p => p.Product)
                                     .Include(p => p.User)
                                     .Where(p => p.Product.UserId == userId)
+                                    .Where(p => p.Product.IsSold ==false)
                                     .ToListAsync();
         }
 
